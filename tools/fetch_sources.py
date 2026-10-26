@@ -1,6 +1,6 @@
 from pathlib import Path
 import urllib.request, urllib.parse, json
-root=Path(__file__).parent
+root=Path(__file__).resolve().parents[1]
 (root/'sources').mkdir(exist_ok=True)
 query='''[out:json][timeout:180];(nwr["aeroway"](21.59,39.08,21.76,39.23);way["building"](21.59,39.08,21.76,39.23);way["highway"](21.59,39.08,21.76,39.23);way["railway"](21.59,39.08,21.76,39.23);way["landuse"](21.59,39.08,21.76,39.23);way["natural"](21.59,39.08,21.76,39.23);way["leisure"](21.59,39.08,21.76,39.23);node["place"](21.59,39.08,21.76,39.23););out body geom;'''
 (root/'sources'/'overpass-query.txt').write_text(query)

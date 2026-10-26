@@ -4,7 +4,7 @@ import base64
 import json
 import re
 
-ROOT = Path(__file__).resolve().parent / 'map-2'
+ROOT = Path(__file__).resolve().parents[1] / 'map-2'
 
 def data_url(text, mime='text/javascript'):
     return f'data:{mime};base64,' + base64.b64encode(text.encode('utf-8')).decode('ascii')

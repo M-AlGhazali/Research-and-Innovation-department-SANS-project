@@ -2,7 +2,7 @@ from pathlib import Path
 import json,hashlib
 from qgis.core import *
 from map2_procedures import COORDS,ROUTES,WARNINGS
-ROOT=Path(__file__).parent;OUT=ROOT/'map-2';OUT.mkdir(exist_ok=True)
+ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'map-2';OUT.mkdir(exist_ok=True)
 app=QgsApplication([],False);app.initQgis();project=QgsProject.instance()
 crs=QgsCoordinateReferenceSystem('EPSG:32637');tr=QgsCoordinateTransform(QgsCoordinateReferenceSystem('EPSG:4326'),crs,project)
 origin=tr.transform(QgsPointXY(39.154,21.68))

@@ -2,7 +2,7 @@ from pathlib import Path
 import json, math
 from qgis.core import *
 from qgis.PyQt.QtGui import QFontDatabase
-root=Path(__file__).resolve().parent; out=root/'map-1'
+root=Path(__file__).resolve().parents[1]; out=root/'map-1'
 app=QgsApplication([],False);app.initQgis()
 for n in ['segoeui.ttf','segoeuib.ttf','arial.ttf','arialbd.ttf']:QFontDatabase.addApplicationFont('C:/Windows/Fonts/'+n)
 p=QgsProject.instance();assert p.read(str(out/'OEJN-ground-atlas.qgz'))

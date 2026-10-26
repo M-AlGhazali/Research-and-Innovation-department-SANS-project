@@ -48,9 +48,9 @@ source('SRC_QUERY',ROOT/'sources/overpass-query.txt','ground_extraction_query','
 source('SRC_GPKG',ROOT/'map-1/OEJN-ground.gpkg','map1_full_vector_geometry','mixed_published_derived_and_community_context',method='read_only_pyqgis_export')
 source('SRC_MAPPING_BRIEF',BASE/'OEJN A1 mapping data sources and visual evidence.docx','project_context_and_crosscheck','authored_research_context',method='docx_ooxml_text_extraction')
 source('SRC_SEED',BASE/'The initial seed of the initiative SANS project.docx','project_vision_and_historical_context','authored_research_context',method='docx_ooxml_text_extraction')
-source('SRC_MAP_BUILD',ROOT/'build_map.py','mapping_transformations_and_assumptions','implementation_provenance')
+source('SRC_MAP_BUILD',ROOT/'tools/build_map.py','mapping_transformations_and_assumptions','implementation_provenance')
 source('SRC_MAP2',ROOT/'map-2/data.json','existing_map_transcription_comparison_only','derived_visualization_dataset',method='filter_34C_34L_before_comparison')
-source('SRC_REPORT_BUILD',ROOT/'upgrade_map1.py','report_massing_display_parameters','implementation_provenance')
+source('SRC_REPORT_BUILD',ROOT/'tools/upgrade_map1.py','report_massing_display_parameters','implementation_provenance')
 source('SRC_FLIGHT_MODEL',ROOT/'map-2/flight-model.mjs','illustrative_animation_controls','implementation_provenance')
 for s in sources:
  s['license_name']='ODbL 1.0' if s['source_id'] in ['SRC_OSM','SRC_GPKG'] else 'Not asserted; retain provider/source terms'

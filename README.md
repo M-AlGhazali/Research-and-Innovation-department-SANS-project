@@ -10,3 +10,5 @@ This project maps King Abdulaziz International Airport ground features and publi
 | [Airport and runway lookup (CSV)](data/External_Airport_Runways.csv) | Six runway ends and airport reference facts. |
 
 The [dataset notes](data/README.md) explain fields and provenance. Map 2 additionally shows 34R for context. Both browser maps are prepared for GitHub Pages hosting; no Supabase account is needed.
+
+**Folders:** `map-1/` and `map-2/` are the two maps; `data/` holds the handoff CSVs; `sources/` keeps the original evidence; `tools/` has the scripts that rebuild the maps (run from the repo root); `dataset_tools/` rebuilds the dataset. `Start Map 2.cmd` runs Map 2 locally.

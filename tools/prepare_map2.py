@@ -1,7 +1,7 @@
 from pathlib import Path
 import re,sys,urllib.request,urllib.parse,shutil,json
 import pypdfium2 as pdfium
-ROOT=Path(__file__).parent; OUT=ROOT/'sources'/'map-2';OUT.mkdir(parents=True,exist_ok=True)
+ROOT=Path(__file__).resolve().parents[1]; OUT=ROOT/'sources'/'map-2';OUT.mkdir(parents=True,exist_ok=True)
 local=ROOT.parent/'OEJN-Noise-Fuel-Capacity'/'A1'
 for f in local.glob('*.pdf'):
     runway=re.search(r'RWY (34\w)',f.name)[1];n=re.search(r'tabulation (\d)',f.name)[1]

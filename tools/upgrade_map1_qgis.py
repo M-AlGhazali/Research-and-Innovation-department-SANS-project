@@ -4,7 +4,7 @@ from qgis.core import *
 from qgis.PyQt.QtGui import QColor,QFont,QFontDatabase
 from qgis.PyQt.QtSvg import QSvgRenderer
 from qgis.PyQt.QtCore import QByteArray
-ROOT=Path(__file__).resolve().parent;out=ROOT/'map-1'
+ROOT=Path(__file__).resolve().parents[1];out=ROOT/'map-1'
 app=QgsApplication([],False);app.initQgis()
 for n in ['segoeui.ttf','segoeuib.ttf','arial.ttf','arialbd.ttf']:QFontDatabase.addApplicationFont('C:/Windows/Fonts/'+n)
 p=QgsProject.instance();assert p.read(str(out/'OEJN-ground-atlas.qgz'))

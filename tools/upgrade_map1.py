@@ -2,7 +2,7 @@
 from pathlib import Path
 import re, json, math, html, base64, shutil
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'map-1'
 REPORT = OUT / 'report-assets'
 REPORT.mkdir(exist_ok=True)
