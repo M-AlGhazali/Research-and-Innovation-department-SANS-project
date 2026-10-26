@@ -1,0 +1,35 @@
+name: Publish maps
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare static site
+        run: |
+          mkdir -p _site/map-1 _site/map-2 _site/data
+          cp index.html _site/
+          cp map-1/Open-ground-map.html _site/map-1/
+          cp map-2/index.html map-2/studio.js map-2/studio.css map-2/flight-model.mjs map-2/data.json map-2/sans-logo.svg map-2/sans-logo-light.svg _site/map-2/
+          cp -R map-2/vendor _site/map-2/
+          cp data/*.csv _site/data/
+          touch _site/.nojekyll
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4

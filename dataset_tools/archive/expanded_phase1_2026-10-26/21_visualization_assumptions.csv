@@ -1,0 +1,7 @@
+assumption_id,parameter,illustrative_value,unit,usage,data_class,use_as_observed_ML_feature,source_id,source_locator
+VIS_01,building_height,12,m,Default building massing only,visualization_assumption,False,SRC_REPORT_BUILD,Map implementation / visualization notes
+VIS_02,terminal_height,20,m,Default terminal massing only,visualization_assumption,False,SRC_REPORT_BUILD,Map implementation / visualization notes
+VIS_03,vertical_emphasis_report,4,ratio,Report display exaggeration only,visualization_assumption,False,SRC_REPORT_BUILD,Map implementation / visualization notes
+VIS_04,runway_surface_half_width,30,m,"Flat-ended visualization buffer, not surveyed pavement",visualization_assumption,False,SRC_MAP_BUILD,Map implementation / visualization notes
+VIS_05,map2_ground_roll_fraction,0.6,runway_length_fraction,"Animation control, not aircraft take-off performance",visualization_assumption,False,SRC_FLIGHT_MODEL,Map implementation / visualization notes
+VIS_06,map2_liftoff_fraction,0.94,runway_length_fraction,"Animation control, not aircraft take-off performance",visualization_assumption,False,SRC_FLIGHT_MODEL,Map implementation / visualization notes

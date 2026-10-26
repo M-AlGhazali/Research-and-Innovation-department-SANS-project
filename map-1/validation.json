@@ -1,0 +1,39 @@
+{
+  "qgis_version": "3.44.1-Solothurn",
+  "osm_snapshot": "2026-10-25T12:10:21Z",
+  "layers": {
+    "Aprons and stopways LineString": 6,
+    "Land use": 136,
+    "Airport boundary": 2,
+    "Coastline": 16,
+    "Water": 12,
+    "Green spaces": 387,
+    "Buildings": 6534,
+    "Places": 17,
+    "Roads": 12420,
+    "Railway": 29,
+    "Aprons and stopways": 36,
+    "Taxiways": 325,
+    "Terminals and hangars": 12,
+    "Airfield facilities LineString": 52,
+    "Airfield facilities Point": 12,
+    "Runway surfaces": 3,
+    "Runway centerlines": 3,
+    "Runway ends": 6
+  },
+  "total_features": 20008,
+  "crs": "EPSG:32637",
+  "runway_ends": 6,
+  "runway_surfaces": 3,
+  "all_layers_valid": true,
+  "note": "Map tip templates are stored on every layer. Browser companion supports hover, click, wheel zoom, drag pan and layer toggles.",
+  "reopened_project": true,
+  "geometry_issues": {},
+  "runway_centerline_lengths_m": {
+    "34C / 16C": 3998.08,
+    "34L / 16R": 3798.48,
+    "34R / 16L": 3998.23
+  },
+  "native_project_layers": 18,
+  "map_tip_templates": 18
+}

@@ -1,0 +1,2464 @@
+{
+  "01_airports.csv": {
+    "description": "One row per airport. ARP is distinct from map scene origin.",
+    "primary_key": "airport_id",
+    "foreign_keys": "source_id -> sources",
+    "columns": {
+      "airport_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "icao_code": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Icao code."
+      },
+      "airport_name": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Airport name."
+      },
+      "country": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Country."
+      },
+      "city": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "City."
+      },
+      "arp_latitude_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "arp_longitude_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "latitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Latitude in WGS84 decimal degrees; positive north. Derived by exact DMS conversion."
+      },
+      "longitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Longitude in WGS84 decimal degrees; positive east. WKT uses longitude then latitude."
+      },
+      "horizontal_crs": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Horizontal crs."
+      },
+      "elevation_ft_amsl": {
+        "type": "integer",
+        "unit": "foot_AMSL",
+        "nullable": false,
+        "description": "Elevation ft amsl."
+      },
+      "elevation_m_amsl": {
+        "type": "number",
+        "unit": "metre_AMSL",
+        "nullable": false,
+        "description": "Elevation m amsl."
+      },
+      "reference_temperature_c": {
+        "type": "number",
+        "unit": "",
+        "nullable": false,
+        "description": "Reference temperature c."
+      },
+      "geoid_undulation_ft": {
+        "type": "integer",
+        "unit": "foot",
+        "nullable": false,
+        "description": "Published geoid undulation in feet. Do not substitute it for threshold or terrain elevation."
+      },
+      "magnetic_variation_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "operator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Operator."
+      },
+      "traffic_permitted": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Traffic permitted."
+      },
+      "operation_type": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Operation type."
+      },
+      "ats_hours": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Ats hours."
+      },
+      "fire_category": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Fire category."
+      },
+      "physical_runway_count": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Physical runway count."
+      },
+      "study_runway_count": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Study runway count."
+      },
+      "study_departure_directions": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Study departure directions."
+      },
+      "data_class": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+      },
+      "source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon."
+      },
+      "source_locator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Printed sheet, section, row or table location for reproducing the record."
+      },
+      "effective_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date."
+      },
+      "arp_site_relative_to_tower_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "airport_location_reference_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      }
+    }
+  },
+  "02_runways.csv": {
+    "description": "One physical runway; third runway is context, never an extra A1 procedure family.",
+    "primary_key": "runway_id",
+    "foreign_keys": "airport_id -> airports; end_a_id/end_b_id -> runway_ends",
+    "columns": {
+      "runway_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "airport_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "end_a_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "end_b_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "designator_pair": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Designator pair."
+      },
+      "position": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Position."
+      },
+      "in_initial_study": {
+        "type": "boolean",
+        "unit": "",
+        "nullable": false,
+        "description": "In initial study."
+      },
+      "published_length_m": {
+        "type": "integer",
+        "unit": "metre",
+        "nullable": false,
+        "description": "Published length m."
+      },
+      "published_width_m": {
+        "type": "integer",
+        "unit": "metre",
+        "nullable": false,
+        "description": "Published width m."
+      },
+      "surface": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Surface."
+      },
+      "center_latitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Center latitude deg."
+      },
+      "center_longitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Center longitude deg."
+      },
+      "centerline_wgs84_wkt": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Centerline wgs84 wkt."
+      },
+      "geometry_data_class": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Geometry data class."
+      },
+      "visual_buffer_half_width_m": {
+        "type": "integer",
+        "unit": "metre",
+        "nullable": false,
+        "description": "Visual buffer half width m."
+      },
+      "source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon."
+      },
+      "source_locator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Printed sheet, section, row or table location for reproducing the record."
+      },
+      "effective_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date."
+      }
+    }
+  },
+  "03_runway_ends.csv": {
+    "description": "One published threshold/end, with exact DMS converted independently of rounded map coordinates.",
+    "primary_key": "runway_end_id",
+    "foreign_keys": "runway_id -> runways; source_id -> sources",
+    "columns": {
+      "runway_end_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "airport_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "runway_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "designator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Designator."
+      },
+      "study_departure_direction": {
+        "type": "boolean",
+        "unit": "",
+        "nullable": false,
+        "description": "Study departure direction."
+      },
+      "latitude_dms_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "longitude_dms_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "latitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Latitude in WGS84 decimal degrees; positive north. Derived by exact DMS conversion."
+      },
+      "longitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Longitude in WGS84 decimal degrees; positive east. WKT uses longitude then latitude."
+      },
+      "horizontal_crs": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Horizontal crs."
+      },
+      "true_bearing_deg": {
+        "type": "integer",
+        "unit": "degree",
+        "nullable": false,
+        "description": "True bearing deg."
+      },
+      "threshold_elevation_ft_amsl": {
+        "type": "number",
+        "unit": "foot_AMSL",
+        "nullable": false,
+        "description": "Published threshold elevation in feet above mean sea level; not geoid undulation."
+      },
+      "threshold_elevation_m_amsl": {
+        "type": "number",
+        "unit": "metre_AMSL",
+        "nullable": false,
+        "description": "Threshold elevation m amsl."
+      },
+      "highest_tdz_elevation_ft_amsl": {
+        "type": "number",
+        "unit": "foot_AMSL",
+        "nullable": false,
+        "description": "Highest published touchdown-zone elevation, separate from threshold elevation."
+      },
+      "geoid_undulation_ft": {
+        "type": "number",
+        "unit": "foot",
+        "nullable": false,
+        "description": "Published geoid undulation in feet. Do not substitute it for threshold or terrain elevation."
+      },
+      "published_length_m": {
+        "type": "integer",
+        "unit": "metre",
+        "nullable": false,
+        "description": "Published length m."
+      },
+      "published_width_m": {
+        "type": "integer",
+        "unit": "metre",
+        "nullable": false,
+        "description": "Published width m."
+      },
+      "pavement_rating_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "surface": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Surface."
+      },
+      "data_class": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+      },
+      "source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon."
+      },
+      "source_locator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Printed sheet, section, row or table location for reproducing the record."
+      },
+      "effective_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date."
+      },
+      "slope_percent": {
+        "type": "number",
+        "unit": "percent",
+        "nullable": false,
+        "description": "Published signed runway slope for this direction. Retained independently of slope estimated from threshold elevations."
+      },
+      "slope_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "stopway_dimensions_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Published stopway dimensions text; NIL means none stated, not an unknown numeric length."
+      },
+      "clearway_dimensions_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Published clearway dimensions text; NIL means none stated, not an unknown numeric length."
+      },
+      "strip_length_m": {
+        "type": "integer",
+        "unit": "metre",
+        "nullable": false,
+        "description": "Strip length m."
+      },
+      "strip_width_m": {
+        "type": "integer",
+        "unit": "metre",
+        "nullable": false,
+        "description": "Strip width m."
+      },
+      "resa_length_m": {
+        "type": "integer",
+        "unit": "metre",
+        "nullable": false,
+        "description": "Resa length m."
+      },
+      "resa_width_m": {
+        "type": "integer",
+        "unit": "metre",
+        "nullable": false,
+        "description": "Resa width m."
+      },
+      "arresting_system_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Published arresting-system/EMAS text, including NIL."
+      },
+      "obstacle_free_zone_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Published OFZ field text, including NIL."
+      }
+    }
+  },
+  "04_waypoints.csv": {
+    "description": "One unique navigation position. Altitude is not an intrinsic waypoint property.",
+    "primary_key": "waypoint_id",
+    "foreign_keys": "",
+    "columns": {
+      "waypoint_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "latitude_dms_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "longitude_dms_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "latitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Latitude in WGS84 decimal degrees; positive north. Derived by exact DMS conversion."
+      },
+      "longitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Longitude in WGS84 decimal degrees; positive east. WKT uses longitude then latitude."
+      },
+      "horizontal_crs": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Horizontal crs."
+      },
+      "published_coordinate_precision_arcsec": {
+        "type": "integer",
+        "unit": "arcsecond",
+        "nullable": false,
+        "description": "Published coordinate precision arcsec."
+      },
+      "coordinate_source_ids": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Source identifiers separated by semicolon."
+      },
+      "coordinate_source_locator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Coordinate source locator."
+      },
+      "data_class": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+      },
+      "intrinsic_altitude_ft": {
+        "type": "number",
+        "unit": "foot",
+        "nullable": true,
+        "description": "Always blank: altitude restrictions belong to a leg within a procedure, not to a waypoint globally."
+      },
+      "effective_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date."
+      }
+    }
+  },
+  "05_coordinate_evidence.csv": {
+    "description": "One published coordinate occurrence per waypoint list, retaining overlapping evidence.",
+    "primary_key": "coordinate_evidence_id",
+    "foreign_keys": "waypoint_id -> waypoints; source_id -> sources",
+    "columns": {
+      "coordinate_evidence_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "waypoint_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon."
+      },
+      "source_locator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Printed sheet, section, row or table location for reproducing the record."
+      },
+      "latitude_dms_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "longitude_dms_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "latitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Latitude in WGS84 decimal degrees; positive north. Derived by exact DMS conversion."
+      },
+      "longitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Longitude in WGS84 decimal degrees; positive east. WKT uses longitude then latitude."
+      },
+      "sheet_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Sheet date."
+      },
+      "effective_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date."
+      }
+    }
+  },
+  "06_procedures.csv": {
+    "description": "One runway-specific SID version. Sixteen procedures, not sixteen recorded flights.",
+    "primary_key": "procedure_id",
+    "foreign_keys": "runway_id -> runways; departure_runway_end_id -> runway_ends",
+    "columns": {
+      "procedure_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "airport_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "runway_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "departure_runway_end_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "procedure_name": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Procedure name."
+      },
+      "procedure_name_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "destination_waypoint_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "procedure_type": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Procedure type."
+      },
+      "navigation_specification": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Navigation specification."
+      },
+      "procedure_suffix": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Procedure suffix."
+      },
+      "leg_count": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Leg count."
+      },
+      "in_initial_study": {
+        "type": "boolean",
+        "unit": "",
+        "nullable": false,
+        "description": "In initial study."
+      },
+      "amendment": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Amendment."
+      },
+      "sheet_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Sheet date."
+      },
+      "effective_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date."
+      },
+      "effective_date_source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "leg_source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "routing_source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "known_published_distance_sum_nm": {
+        "type": "number",
+        "unit": "nautical_mile",
+        "nullable": false,
+        "description": "Sum of available published cells, explicitly excluding missing cells; not full length when any are absent."
+      },
+      "published_distance_missing_leg_count": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Published distance missing leg count."
+      },
+      "published_distance_total_nm": {
+        "type": "number",
+        "unit": "nautical_mile",
+        "nullable": true,
+        "description": "Sum only when every published leg distance is present; otherwise blank."
+      },
+      "distance_summary_note": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Distance summary note."
+      },
+      "requires_source_reconciliation": {
+        "type": "boolean",
+        "unit": "",
+        "nullable": false,
+        "description": "Requires source reconciliation."
+      },
+      "data_class": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+      }
+    }
+  },
+  "07_procedure_legs.csv": {
+    "description": "One published ordered leg; original symbols remain beside normalized numeric fields.",
+    "primary_key": "leg_id",
+    "foreign_keys": "procedure_id -> procedures; waypoint_id -> waypoints",
+    "columns": {
+      "leg_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "procedure_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "sequence_number": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Sequence number."
+      },
+      "serial_number_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Source serial preserved as text, e.g. 010; import as text in Excel."
+      },
+      "path_descriptor_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "waypoint_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "previous_waypoint_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Stable relational identifier."
+      },
+      "fly_over_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "fly_over_marked": {
+        "type": "boolean",
+        "unit": "",
+        "nullable": false,
+        "description": "True only where source fly-over cell is Y. False means not marked, not a reconstructed fly-by instruction."
+      },
+      "course_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Exact magnetic and parenthesized true course text, with original leading zeros."
+      },
+      "magnetic_course_deg": {
+        "type": "integer",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Magnetic course deg."
+      },
+      "true_course_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Published true course, not a bearing recalculated from map connectors."
+      },
+      "magnetic_variation_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "magnetic_variation_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": true,
+        "description": "Literal signed numeric source cell; source signs are not harmonized."
+      },
+      "distance_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "distance_nm": {
+        "type": "number",
+        "unit": "nautical_mile",
+        "nullable": true,
+        "description": "Published leg distance. Blank for a printed dash; never imputed from coordinates."
+      },
+      "distance_m": {
+        "type": "number",
+        "unit": "metre",
+        "nullable": true,
+        "description": "Distance m."
+      },
+      "turn_direction_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "turn_direction_table": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Turn direction table."
+      },
+      "turn_to_waypoint_routing_text": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Turn direction into this named fix parsed from the separate narrative, L or R. Not a replacement for the table cell."
+      },
+      "altitude_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "altitude_operator": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Altitude operator."
+      },
+      "altitude_value": {
+        "type": "integer",
+        "unit": "",
+        "nullable": true,
+        "description": "Magnitude from altitude_raw; interpreted only together with altitude_operator and altitude_unit."
+      },
+      "altitude_unit": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "ft or FL. Flight levels use standard pressure and are not converted into surveyed AMSL altitude."
+      },
+      "altitude_min_ft": {
+        "type": "integer",
+        "unit": "foot",
+        "nullable": true,
+        "description": "Lower bound for a published feet-valued constraint; blank for flight-level-valued constraints."
+      },
+      "altitude_max_ft": {
+        "type": "integer",
+        "unit": "foot",
+        "nullable": true,
+        "description": "Upper bound for a published feet-valued constraint; blank for flight-level-valued constraints."
+      },
+      "flight_level_min": {
+        "type": "integer",
+        "unit": "flight_level_hundreds_of_feet_standard_pressure",
+        "nullable": true,
+        "description": "Flight level min."
+      },
+      "flight_level_max": {
+        "type": "string",
+        "unit": "flight_level_hundreds_of_feet_standard_pressure",
+        "nullable": true,
+        "description": "Flight level max."
+      },
+      "speed_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "speed_operator": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Speed operator."
+      },
+      "speed_limit_kt": {
+        "type": "integer",
+        "unit": "knot",
+        "nullable": true,
+        "description": "Speed limit kt."
+      },
+      "navigation_specification_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "data_class": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+      },
+      "source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon."
+      },
+      "source_locator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Printed sheet, section, row or table location for reproducing the record."
+      },
+      "routing_source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "sheet_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Sheet date."
+      },
+      "effective_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date."
+      },
+      "quality_flag": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Quality flag."
+      }
+    }
+  },
+  "08_constraints.csv": {
+    "description": "One explicit altitude or speed constraint attached to a procedure leg.",
+    "primary_key": "constraint_id",
+    "foreign_keys": "leg_id -> procedure_legs",
+    "columns": {
+      "constraint_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "procedure_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "leg_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "waypoint_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "constraint_type": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Constraint type."
+      },
+      "operator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Operator."
+      },
+      "value": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Value."
+      },
+      "unit": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Unit."
+      },
+      "raw_value": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Raw value."
+      },
+      "reference": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Reference."
+      },
+      "source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon."
+      },
+      "source_locator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Printed sheet, section, row or table location for reproducing the record."
+      },
+      "effective_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date."
+      }
+    }
+  },
+  "09_procedure_instructions.csv": {
+    "description": "One common instruction per study departure direction.",
+    "primary_key": "rule_id",
+    "foreign_keys": "departure_runway_end_id -> runway_ends",
+    "columns": {
+      "rule_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "airport_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "departure_runway_end_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "applies_to": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Applies to."
+      },
+      "instruction_number": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Instruction number."
+      },
+      "instruction_type": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Instruction type."
+      },
+      "instruction_text_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "numeric_value": {
+        "type": "integer",
+        "unit": "",
+        "nullable": true,
+        "description": "Numeric value."
+      },
+      "unit": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Unit."
+      },
+      "climb_gradient_percent": {
+        "type": "number",
+        "unit": "percent",
+        "nullable": true,
+        "description": "Climb gradient percent."
+      },
+      "until_altitude_ft": {
+        "type": "integer",
+        "unit": "foot",
+        "nullable": true,
+        "description": "Until altitude ft."
+      },
+      "atc_assignment_can_override": {
+        "type": "boolean",
+        "unit": "",
+        "nullable": false,
+        "description": "Atc assignment can override."
+      },
+      "source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon."
+      },
+      "source_locator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Printed sheet, section, row or table location for reproducing the record."
+      },
+      "effective_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date."
+      }
+    }
+  },
+  "10_routing_text.csv": {
+    "description": "One source narrative per procedure, retaining turns missing from tabular cells.",
+    "primary_key": "procedure_id",
+    "foreign_keys": "procedure_id -> procedures",
+    "columns": {
+      "procedure_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "procedure_name": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Procedure name."
+      },
+      "route_label_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "routing_text_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "text_normalization": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Text normalization."
+      },
+      "waypoint_sequence": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Waypoint sequence."
+      },
+      "source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon."
+      },
+      "source_locator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Printed sheet, section, row or table location for reproducing the record."
+      },
+      "sheet_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Sheet date."
+      },
+      "effective_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date."
+      }
+    }
+  },
+  "11_ground_features.csv": {
+    "description": "One Map 1 vector feature, all 18 layers. WKT coordinates and actual OSM tags; no fabricated building heights.",
+    "primary_key": "ground_feature_id",
+    "foreign_keys": "source_id/upstream_source_id -> sources",
+    "columns": {
+      "ground_feature_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "layer_name": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Layer name."
+      },
+      "source_feature_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Stable relational identifier."
+      },
+      "name": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Name."
+      },
+      "kind": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Kind."
+      },
+      "reference": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Reference."
+      },
+      "source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon."
+      },
+      "upstream_source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "source_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Source date."
+      },
+      "data_class": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+      },
+      "geometry_type": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Geometry type."
+      },
+      "geometry_crs": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Geometry crs."
+      },
+      "geometry_wkt": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Full retained native geometry in EPSG:32637 (metres), not the simplified browser mesh."
+      },
+      "geometry_wgs84_wkt": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Native geometry transformed to EPSG:4326; coordinate tuple order longitude latitude."
+      },
+      "centroid_longitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Geometric centroid, not an airport ARP, building entrance or surveyed reference."
+      },
+      "centroid_latitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Geometric centroid, not an airport ARP, building entrance or surveyed reference."
+      },
+      "area_projected_m2": {
+        "type": "number",
+        "unit": "square_metre",
+        "nullable": true,
+        "description": "Area of the native mapped polygon in EPSG:32637; not a surveyed area."
+      },
+      "length_projected_m": {
+        "type": "number",
+        "unit": "metre",
+        "nullable": true,
+        "description": "Length of the native mapped line in EPSG:32637; not a surveyed or flown distance."
+      },
+      "geometry_valid": {
+        "type": "boolean",
+        "unit": "",
+        "nullable": false,
+        "description": "Geometry valid."
+      },
+      "mapped_height_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Original OSM height tag when present; no default visualization heights inserted."
+      },
+      "mapped_levels_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "raw_osm_tags_json": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Original mapped tags as a JSON object inside a properly quoted CSV field."
+      },
+      "source_note": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Source note."
+      }
+    }
+  },
+  "12_sources.csv": {
+    "description": "One row per input file actually used; no A2-A6 directories.",
+    "primary_key": "source_id",
+    "foreign_keys": "",
+    "columns": {
+      "source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon."
+      },
+      "relative_path": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Relative path."
+      },
+      "file_name": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "File name."
+      },
+      "source_role": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Source role."
+      },
+      "data_class": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+      },
+      "source_locator": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Printed sheet, section, row or table location for reproducing the record."
+      },
+      "sheet_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": true,
+        "description": "Sheet date."
+      },
+      "source_snapshot_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": true,
+        "description": "Snapshot date for non-PDF sources; distinct from a printed procedure sheet date."
+      },
+      "effective_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": true,
+        "description": "Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date."
+      },
+      "source_url": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Source url."
+      },
+      "sha256": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Sha256."
+      },
+      "bytes": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Bytes."
+      },
+      "extraction_method": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Extraction method."
+      },
+      "pdf_page_count": {
+        "type": "integer",
+        "unit": "",
+        "nullable": true,
+        "description": "Pdf page count."
+      },
+      "pdf_text_layer_char_count": {
+        "type": "integer",
+        "unit": "",
+        "nullable": true,
+        "description": "Pdf text layer char count."
+      },
+      "amendment": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Amendment."
+      },
+      "visual_table_review": {
+        "type": "boolean",
+        "unit": "",
+        "nullable": true,
+        "description": "Visual table review."
+      },
+      "base_amendment_note_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Older base-amendment note printed on the sheet; not the current sheet issue date."
+      },
+      "change_note_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Visible PDF change note, retained to support edition reconciliation."
+      },
+      "license_name": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "License name."
+      },
+      "attribution": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Attribution."
+      },
+      "snapshot_timestamp_utc": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Snapshot timestamp utc."
+      }
+    }
+  },
+  "13_quality_issues.csv": {
+    "description": "One identified source, transcription, missing-data or interpretation issue.",
+    "primary_key": "issue_id",
+    "foreign_keys": "source_id -> sources",
+    "columns": {
+      "issue_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "table_name": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Table name."
+      },
+      "record_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "field_name": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Field name."
+      },
+      "severity": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Severity."
+      },
+      "description": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Description."
+      },
+      "resolution": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Resolution."
+      },
+      "status": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Status."
+      },
+      "source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon."
+      },
+      "source_locator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Printed sheet, section, row or table location for reproducing the record."
+      }
+    }
+  },
+  "15_procedure_features.csv": {
+    "description": "One deterministic reference feature summary per SID. No actual trajectories or supervised labels.",
+    "primary_key": "procedure_id",
+    "foreign_keys": "procedure_id -> procedures",
+    "columns": {
+      "procedure_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "procedure_name": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Procedure name."
+      },
+      "airport_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "runway_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "leg_count": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Leg count."
+      },
+      "cf_leg_count": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Cf leg count."
+      },
+      "tf_leg_count": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Tf leg count."
+      },
+      "fly_over_marked_count": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Fly over marked count."
+      },
+      "tabular_turn_mark_count": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Tabular turn mark count."
+      },
+      "narrative_turn_to_fix_count": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Narrative turn to fix count."
+      },
+      "altitude_constraint_count": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Altitude constraint count."
+      },
+      "speed_constraint_count": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Speed constraint count."
+      },
+      "known_published_distance_sum_nm": {
+        "type": "number",
+        "unit": "nautical_mile",
+        "nullable": false,
+        "description": "Sum of available published cells, explicitly excluding missing cells; not full length when any are absent."
+      },
+      "published_distance_missing_leg_count": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Published distance missing leg count."
+      },
+      "published_distance_total_nm": {
+        "type": "number",
+        "unit": "nautical_mile",
+        "nullable": true,
+        "description": "Sum only when every published leg distance is present; otherwise blank."
+      },
+      "first_waypoint_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "destination_waypoint_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "min_latitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Min latitude deg."
+      },
+      "max_latitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Max latitude deg."
+      },
+      "min_longitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Min longitude deg."
+      },
+      "max_longitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Max longitude deg."
+      },
+      "data_class": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+      },
+      "feature_method": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Feature method."
+      },
+      "effective_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date."
+      }
+    }
+  },
+  "16_analysis_legs.csv": {
+    "description": "Convenience join: one A1 leg with coordinates/runway/context. Reference features only; target and observed fields intentionally blank.",
+    "primary_key": "leg_id",
+    "foreign_keys": "leg_id -> procedure_legs",
+    "columns": {
+      "leg_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "procedure_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "sequence_number": {
+        "type": "integer",
+        "unit": "",
+        "nullable": false,
+        "description": "Sequence number."
+      },
+      "serial_number_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Source serial preserved as text, e.g. 010; import as text in Excel."
+      },
+      "path_descriptor_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "waypoint_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "previous_waypoint_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Stable relational identifier."
+      },
+      "fly_over_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "fly_over_marked": {
+        "type": "boolean",
+        "unit": "",
+        "nullable": false,
+        "description": "True only where source fly-over cell is Y. False means not marked, not a reconstructed fly-by instruction."
+      },
+      "course_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Exact magnetic and parenthesized true course text, with original leading zeros."
+      },
+      "magnetic_course_deg": {
+        "type": "integer",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Magnetic course deg."
+      },
+      "true_course_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Published true course, not a bearing recalculated from map connectors."
+      },
+      "magnetic_variation_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "magnetic_variation_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": true,
+        "description": "Literal signed numeric source cell; source signs are not harmonized."
+      },
+      "distance_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "distance_nm": {
+        "type": "number",
+        "unit": "nautical_mile",
+        "nullable": true,
+        "description": "Published leg distance. Blank for a printed dash; never imputed from coordinates."
+      },
+      "distance_m": {
+        "type": "number",
+        "unit": "metre",
+        "nullable": true,
+        "description": "Distance m."
+      },
+      "turn_direction_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "turn_direction_table": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Turn direction table."
+      },
+      "turn_to_waypoint_routing_text": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Turn direction into this named fix parsed from the separate narrative, L or R. Not a replacement for the table cell."
+      },
+      "altitude_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "altitude_operator": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Altitude operator."
+      },
+      "altitude_value": {
+        "type": "integer",
+        "unit": "",
+        "nullable": true,
+        "description": "Magnitude from altitude_raw; interpreted only together with altitude_operator and altitude_unit."
+      },
+      "altitude_unit": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "ft or FL. Flight levels use standard pressure and are not converted into surveyed AMSL altitude."
+      },
+      "altitude_min_ft": {
+        "type": "integer",
+        "unit": "foot",
+        "nullable": true,
+        "description": "Lower bound for a published feet-valued constraint; blank for flight-level-valued constraints."
+      },
+      "altitude_max_ft": {
+        "type": "integer",
+        "unit": "foot",
+        "nullable": true,
+        "description": "Upper bound for a published feet-valued constraint; blank for flight-level-valued constraints."
+      },
+      "flight_level_min": {
+        "type": "integer",
+        "unit": "flight_level_hundreds_of_feet_standard_pressure",
+        "nullable": true,
+        "description": "Flight level min."
+      },
+      "flight_level_max": {
+        "type": "string",
+        "unit": "flight_level_hundreds_of_feet_standard_pressure",
+        "nullable": true,
+        "description": "Flight level max."
+      },
+      "speed_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "speed_operator": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Speed operator."
+      },
+      "speed_limit_kt": {
+        "type": "integer",
+        "unit": "knot",
+        "nullable": true,
+        "description": "Speed limit kt."
+      },
+      "navigation_specification_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "data_class": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+      },
+      "source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon."
+      },
+      "source_locator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Printed sheet, section, row or table location for reproducing the record."
+      },
+      "routing_source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "sheet_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Sheet date."
+      },
+      "effective_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date."
+      },
+      "quality_flag": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Quality flag."
+      },
+      "airport_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "runway_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "departure_runway_end_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "procedure_name": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Procedure name."
+      },
+      "waypoint_latitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Waypoint latitude deg."
+      },
+      "waypoint_longitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": false,
+        "description": "Waypoint longitude deg."
+      },
+      "previous_latitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": true,
+        "description": "Previous latitude deg."
+      },
+      "previous_longitude_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": true,
+        "description": "Previous longitude deg."
+      },
+      "reference_geometry_wgs84_wkt": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Straight fix connector for TF/CF visualization only; first leg blank because CF origin geometry was not supplied."
+      },
+      "reference_fix_distance_m": {
+        "type": "number",
+        "unit": "metre",
+        "nullable": true,
+        "description": "Derived WGS84 ellipsoidal distance between preceding and current fix, not a flown-path measurement or reconstructed CF path."
+      },
+      "reference_fix_initial_bearing_deg": {
+        "type": "number",
+        "unit": "degree",
+        "nullable": true,
+        "description": "Derived WGS84 ellipsoid initial bearing between fixes; do not substitute for published course."
+      },
+      "reference_geometry_method": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Reference geometry method."
+      },
+      "runway_length_m": {
+        "type": "integer",
+        "unit": "metre",
+        "nullable": false,
+        "description": "Runway length m."
+      },
+      "runway_width_m": {
+        "type": "integer",
+        "unit": "metre",
+        "nullable": false,
+        "description": "Runway width m."
+      },
+      "coordinate_source_ids": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Source identifiers separated by semicolon."
+      },
+      "actual_flight_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Stable relational identifier."
+      },
+      "observation_time_utc": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Observation time utc."
+      },
+      "observed_altitude_ft": {
+        "type": "number",
+        "unit": "foot",
+        "nullable": true,
+        "description": "Intentionally blank: A1 contains no observed flight trajectories."
+      },
+      "observed_speed_kt": {
+        "type": "number",
+        "unit": "knot",
+        "nullable": true,
+        "description": "Observed speed kt."
+      },
+      "measured_noise_db": {
+        "type": "number",
+        "unit": "decibel",
+        "nullable": true,
+        "description": "Intentionally blank: no measured noise events included."
+      },
+      "observed_fuel_kg": {
+        "type": "number",
+        "unit": "kilogram",
+        "nullable": true,
+        "description": "Intentionally blank: no observed flight fuel included."
+      },
+      "target_label": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Intentionally blank: no reviewed flight-level target labels in A1."
+      }
+    }
+  },
+  "17_declared_distances.csv": {
+    "description": "One full-length or intersection departure distance record; blank intersection LDA was not supplied.",
+    "primary_key": "distance_record_id",
+    "foreign_keys": "runway_end_id -> runway_ends",
+    "columns": {
+      "distance_record_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "runway_end_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "departure_point": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "FULL_LENGTH or published taxiway intersection; intersection records do not supply LDA."
+      },
+      "tora_m": {
+        "type": "integer",
+        "unit": "metre",
+        "nullable": false,
+        "description": "Published take-off run available in metres for the stated departure point."
+      },
+      "toda_m": {
+        "type": "integer",
+        "unit": "metre",
+        "nullable": false,
+        "description": "Published take-off distance available in metres for the stated departure point."
+      },
+      "asda_m": {
+        "type": "integer",
+        "unit": "metre",
+        "nullable": false,
+        "description": "Published accelerate-stop distance available in metres for the stated departure point."
+      },
+      "lda_m": {
+        "type": "integer",
+        "unit": "metre",
+        "nullable": true,
+        "description": "Published landing distance available in metres; blank for intersection departure rows because it was not supplied there."
+      },
+      "remarks_raw": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Literal source value; dash and source spelling are preserved."
+      },
+      "source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon."
+      },
+      "source_locator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Printed sheet, section, row or table location for reproducing the record."
+      },
+      "effective_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date."
+      }
+    }
+  },
+  "18_source_context.csv": {
+    "description": "One retained relevant AIP section or brief excerpt; supplementary source text, not measured data.",
+    "primary_key": "excerpt_id",
+    "foreign_keys": "source_id -> sources",
+    "columns": {
+      "excerpt_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon."
+      },
+      "source_locator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Printed sheet, section, row or table location for reproducing the record."
+      },
+      "text_raw_whitespace_normalized": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Text raw whitespace normalized."
+      },
+      "data_class": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+      },
+      "effective_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": true,
+        "description": "Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date."
+      }
+    }
+  },
+  "19_parallel_departure_pairs.csv": {
+    "description": "One pair explicitly listed by the retained AIP; not a live clearance or throughput measurement.",
+    "primary_key": "operation_pair_id",
+    "foreign_keys": "runway_end_a_id/runway_end_b_id -> runway_ends",
+    "columns": {
+      "operation_pair_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "airport_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "runway_end_a_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "runway_end_b_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "operation_type": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Operation type."
+      },
+      "publication_status": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Publication status."
+      },
+      "actual_active_status": {
+        "type": "string",
+        "unit": "",
+        "nullable": true,
+        "description": "Intentionally blank: published availability is not live operational status."
+      },
+      "source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon."
+      },
+      "source_locator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Printed sheet, section, row or table location for reproducing the record."
+      },
+      "effective_date": {
+        "type": "date",
+        "unit": "",
+        "nullable": false,
+        "description": "Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date."
+      }
+    }
+  },
+  "20_data_gaps.csv": {
+    "description": "One future evidence need; no records from A2-A6 and no fabricated observations.",
+    "primary_key": "gap_id",
+    "foreign_keys": "",
+    "columns": {
+      "gap_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "data_domain": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Data domain."
+      },
+      "current_availability": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Current availability."
+      },
+      "future_fields_needed": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Future fields needed."
+      },
+      "analytical_purpose": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Analytical purpose."
+      },
+      "source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon."
+      },
+      "source_locator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Printed sheet, section, row or table location for reproducing the record."
+      },
+      "training_target_available": {
+        "type": "boolean",
+        "unit": "",
+        "nullable": false,
+        "description": "Training target available."
+      }
+    }
+  },
+  "21_visualization_assumptions.csv": {
+    "description": "One existing display assumption, quarantined from published reference and training observations.",
+    "primary_key": "assumption_id",
+    "foreign_keys": "",
+    "columns": {
+      "assumption_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Stable relational identifier."
+      },
+      "parameter": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Parameter."
+      },
+      "illustrative_value": {
+        "type": "number",
+        "unit": "",
+        "nullable": false,
+        "description": "Illustrative value."
+      },
+      "unit": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Unit."
+      },
+      "usage": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Usage."
+      },
+      "data_class": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+      },
+      "use_as_observed_ML_feature": {
+        "type": "boolean",
+        "unit": "",
+        "nullable": false,
+        "description": "Use as observed ml feature."
+      },
+      "source_id": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon."
+      },
+      "source_locator": {
+        "type": "string",
+        "unit": "",
+        "nullable": false,
+        "description": "Printed sheet, section, row or table location for reproducing the record."
+      }
+    }
+  }
+}

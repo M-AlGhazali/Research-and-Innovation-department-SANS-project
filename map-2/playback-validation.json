@@ -1,0 +1,15 @@
+{
+  "routesTested": 24,
+  "runways": 3,
+  "segmentEndpointsTested": 198,
+  "checks": [
+    "Ground start",
+    "Every published fix reached exactly",
+    "Demo endpoint heights satisfy transcribed numeric restrictions",
+    "Final destination reached",
+    "Loop returns to start",
+    "Pause freezes time",
+    "Loop-off stops at destination"
+  ],
+  "result": "passed"
+}

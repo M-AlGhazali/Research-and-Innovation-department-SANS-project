@@ -1,0 +1,12 @@
+{
+  "layers_valid": true,
+  "layers": 18,
+  "layouts": [
+    "Ground atlas | A3 landscape",
+    "Report 01 | airport-overview",
+    "Report 02 | runway-34C",
+    "Report 03 | runway-34L"
+  ],
+  "report_plates": 3,
+  "geometry_modified": false
+}

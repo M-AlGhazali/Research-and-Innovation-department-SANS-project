@@ -1,0 +1,166 @@
+{
+  "JN254>JN276": {
+    "distance_m": 13332.995784,
+    "bearing_deg": 336.00938297
+  },
+  "JN276>JN383": {
+    "distance_m": 19199.845249,
+    "bearing_deg": 335.95959796
+  },
+  "JN383>RALVI": {
+    "distance_m": 20241.400841,
+    "bearing_deg": 41.97941174
+  },
+  "RALVI>JN530": {
+    "distance_m": 35908.579454,
+    "bearing_deg": 109.4540578
+  },
+  "JN530>ISLAM": {
+    "distance_m": 66129.090514,
+    "bearing_deg": 133.56260775
+  },
+  "RALVI>JN520": {
+    "distance_m": 48039.805723,
+    "bearing_deg": 76.77524722
+  },
+  "JN520>EGREP": {
+    "distance_m": 32345.280572,
+    "bearing_deg": 76.91613157
+  },
+  "RALVI>JN510": {
+    "distance_m": 43102.272666,
+    "bearing_deg": 46.86596798
+  },
+  "JN510>DATAP": {
+    "distance_m": 14797.170985,
+    "bearing_deg": 46.99103989
+  },
+  "JN383>JN234": {
+    "distance_m": 11537.15243,
+    "bearing_deg": 336.13947459
+  },
+  "JN234>MIGDA": {
+    "distance_m": 46269.559838,
+    "bearing_deg": 335.92645057
+  },
+  "JN234>JN274": {
+    "distance_m": 21977.543084,
+    "bearing_deg": 299.73491084
+  },
+  "JN274>BOMOX": {
+    "distance_m": 31029.393169,
+    "bearing_deg": 299.69777653
+  },
+  "JN383>ASPAG": {
+    "distance_m": 25618.548907,
+    "bearing_deg": 245.94962726
+  },
+  "ASPAG>NIVBA": {
+    "distance_m": 33299.120621,
+    "bearing_deg": 159.02205586
+  },
+  "NIVBA>JN522": {
+    "distance_m": 54152.995941,
+    "bearing_deg": 159.0802323
+  },
+  "JN522>JN521": {
+    "distance_m": 18507.637247,
+    "bearing_deg": 160.13623758
+  },
+  "JN521>JN259": {
+    "distance_m": 47985.945098,
+    "bearing_deg": 99.47305745
+  },
+  "JN259>EGPOB": {
+    "distance_m": 32791.711396,
+    "bearing_deg": 127.11151634
+  },
+  "JN521>RIBAM": {
+    "distance_m": 51702.771936,
+    "bearing_deg": 177.88310157
+  },
+  "NIVBA>JN610": {
+    "distance_m": 20802.605167,
+    "bearing_deg": 218.5658841
+  },
+  "JN610>JN733": {
+    "distance_m": 35512.943847,
+    "bearing_deg": 218.58976288
+  },
+  "JN733>DENBU": {
+    "distance_m": 43562.476845,
+    "bearing_deg": 201.1777303
+  },
+  "DENBU>KAROX": {
+    "distance_m": 11284.906936,
+    "bearing_deg": 226.63884247
+  },
+  "JN272>ORSOD": {
+    "distance_m": 19383.399872,
+    "bearing_deg": 309.89844057
+  },
+  "ORSOD>SERSO": {
+    "distance_m": 22820.23165,
+    "bearing_deg": 336.05889627
+  },
+  "SERSO>JN383": {
+    "distance_m": 14165.281255,
+    "bearing_deg": 42.02698935
+  },
+  "SERSO>JN266": {
+    "distance_m": 21439.797639,
+    "bearing_deg": 298.75962156
+  },
+  "JN266>BOMOX": {
+    "distance_m": 43303.825106,
+    "bearing_deg": 328.7477916
+  },
+  "JN272>JN264": {
+    "distance_m": 22784.872709,
+    "bearing_deg": 241.57777246
+  },
+  "JN264>JN278": {
+    "distance_m": 47934.339146,
+    "bearing_deg": 218.65339542
+  },
+  "JN278>JN382": {
+    "distance_m": 20123.565171,
+    "bearing_deg": 152.60249766
+  },
+  "JN382>JN390": {
+    "distance_m": 31912.294322,
+    "bearing_deg": 103.31958686
+  },
+  "JN390>JN395": {
+    "distance_m": 37140.722568,
+    "bearing_deg": 103.44158188
+  },
+  "JN395>EGPOB": {
+    "distance_m": 47883.614492,
+    "bearing_deg": 103.55368485
+  },
+  "JN382>JN385": {
+    "distance_m": 12886.102165,
+    "bearing_deg": 139.99315186
+  },
+  "JN385>RIBAM": {
+    "distance_m": 53463.202333,
+    "bearing_deg": 140.62927358
+  },
+  "JN278>JN279": {
+    "distance_m": 8290.346793,
+    "bearing_deg": 218.4936307
+  },
+  "JN279>DENBU": {
+    "distance_m": 35282.318056,
+    "bearing_deg": 218.52255822
+  },
+  "SERSO>JN274": {
+    "distance_m": 35008.836004,
+    "bearing_deg": 335.93239774
+  },
+  "JN274>MIGDA": {
+    "distance_m": 31345.214962,
+    "bearing_deg": 0.31315595
+  }
+}

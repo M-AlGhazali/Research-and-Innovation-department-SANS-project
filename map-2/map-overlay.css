@@ -1,0 +1,17 @@
+/* Keep the full map behind the masthead; the logo and references sit on the scene. */
+main{height:100dvh}
+#viewport>header{position:absolute;z-index:4;top:0;left:0;right:0;height:82px;padding:0 28px;background:transparent;border:0;box-shadow:none;pointer-events:none}
+#viewport>header .brand,#viewport>header .header-right{pointer-events:auto}
+#viewport>header .sans-logo{width:112px;height:52px}
+#viewport .view-controls{top:104px}
+#viewport .view-guide{top:160px}
+#viewport .scene-title{top:186px}
+#viewport .legend{top:302px}
+#viewport .map-coordinate{top:226px}
+.focus-mode main{height:100dvh}
+.focus-mode #viewport>header{height:76px}
+.focus-mode #viewport .focus-tools{top:102px}
+.focus-mode #viewport .focus-caption{top:166px}
+@media(max-width:1150px){#viewport .view-controls{top:100px}#viewport .scene-title{top:181px}#viewport .legend{top:294px}}
+@media(max-width:760px){#viewport>header{height:70px;padding:0 14px}#viewport>header .sans-logo{width:82px;height:43px}#viewport .view-controls{top:78px}#viewport .scene-title{top:171px}#viewport .view-guide{display:none}.focus-mode #viewport .focus-tools{top:86px}.focus-mode #viewport .focus-caption{top:152px}}
+@media(max-width:600px){#viewport>header{height:64px}#viewport .view-controls{top:67px}#viewport .scene-title{top:159px}.focus-mode #viewport .focus-caption{top:150px}}

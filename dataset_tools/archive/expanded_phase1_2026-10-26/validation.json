@@ -1,0 +1,41 @@
+{
+  "dataset_version": "2026-10-26_v1",
+  "scope": "Four supplied A1 PDFs plus previously retained map sources; no A2-A6 dataset files opened",
+  "airport_count": 1,
+  "physical_runways": 3,
+  "study_runways": 2,
+  "procedures": 16,
+  "legs": 105,
+  "unique_waypoints": 36,
+  "coordinate_evidence_rows": 49,
+  "constraints": 50,
+  "ground_features": 20008,
+  "ground_layers": 18,
+  "primary_pdf_pages": 4,
+  "csv_files": 22,
+  "missing_published_distance_cells": 8,
+  "unresolved_source_omissions": [
+    "JN274 absent from 34L waypoint list; coordinate cross-referenced from supplied 34C A1"
+  ],
+  "map_transcription_corrections": [
+    {
+      "leg_id": "OEJN_34C_EGREP2W_20261001_005",
+      "old": "-",
+      "new": "-13000"
+    },
+    {
+      "leg_id": "OEJN_34C_EGREP2W_20261001_006",
+      "old": "-13000",
+      "new": "-"
+    }
+  ],
+  "all_foreign_keys_checked": true,
+  "source_pdfs_copy_hash_match": true,
+  "actual_flight_training_samples": 0,
+  "ml_target_labels": 0,
+  "independent_pandas_import_checks_passed": true,
+  "altitude_constraint_count": 42,
+  "speed_constraint_count": 8,
+  "source_and_output_hashes_rechecked": true,
+  "all_native_ground_geometries_valid": true
+}

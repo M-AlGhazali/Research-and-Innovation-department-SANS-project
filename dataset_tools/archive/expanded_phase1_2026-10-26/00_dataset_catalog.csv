@@ -1,0 +1,22 @@
+table_name,row_count,column_count,row_grain,primary_key,foreign_keys,encoding,delimiter,null_encoding
+01_airports.csv,1,29,One row per airport. ARP is distinct from map scene origin.,airport_id,source_id -> sources,UTF-8,comma,empty_field
+02_runways.csv,3,18,"One physical runway; third runway is context, never an extra A1 procedure family.",runway_id,airport_id -> airports; end_a_id/end_b_id -> runway_ends,UTF-8,comma,empty_field
+03_runway_ends.csv,6,33,"One published threshold/end, with exact DMS converted independently of rounded map coordinates.",runway_end_id,runway_id -> runways; source_id -> sources,UTF-8,comma,empty_field
+04_waypoints.csv,36,12,One unique navigation position. Altitude is not an intrinsic waypoint property.,waypoint_id,,UTF-8,comma,empty_field
+05_coordinate_evidence.csv,49,10,"One published coordinate occurrence per waypoint list, retaining overlapping evidence.",coordinate_evidence_id,waypoint_id -> waypoints; source_id -> sources,UTF-8,comma,empty_field
+06_procedures.csv,16,24,"One runway-specific SID version. Sixteen procedures, not sixteen recorded flights.",procedure_id,runway_id -> runways; departure_runway_end_id -> runway_ends,UTF-8,comma,empty_field
+07_procedure_legs.csv,105,39,One published ordered leg; original symbols remain beside normalized numeric fields.,leg_id,procedure_id -> procedures; waypoint_id -> waypoints,UTF-8,comma,empty_field
+08_constraints.csv,50,13,One explicit altitude or speed constraint attached to a procedure leg.,constraint_id,leg_id -> procedure_legs,UTF-8,comma,empty_field
+09_procedure_instructions.csv,8,15,One common instruction per study departure direction.,rule_id,departure_runway_end_id -> runway_ends,UTF-8,comma,empty_field
+10_routing_text.csv,16,10,"One source narrative per procedure, retaining turns missing from tabular cells.",procedure_id,procedure_id -> procedures,UTF-8,comma,empty_field
+11_ground_features.csv,20008,23,"One Map 1 vector feature, all 18 layers. WKT coordinates and actual OSM tags; no fabricated building heights.",ground_feature_id,source_id/upstream_source_id -> sources,UTF-8,comma,empty_field
+12_sources.csv,14,22,One row per input file actually used; no A2-A6 directories.,source_id,,UTF-8,comma,empty_field
+13_quality_issues.csv,23,10,"One identified source, transcription, missing-data or interpretation issue.",issue_id,source_id -> sources,UTF-8,comma,empty_field
+14_data_dictionary.csv,387,7,One definition per data column; refer to this before numeric/boolean imports.,table_name + column_name,,UTF-8,comma,empty_field
+15_procedure_features.csv,16,24,One deterministic reference feature summary per SID. No actual trajectories or supervised labels.,procedure_id,procedure_id -> procedures,UTF-8,comma,empty_field
+16_analysis_legs.csv,105,61,Convenience join: one A1 leg with coordinates/runway/context. Reference features only; target and observed fields intentionally blank.,leg_id,leg_id -> procedure_legs,UTF-8,comma,empty_field
+17_declared_distances.csv,14,11,One full-length or intersection departure distance record; blank intersection LDA was not supplied.,distance_record_id,runway_end_id -> runway_ends,UTF-8,comma,empty_field
+18_source_context.csv,16,6,"One retained relevant AIP section or brief excerpt; supplementary source text, not measured data.",excerpt_id,source_id -> sources,UTF-8,comma,empty_field
+19_parallel_departure_pairs.csv,3,10,One pair explicitly listed by the retained AIP; not a live clearance or throughput measurement.,operation_pair_id,runway_end_a_id/runway_end_b_id -> runway_ends,UTF-8,comma,empty_field
+20_data_gaps.csv,7,8,One future evidence need; no records from A2-A6 and no fabricated observations.,gap_id,,UTF-8,comma,empty_field
+21_visualization_assumptions.csv,6,9,"One existing display assumption, quarantined from published reference and training observations.",assumption_id,,UTF-8,comma,empty_field

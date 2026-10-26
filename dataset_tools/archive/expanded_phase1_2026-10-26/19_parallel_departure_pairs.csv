@@ -1,0 +1,4 @@
+operation_pair_id,airport_id,runway_end_a_id,runway_end_b_id,operation_type,publication_status,actual_active_status,source_id,source_locator,effective_date
+PAIR_34R_34C,OEJN,OEJN_34R,OEJN_34C,simultaneous_independent_parallel_departure,listed_in_fixed_AIP_snapshot,,SRC_AIP,AD 2.22.2.6.1,2026-10-01
+PAIR_34R_34L,OEJN,OEJN_34R,OEJN_34L,simultaneous_independent_parallel_departure,listed_in_fixed_AIP_snapshot,,SRC_AIP,AD 2.22.2.6.1,2026-10-01
+PAIR_16R_16L,OEJN,OEJN_16R,OEJN_16L,simultaneous_independent_parallel_departure,listed_in_fixed_AIP_snapshot,,SRC_AIP,AD 2.22.2.6.1,2026-10-01

@@ -1,0 +1,388 @@
+table_name,column_name,data_type,unit,nullable,null_encoding,description
+01_airports.csv,airport_id,string,,False,empty_field,Stable relational identifier.
+01_airports.csv,icao_code,string,,False,empty_field,Icao code.
+01_airports.csv,airport_name,string,,False,empty_field,Airport name.
+01_airports.csv,country,string,,False,empty_field,Country.
+01_airports.csv,city,string,,False,empty_field,City.
+01_airports.csv,arp_latitude_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+01_airports.csv,arp_longitude_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+01_airports.csv,latitude_deg,number,degree,False,empty_field,Latitude in WGS84 decimal degrees; positive north. Derived by exact DMS conversion.
+01_airports.csv,longitude_deg,number,degree,False,empty_field,Longitude in WGS84 decimal degrees; positive east. WKT uses longitude then latitude.
+01_airports.csv,horizontal_crs,string,,False,empty_field,Horizontal crs.
+01_airports.csv,elevation_ft_amsl,integer,foot_AMSL,False,empty_field,Elevation ft amsl.
+01_airports.csv,elevation_m_amsl,number,metre_AMSL,False,empty_field,Elevation m amsl.
+01_airports.csv,reference_temperature_c,number,,False,empty_field,Reference temperature c.
+01_airports.csv,geoid_undulation_ft,integer,foot,False,empty_field,Published geoid undulation in feet. Do not substitute it for threshold or terrain elevation.
+01_airports.csv,magnetic_variation_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+01_airports.csv,operator,string,,False,empty_field,Operator.
+01_airports.csv,traffic_permitted,string,,False,empty_field,Traffic permitted.
+01_airports.csv,operation_type,string,,False,empty_field,Operation type.
+01_airports.csv,ats_hours,string,,False,empty_field,Ats hours.
+01_airports.csv,fire_category,string,,False,empty_field,Fire category.
+01_airports.csv,physical_runway_count,integer,,False,empty_field,Physical runway count.
+01_airports.csv,study_runway_count,integer,,False,empty_field,Study runway count.
+01_airports.csv,study_departure_directions,string,,False,empty_field,Study departure directions.
+01_airports.csv,data_class,string,,False,empty_field,"Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+01_airports.csv,source_id,string,,False,empty_field,Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon.
+01_airports.csv,source_locator,string,,False,empty_field,"Printed sheet, section, row or table location for reproducing the record."
+01_airports.csv,effective_date,date,,False,empty_field,Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date.
+01_airports.csv,arp_site_relative_to_tower_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+01_airports.csv,airport_location_reference_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+02_runways.csv,runway_id,string,,False,empty_field,Stable relational identifier.
+02_runways.csv,airport_id,string,,False,empty_field,Stable relational identifier.
+02_runways.csv,end_a_id,string,,False,empty_field,Stable relational identifier.
+02_runways.csv,end_b_id,string,,False,empty_field,Stable relational identifier.
+02_runways.csv,designator_pair,string,,False,empty_field,Designator pair.
+02_runways.csv,position,string,,False,empty_field,Position.
+02_runways.csv,in_initial_study,boolean,,False,empty_field,In initial study.
+02_runways.csv,published_length_m,integer,metre,False,empty_field,Published length m.
+02_runways.csv,published_width_m,integer,metre,False,empty_field,Published width m.
+02_runways.csv,surface,string,,False,empty_field,Surface.
+02_runways.csv,center_latitude_deg,number,degree,False,empty_field,Center latitude deg.
+02_runways.csv,center_longitude_deg,number,degree,False,empty_field,Center longitude deg.
+02_runways.csv,centerline_wgs84_wkt,string,,False,empty_field,Centerline wgs84 wkt.
+02_runways.csv,geometry_data_class,string,,False,empty_field,Geometry data class.
+02_runways.csv,visual_buffer_half_width_m,integer,metre,False,empty_field,Visual buffer half width m.
+02_runways.csv,source_id,string,,False,empty_field,Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon.
+02_runways.csv,source_locator,string,,False,empty_field,"Printed sheet, section, row or table location for reproducing the record."
+02_runways.csv,effective_date,date,,False,empty_field,Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date.
+03_runway_ends.csv,runway_end_id,string,,False,empty_field,Stable relational identifier.
+03_runway_ends.csv,airport_id,string,,False,empty_field,Stable relational identifier.
+03_runway_ends.csv,runway_id,string,,False,empty_field,Stable relational identifier.
+03_runway_ends.csv,designator,string,,False,empty_field,Designator.
+03_runway_ends.csv,study_departure_direction,boolean,,False,empty_field,Study departure direction.
+03_runway_ends.csv,latitude_dms_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+03_runway_ends.csv,longitude_dms_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+03_runway_ends.csv,latitude_deg,number,degree,False,empty_field,Latitude in WGS84 decimal degrees; positive north. Derived by exact DMS conversion.
+03_runway_ends.csv,longitude_deg,number,degree,False,empty_field,Longitude in WGS84 decimal degrees; positive east. WKT uses longitude then latitude.
+03_runway_ends.csv,horizontal_crs,string,,False,empty_field,Horizontal crs.
+03_runway_ends.csv,true_bearing_deg,integer,degree,False,empty_field,True bearing deg.
+03_runway_ends.csv,threshold_elevation_ft_amsl,number,foot_AMSL,False,empty_field,Published threshold elevation in feet above mean sea level; not geoid undulation.
+03_runway_ends.csv,threshold_elevation_m_amsl,number,metre_AMSL,False,empty_field,Threshold elevation m amsl.
+03_runway_ends.csv,highest_tdz_elevation_ft_amsl,number,foot_AMSL,False,empty_field,"Highest published touchdown-zone elevation, separate from threshold elevation."
+03_runway_ends.csv,geoid_undulation_ft,number,foot,False,empty_field,Published geoid undulation in feet. Do not substitute it for threshold or terrain elevation.
+03_runway_ends.csv,published_length_m,integer,metre,False,empty_field,Published length m.
+03_runway_ends.csv,published_width_m,integer,metre,False,empty_field,Published width m.
+03_runway_ends.csv,pavement_rating_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+03_runway_ends.csv,surface,string,,False,empty_field,Surface.
+03_runway_ends.csv,data_class,string,,False,empty_field,"Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+03_runway_ends.csv,source_id,string,,False,empty_field,Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon.
+03_runway_ends.csv,source_locator,string,,False,empty_field,"Printed sheet, section, row or table location for reproducing the record."
+03_runway_ends.csv,effective_date,date,,False,empty_field,Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date.
+03_runway_ends.csv,slope_percent,number,percent,False,empty_field,Published signed runway slope for this direction. Retained independently of slope estimated from threshold elevations.
+03_runway_ends.csv,slope_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+03_runway_ends.csv,stopway_dimensions_raw,string,,False,empty_field,"Published stopway dimensions text; NIL means none stated, not an unknown numeric length."
+03_runway_ends.csv,clearway_dimensions_raw,string,,False,empty_field,"Published clearway dimensions text; NIL means none stated, not an unknown numeric length."
+03_runway_ends.csv,strip_length_m,integer,metre,False,empty_field,Strip length m.
+03_runway_ends.csv,strip_width_m,integer,metre,False,empty_field,Strip width m.
+03_runway_ends.csv,resa_length_m,integer,metre,False,empty_field,Resa length m.
+03_runway_ends.csv,resa_width_m,integer,metre,False,empty_field,Resa width m.
+03_runway_ends.csv,arresting_system_raw,string,,False,empty_field,"Published arresting-system/EMAS text, including NIL."
+03_runway_ends.csv,obstacle_free_zone_raw,string,,False,empty_field,"Published OFZ field text, including NIL."
+04_waypoints.csv,waypoint_id,string,,False,empty_field,Stable relational identifier.
+04_waypoints.csv,latitude_dms_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+04_waypoints.csv,longitude_dms_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+04_waypoints.csv,latitude_deg,number,degree,False,empty_field,Latitude in WGS84 decimal degrees; positive north. Derived by exact DMS conversion.
+04_waypoints.csv,longitude_deg,number,degree,False,empty_field,Longitude in WGS84 decimal degrees; positive east. WKT uses longitude then latitude.
+04_waypoints.csv,horizontal_crs,string,,False,empty_field,Horizontal crs.
+04_waypoints.csv,published_coordinate_precision_arcsec,integer,arcsecond,False,empty_field,Published coordinate precision arcsec.
+04_waypoints.csv,coordinate_source_ids,string,,False,empty_field,Source identifiers separated by semicolon.
+04_waypoints.csv,coordinate_source_locator,string,,False,empty_field,Coordinate source locator.
+04_waypoints.csv,data_class,string,,False,empty_field,"Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+04_waypoints.csv,intrinsic_altitude_ft,number,foot,True,empty_field,"Always blank: altitude restrictions belong to a leg within a procedure, not to a waypoint globally."
+04_waypoints.csv,effective_date,date,,False,empty_field,Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date.
+05_coordinate_evidence.csv,coordinate_evidence_id,string,,False,empty_field,Stable relational identifier.
+05_coordinate_evidence.csv,waypoint_id,string,,False,empty_field,Stable relational identifier.
+05_coordinate_evidence.csv,source_id,string,,False,empty_field,Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon.
+05_coordinate_evidence.csv,source_locator,string,,False,empty_field,"Printed sheet, section, row or table location for reproducing the record."
+05_coordinate_evidence.csv,latitude_dms_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+05_coordinate_evidence.csv,longitude_dms_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+05_coordinate_evidence.csv,latitude_deg,number,degree,False,empty_field,Latitude in WGS84 decimal degrees; positive north. Derived by exact DMS conversion.
+05_coordinate_evidence.csv,longitude_deg,number,degree,False,empty_field,Longitude in WGS84 decimal degrees; positive east. WKT uses longitude then latitude.
+05_coordinate_evidence.csv,sheet_date,date,,False,empty_field,Sheet date.
+05_coordinate_evidence.csv,effective_date,date,,False,empty_field,Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date.
+06_procedures.csv,procedure_id,string,,False,empty_field,Stable relational identifier.
+06_procedures.csv,airport_id,string,,False,empty_field,Stable relational identifier.
+06_procedures.csv,runway_id,string,,False,empty_field,Stable relational identifier.
+06_procedures.csv,departure_runway_end_id,string,,False,empty_field,Stable relational identifier.
+06_procedures.csv,procedure_name,string,,False,empty_field,Procedure name.
+06_procedures.csv,procedure_name_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+06_procedures.csv,destination_waypoint_id,string,,False,empty_field,Stable relational identifier.
+06_procedures.csv,procedure_type,string,,False,empty_field,Procedure type.
+06_procedures.csv,navigation_specification,string,,False,empty_field,Navigation specification.
+06_procedures.csv,procedure_suffix,string,,False,empty_field,Procedure suffix.
+06_procedures.csv,leg_count,integer,,False,empty_field,Leg count.
+06_procedures.csv,in_initial_study,boolean,,False,empty_field,In initial study.
+06_procedures.csv,amendment,string,,False,empty_field,Amendment.
+06_procedures.csv,sheet_date,date,,False,empty_field,Sheet date.
+06_procedures.csv,effective_date,date,,False,empty_field,Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date.
+06_procedures.csv,effective_date_source_id,string,,False,empty_field,Stable relational identifier.
+06_procedures.csv,leg_source_id,string,,False,empty_field,Stable relational identifier.
+06_procedures.csv,routing_source_id,string,,False,empty_field,Stable relational identifier.
+06_procedures.csv,known_published_distance_sum_nm,number,nautical_mile,False,empty_field,"Sum of available published cells, explicitly excluding missing cells; not full length when any are absent."
+06_procedures.csv,published_distance_missing_leg_count,integer,,False,empty_field,Published distance missing leg count.
+06_procedures.csv,published_distance_total_nm,number,nautical_mile,True,empty_field,Sum only when every published leg distance is present; otherwise blank.
+06_procedures.csv,distance_summary_note,string,,False,empty_field,Distance summary note.
+06_procedures.csv,requires_source_reconciliation,boolean,,False,empty_field,Requires source reconciliation.
+06_procedures.csv,data_class,string,,False,empty_field,"Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+07_procedure_legs.csv,leg_id,string,,False,empty_field,Stable relational identifier.
+07_procedure_legs.csv,procedure_id,string,,False,empty_field,Stable relational identifier.
+07_procedure_legs.csv,sequence_number,integer,,False,empty_field,Sequence number.
+07_procedure_legs.csv,serial_number_raw,string,,False,empty_field,"Source serial preserved as text, e.g. 010; import as text in Excel."
+07_procedure_legs.csv,path_descriptor_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+07_procedure_legs.csv,waypoint_id,string,,False,empty_field,Stable relational identifier.
+07_procedure_legs.csv,previous_waypoint_id,string,,True,empty_field,Stable relational identifier.
+07_procedure_legs.csv,fly_over_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+07_procedure_legs.csv,fly_over_marked,boolean,,False,empty_field,"True only where source fly-over cell is Y. False means not marked, not a reconstructed fly-by instruction."
+07_procedure_legs.csv,course_raw,string,,False,empty_field,"Exact magnetic and parenthesized true course text, with original leading zeros."
+07_procedure_legs.csv,magnetic_course_deg,integer,degree,False,empty_field,Magnetic course deg.
+07_procedure_legs.csv,true_course_deg,number,degree,False,empty_field,"Published true course, not a bearing recalculated from map connectors."
+07_procedure_legs.csv,magnetic_variation_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+07_procedure_legs.csv,magnetic_variation_deg,number,degree,True,empty_field,Literal signed numeric source cell; source signs are not harmonized.
+07_procedure_legs.csv,distance_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+07_procedure_legs.csv,distance_nm,number,nautical_mile,True,empty_field,Published leg distance. Blank for a printed dash; never imputed from coordinates.
+07_procedure_legs.csv,distance_m,number,metre,True,empty_field,Distance m.
+07_procedure_legs.csv,turn_direction_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+07_procedure_legs.csv,turn_direction_table,string,,True,empty_field,Turn direction table.
+07_procedure_legs.csv,turn_to_waypoint_routing_text,string,,True,empty_field,"Turn direction into this named fix parsed from the separate narrative, L or R. Not a replacement for the table cell."
+07_procedure_legs.csv,altitude_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+07_procedure_legs.csv,altitude_operator,string,,True,empty_field,Altitude operator.
+07_procedure_legs.csv,altitude_value,integer,,True,empty_field,Magnitude from altitude_raw; interpreted only together with altitude_operator and altitude_unit.
+07_procedure_legs.csv,altitude_unit,string,,True,empty_field,ft or FL. Flight levels use standard pressure and are not converted into surveyed AMSL altitude.
+07_procedure_legs.csv,altitude_min_ft,integer,foot,True,empty_field,Lower bound for a published feet-valued constraint; blank for flight-level-valued constraints.
+07_procedure_legs.csv,altitude_max_ft,integer,foot,True,empty_field,Upper bound for a published feet-valued constraint; blank for flight-level-valued constraints.
+07_procedure_legs.csv,flight_level_min,integer,flight_level_hundreds_of_feet_standard_pressure,True,empty_field,Flight level min.
+07_procedure_legs.csv,flight_level_max,string,flight_level_hundreds_of_feet_standard_pressure,True,empty_field,Flight level max.
+07_procedure_legs.csv,speed_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+07_procedure_legs.csv,speed_operator,string,,True,empty_field,Speed operator.
+07_procedure_legs.csv,speed_limit_kt,integer,knot,True,empty_field,Speed limit kt.
+07_procedure_legs.csv,navigation_specification_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+07_procedure_legs.csv,data_class,string,,False,empty_field,"Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+07_procedure_legs.csv,source_id,string,,False,empty_field,Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon.
+07_procedure_legs.csv,source_locator,string,,False,empty_field,"Printed sheet, section, row or table location for reproducing the record."
+07_procedure_legs.csv,routing_source_id,string,,False,empty_field,Stable relational identifier.
+07_procedure_legs.csv,sheet_date,date,,False,empty_field,Sheet date.
+07_procedure_legs.csv,effective_date,date,,False,empty_field,Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date.
+07_procedure_legs.csv,quality_flag,string,,True,empty_field,Quality flag.
+08_constraints.csv,constraint_id,string,,False,empty_field,Stable relational identifier.
+08_constraints.csv,procedure_id,string,,False,empty_field,Stable relational identifier.
+08_constraints.csv,leg_id,string,,False,empty_field,Stable relational identifier.
+08_constraints.csv,waypoint_id,string,,False,empty_field,Stable relational identifier.
+08_constraints.csv,constraint_type,string,,False,empty_field,Constraint type.
+08_constraints.csv,operator,string,,False,empty_field,Operator.
+08_constraints.csv,value,integer,,False,empty_field,Value.
+08_constraints.csv,unit,string,,False,empty_field,Unit.
+08_constraints.csv,raw_value,string,,False,empty_field,Raw value.
+08_constraints.csv,reference,string,,False,empty_field,Reference.
+08_constraints.csv,source_id,string,,False,empty_field,Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon.
+08_constraints.csv,source_locator,string,,False,empty_field,"Printed sheet, section, row or table location for reproducing the record."
+08_constraints.csv,effective_date,date,,False,empty_field,Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date.
+09_procedure_instructions.csv,rule_id,string,,False,empty_field,Stable relational identifier.
+09_procedure_instructions.csv,airport_id,string,,False,empty_field,Stable relational identifier.
+09_procedure_instructions.csv,departure_runway_end_id,string,,False,empty_field,Stable relational identifier.
+09_procedure_instructions.csv,applies_to,string,,False,empty_field,Applies to.
+09_procedure_instructions.csv,instruction_number,integer,,False,empty_field,Instruction number.
+09_procedure_instructions.csv,instruction_type,string,,False,empty_field,Instruction type.
+09_procedure_instructions.csv,instruction_text_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+09_procedure_instructions.csv,numeric_value,integer,,True,empty_field,Numeric value.
+09_procedure_instructions.csv,unit,string,,True,empty_field,Unit.
+09_procedure_instructions.csv,climb_gradient_percent,number,percent,True,empty_field,Climb gradient percent.
+09_procedure_instructions.csv,until_altitude_ft,integer,foot,True,empty_field,Until altitude ft.
+09_procedure_instructions.csv,atc_assignment_can_override,boolean,,False,empty_field,Atc assignment can override.
+09_procedure_instructions.csv,source_id,string,,False,empty_field,Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon.
+09_procedure_instructions.csv,source_locator,string,,False,empty_field,"Printed sheet, section, row or table location for reproducing the record."
+09_procedure_instructions.csv,effective_date,date,,False,empty_field,Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date.
+10_routing_text.csv,procedure_id,string,,False,empty_field,Stable relational identifier.
+10_routing_text.csv,procedure_name,string,,False,empty_field,Procedure name.
+10_routing_text.csv,route_label_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+10_routing_text.csv,routing_text_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+10_routing_text.csv,text_normalization,string,,False,empty_field,Text normalization.
+10_routing_text.csv,waypoint_sequence,string,,False,empty_field,Waypoint sequence.
+10_routing_text.csv,source_id,string,,False,empty_field,Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon.
+10_routing_text.csv,source_locator,string,,False,empty_field,"Printed sheet, section, row or table location for reproducing the record."
+10_routing_text.csv,sheet_date,date,,False,empty_field,Sheet date.
+10_routing_text.csv,effective_date,date,,False,empty_field,Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date.
+11_ground_features.csv,ground_feature_id,string,,False,empty_field,Stable relational identifier.
+11_ground_features.csv,layer_name,string,,False,empty_field,Layer name.
+11_ground_features.csv,source_feature_id,string,,True,empty_field,Stable relational identifier.
+11_ground_features.csv,name,string,,False,empty_field,Name.
+11_ground_features.csv,kind,string,,False,empty_field,Kind.
+11_ground_features.csv,reference,string,,True,empty_field,Reference.
+11_ground_features.csv,source_id,string,,False,empty_field,Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon.
+11_ground_features.csv,upstream_source_id,string,,False,empty_field,Stable relational identifier.
+11_ground_features.csv,source_date,date,,False,empty_field,Source date.
+11_ground_features.csv,data_class,string,,False,empty_field,"Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+11_ground_features.csv,geometry_type,string,,False,empty_field,Geometry type.
+11_ground_features.csv,geometry_crs,string,,False,empty_field,Geometry crs.
+11_ground_features.csv,geometry_wkt,string,,False,empty_field,"Full retained native geometry in EPSG:32637 (metres), not the simplified browser mesh."
+11_ground_features.csv,geometry_wgs84_wkt,string,,False,empty_field,Native geometry transformed to EPSG:4326; coordinate tuple order longitude latitude.
+11_ground_features.csv,centroid_longitude_deg,number,degree,False,empty_field,"Geometric centroid, not an airport ARP, building entrance or surveyed reference."
+11_ground_features.csv,centroid_latitude_deg,number,degree,False,empty_field,"Geometric centroid, not an airport ARP, building entrance or surveyed reference."
+11_ground_features.csv,area_projected_m2,number,square_metre,True,empty_field,Area of the native mapped polygon in EPSG:32637; not a surveyed area.
+11_ground_features.csv,length_projected_m,number,metre,True,empty_field,Length of the native mapped line in EPSG:32637; not a surveyed or flown distance.
+11_ground_features.csv,geometry_valid,boolean,,False,empty_field,Geometry valid.
+11_ground_features.csv,mapped_height_raw,string,,True,empty_field,Original OSM height tag when present; no default visualization heights inserted.
+11_ground_features.csv,mapped_levels_raw,string,,True,empty_field,Literal source value; dash and source spelling are preserved.
+11_ground_features.csv,raw_osm_tags_json,string,,True,empty_field,Original mapped tags as a JSON object inside a properly quoted CSV field.
+11_ground_features.csv,source_note,string,,True,empty_field,Source note.
+12_sources.csv,source_id,string,,False,empty_field,Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon.
+12_sources.csv,relative_path,string,,False,empty_field,Relative path.
+12_sources.csv,file_name,string,,False,empty_field,File name.
+12_sources.csv,source_role,string,,False,empty_field,Source role.
+12_sources.csv,data_class,string,,False,empty_field,"Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+12_sources.csv,source_locator,string,,True,empty_field,"Printed sheet, section, row or table location for reproducing the record."
+12_sources.csv,sheet_date,date,,True,empty_field,Sheet date.
+12_sources.csv,source_snapshot_date,date,,True,empty_field,Snapshot date for non-PDF sources; distinct from a printed procedure sheet date.
+12_sources.csv,effective_date,date,,True,empty_field,Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date.
+12_sources.csv,source_url,string,,True,empty_field,Source url.
+12_sources.csv,sha256,string,,False,empty_field,Sha256.
+12_sources.csv,bytes,integer,,False,empty_field,Bytes.
+12_sources.csv,extraction_method,string,,False,empty_field,Extraction method.
+12_sources.csv,pdf_page_count,integer,,True,empty_field,Pdf page count.
+12_sources.csv,pdf_text_layer_char_count,integer,,True,empty_field,Pdf text layer char count.
+12_sources.csv,amendment,string,,True,empty_field,Amendment.
+12_sources.csv,visual_table_review,boolean,,True,empty_field,Visual table review.
+12_sources.csv,base_amendment_note_raw,string,,True,empty_field,Older base-amendment note printed on the sheet; not the current sheet issue date.
+12_sources.csv,change_note_raw,string,,True,empty_field,"Visible PDF change note, retained to support edition reconciliation."
+12_sources.csv,license_name,string,,False,empty_field,License name.
+12_sources.csv,attribution,string,,False,empty_field,Attribution.
+12_sources.csv,snapshot_timestamp_utc,string,,True,empty_field,Snapshot timestamp utc.
+13_quality_issues.csv,issue_id,string,,False,empty_field,Stable relational identifier.
+13_quality_issues.csv,table_name,string,,False,empty_field,Table name.
+13_quality_issues.csv,record_id,string,,False,empty_field,Stable relational identifier.
+13_quality_issues.csv,field_name,string,,False,empty_field,Field name.
+13_quality_issues.csv,severity,string,,False,empty_field,Severity.
+13_quality_issues.csv,description,string,,False,empty_field,Description.
+13_quality_issues.csv,resolution,string,,False,empty_field,Resolution.
+13_quality_issues.csv,status,string,,False,empty_field,Status.
+13_quality_issues.csv,source_id,string,,False,empty_field,Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon.
+13_quality_issues.csv,source_locator,string,,False,empty_field,"Printed sheet, section, row or table location for reproducing the record."
+15_procedure_features.csv,procedure_id,string,,False,empty_field,Stable relational identifier.
+15_procedure_features.csv,procedure_name,string,,False,empty_field,Procedure name.
+15_procedure_features.csv,airport_id,string,,False,empty_field,Stable relational identifier.
+15_procedure_features.csv,runway_id,string,,False,empty_field,Stable relational identifier.
+15_procedure_features.csv,leg_count,integer,,False,empty_field,Leg count.
+15_procedure_features.csv,cf_leg_count,integer,,False,empty_field,Cf leg count.
+15_procedure_features.csv,tf_leg_count,integer,,False,empty_field,Tf leg count.
+15_procedure_features.csv,fly_over_marked_count,integer,,False,empty_field,Fly over marked count.
+15_procedure_features.csv,tabular_turn_mark_count,integer,,False,empty_field,Tabular turn mark count.
+15_procedure_features.csv,narrative_turn_to_fix_count,integer,,False,empty_field,Narrative turn to fix count.
+15_procedure_features.csv,altitude_constraint_count,integer,,False,empty_field,Altitude constraint count.
+15_procedure_features.csv,speed_constraint_count,integer,,False,empty_field,Speed constraint count.
+15_procedure_features.csv,known_published_distance_sum_nm,number,nautical_mile,False,empty_field,"Sum of available published cells, explicitly excluding missing cells; not full length when any are absent."
+15_procedure_features.csv,published_distance_missing_leg_count,integer,,False,empty_field,Published distance missing leg count.
+15_procedure_features.csv,published_distance_total_nm,number,nautical_mile,True,empty_field,Sum only when every published leg distance is present; otherwise blank.
+15_procedure_features.csv,first_waypoint_id,string,,False,empty_field,Stable relational identifier.
+15_procedure_features.csv,destination_waypoint_id,string,,False,empty_field,Stable relational identifier.
+15_procedure_features.csv,min_latitude_deg,number,degree,False,empty_field,Min latitude deg.
+15_procedure_features.csv,max_latitude_deg,number,degree,False,empty_field,Max latitude deg.
+15_procedure_features.csv,min_longitude_deg,number,degree,False,empty_field,Min longitude deg.
+15_procedure_features.csv,max_longitude_deg,number,degree,False,empty_field,Max longitude deg.
+15_procedure_features.csv,data_class,string,,False,empty_field,"Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+15_procedure_features.csv,feature_method,string,,False,empty_field,Feature method.
+15_procedure_features.csv,effective_date,date,,False,empty_field,Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date.
+16_analysis_legs.csv,leg_id,string,,False,empty_field,Stable relational identifier.
+16_analysis_legs.csv,procedure_id,string,,False,empty_field,Stable relational identifier.
+16_analysis_legs.csv,sequence_number,integer,,False,empty_field,Sequence number.
+16_analysis_legs.csv,serial_number_raw,string,,False,empty_field,"Source serial preserved as text, e.g. 010; import as text in Excel."
+16_analysis_legs.csv,path_descriptor_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+16_analysis_legs.csv,waypoint_id,string,,False,empty_field,Stable relational identifier.
+16_analysis_legs.csv,previous_waypoint_id,string,,True,empty_field,Stable relational identifier.
+16_analysis_legs.csv,fly_over_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+16_analysis_legs.csv,fly_over_marked,boolean,,False,empty_field,"True only where source fly-over cell is Y. False means not marked, not a reconstructed fly-by instruction."
+16_analysis_legs.csv,course_raw,string,,False,empty_field,"Exact magnetic and parenthesized true course text, with original leading zeros."
+16_analysis_legs.csv,magnetic_course_deg,integer,degree,False,empty_field,Magnetic course deg.
+16_analysis_legs.csv,true_course_deg,number,degree,False,empty_field,"Published true course, not a bearing recalculated from map connectors."
+16_analysis_legs.csv,magnetic_variation_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+16_analysis_legs.csv,magnetic_variation_deg,number,degree,True,empty_field,Literal signed numeric source cell; source signs are not harmonized.
+16_analysis_legs.csv,distance_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+16_analysis_legs.csv,distance_nm,number,nautical_mile,True,empty_field,Published leg distance. Blank for a printed dash; never imputed from coordinates.
+16_analysis_legs.csv,distance_m,number,metre,True,empty_field,Distance m.
+16_analysis_legs.csv,turn_direction_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+16_analysis_legs.csv,turn_direction_table,string,,True,empty_field,Turn direction table.
+16_analysis_legs.csv,turn_to_waypoint_routing_text,string,,True,empty_field,"Turn direction into this named fix parsed from the separate narrative, L or R. Not a replacement for the table cell."
+16_analysis_legs.csv,altitude_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+16_analysis_legs.csv,altitude_operator,string,,True,empty_field,Altitude operator.
+16_analysis_legs.csv,altitude_value,integer,,True,empty_field,Magnitude from altitude_raw; interpreted only together with altitude_operator and altitude_unit.
+16_analysis_legs.csv,altitude_unit,string,,True,empty_field,ft or FL. Flight levels use standard pressure and are not converted into surveyed AMSL altitude.
+16_analysis_legs.csv,altitude_min_ft,integer,foot,True,empty_field,Lower bound for a published feet-valued constraint; blank for flight-level-valued constraints.
+16_analysis_legs.csv,altitude_max_ft,integer,foot,True,empty_field,Upper bound for a published feet-valued constraint; blank for flight-level-valued constraints.
+16_analysis_legs.csv,flight_level_min,integer,flight_level_hundreds_of_feet_standard_pressure,True,empty_field,Flight level min.
+16_analysis_legs.csv,flight_level_max,string,flight_level_hundreds_of_feet_standard_pressure,True,empty_field,Flight level max.
+16_analysis_legs.csv,speed_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+16_analysis_legs.csv,speed_operator,string,,True,empty_field,Speed operator.
+16_analysis_legs.csv,speed_limit_kt,integer,knot,True,empty_field,Speed limit kt.
+16_analysis_legs.csv,navigation_specification_raw,string,,False,empty_field,Literal source value; dash and source spelling are preserved.
+16_analysis_legs.csv,data_class,string,,False,empty_field,"Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+16_analysis_legs.csv,source_id,string,,False,empty_field,Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon.
+16_analysis_legs.csv,source_locator,string,,False,empty_field,"Printed sheet, section, row or table location for reproducing the record."
+16_analysis_legs.csv,routing_source_id,string,,False,empty_field,Stable relational identifier.
+16_analysis_legs.csv,sheet_date,date,,False,empty_field,Sheet date.
+16_analysis_legs.csv,effective_date,date,,False,empty_field,Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date.
+16_analysis_legs.csv,quality_flag,string,,True,empty_field,Quality flag.
+16_analysis_legs.csv,airport_id,string,,False,empty_field,Stable relational identifier.
+16_analysis_legs.csv,runway_id,string,,False,empty_field,Stable relational identifier.
+16_analysis_legs.csv,departure_runway_end_id,string,,False,empty_field,Stable relational identifier.
+16_analysis_legs.csv,procedure_name,string,,False,empty_field,Procedure name.
+16_analysis_legs.csv,waypoint_latitude_deg,number,degree,False,empty_field,Waypoint latitude deg.
+16_analysis_legs.csv,waypoint_longitude_deg,number,degree,False,empty_field,Waypoint longitude deg.
+16_analysis_legs.csv,previous_latitude_deg,number,degree,True,empty_field,Previous latitude deg.
+16_analysis_legs.csv,previous_longitude_deg,number,degree,True,empty_field,Previous longitude deg.
+16_analysis_legs.csv,reference_geometry_wgs84_wkt,string,,True,empty_field,Straight fix connector for TF/CF visualization only; first leg blank because CF origin geometry was not supplied.
+16_analysis_legs.csv,reference_fix_distance_m,number,metre,True,empty_field,"Derived WGS84 ellipsoidal distance between preceding and current fix, not a flown-path measurement or reconstructed CF path."
+16_analysis_legs.csv,reference_fix_initial_bearing_deg,number,degree,True,empty_field,Derived WGS84 ellipsoid initial bearing between fixes; do not substitute for published course.
+16_analysis_legs.csv,reference_geometry_method,string,,False,empty_field,Reference geometry method.
+16_analysis_legs.csv,runway_length_m,integer,metre,False,empty_field,Runway length m.
+16_analysis_legs.csv,runway_width_m,integer,metre,False,empty_field,Runway width m.
+16_analysis_legs.csv,coordinate_source_ids,string,,False,empty_field,Source identifiers separated by semicolon.
+16_analysis_legs.csv,actual_flight_id,string,,True,empty_field,Stable relational identifier.
+16_analysis_legs.csv,observation_time_utc,string,,True,empty_field,Observation time utc.
+16_analysis_legs.csv,observed_altitude_ft,number,foot,True,empty_field,Intentionally blank: A1 contains no observed flight trajectories.
+16_analysis_legs.csv,observed_speed_kt,number,knot,True,empty_field,Observed speed kt.
+16_analysis_legs.csv,measured_noise_db,number,decibel,True,empty_field,Intentionally blank: no measured noise events included.
+16_analysis_legs.csv,observed_fuel_kg,number,kilogram,True,empty_field,Intentionally blank: no observed flight fuel included.
+16_analysis_legs.csv,target_label,string,,True,empty_field,Intentionally blank: no reviewed flight-level target labels in A1.
+17_declared_distances.csv,distance_record_id,string,,False,empty_field,Stable relational identifier.
+17_declared_distances.csv,runway_end_id,string,,False,empty_field,Stable relational identifier.
+17_declared_distances.csv,departure_point,string,,False,empty_field,FULL_LENGTH or published taxiway intersection; intersection records do not supply LDA.
+17_declared_distances.csv,tora_m,integer,metre,False,empty_field,Published take-off run available in metres for the stated departure point.
+17_declared_distances.csv,toda_m,integer,metre,False,empty_field,Published take-off distance available in metres for the stated departure point.
+17_declared_distances.csv,asda_m,integer,metre,False,empty_field,Published accelerate-stop distance available in metres for the stated departure point.
+17_declared_distances.csv,lda_m,integer,metre,True,empty_field,Published landing distance available in metres; blank for intersection departure rows because it was not supplied there.
+17_declared_distances.csv,remarks_raw,string,,True,empty_field,Literal source value; dash and source spelling are preserved.
+17_declared_distances.csv,source_id,string,,False,empty_field,Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon.
+17_declared_distances.csv,source_locator,string,,False,empty_field,"Printed sheet, section, row or table location for reproducing the record."
+17_declared_distances.csv,effective_date,date,,False,empty_field,Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date.
+18_source_context.csv,excerpt_id,string,,False,empty_field,Stable relational identifier.
+18_source_context.csv,source_id,string,,False,empty_field,Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon.
+18_source_context.csv,source_locator,string,,False,empty_field,"Printed sheet, section, row or table location for reproducing the record."
+18_source_context.csv,text_raw_whitespace_normalized,string,,False,empty_field,Text raw whitespace normalized.
+18_source_context.csv,data_class,string,,False,empty_field,"Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+18_source_context.csv,effective_date,date,,True,empty_field,Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date.
+19_parallel_departure_pairs.csv,operation_pair_id,string,,False,empty_field,Stable relational identifier.
+19_parallel_departure_pairs.csv,airport_id,string,,False,empty_field,Stable relational identifier.
+19_parallel_departure_pairs.csv,runway_end_a_id,string,,False,empty_field,Stable relational identifier.
+19_parallel_departure_pairs.csv,runway_end_b_id,string,,False,empty_field,Stable relational identifier.
+19_parallel_departure_pairs.csv,operation_type,string,,False,empty_field,Operation type.
+19_parallel_departure_pairs.csv,publication_status,string,,False,empty_field,Publication status.
+19_parallel_departure_pairs.csv,actual_active_status,string,,True,empty_field,Intentionally blank: published availability is not live operational status.
+19_parallel_departure_pairs.csv,source_id,string,,False,empty_field,Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon.
+19_parallel_departure_pairs.csv,source_locator,string,,False,empty_field,"Printed sheet, section, row or table location for reproducing the record."
+19_parallel_departure_pairs.csv,effective_date,date,,False,empty_field,Fixed 2026-10-01 package effective date; not the 2026-09-17 sheet publication date.
+20_data_gaps.csv,gap_id,string,,False,empty_field,Stable relational identifier.
+20_data_gaps.csv,data_domain,string,,False,empty_field,Data domain.
+20_data_gaps.csv,current_availability,string,,False,empty_field,Current availability.
+20_data_gaps.csv,future_fields_needed,string,,False,empty_field,Future fields needed.
+20_data_gaps.csv,analytical_purpose,string,,False,empty_field,Analytical purpose.
+20_data_gaps.csv,source_id,string,,False,empty_field,Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon.
+20_data_gaps.csv,source_locator,string,,False,empty_field,"Printed sheet, section, row or table location for reproducing the record."
+20_data_gaps.csv,training_target_available,boolean,,False,empty_field,Training target available.
+21_visualization_assumptions.csv,assumption_id,string,,False,empty_field,Stable relational identifier.
+21_visualization_assumptions.csv,parameter,string,,False,empty_field,Parameter.
+21_visualization_assumptions.csv,illustrative_value,number,,False,empty_field,Illustrative value.
+21_visualization_assumptions.csv,unit,string,,False,empty_field,Unit.
+21_visualization_assumptions.csv,usage,string,,False,empty_field,Usage.
+21_visualization_assumptions.csv,data_class,string,,False,empty_field,"Semantic evidence class. Published reference, derived geometry, community context, and illustration must remain distinguishable."
+21_visualization_assumptions.csv,use_as_observed_ML_feature,boolean,,False,empty_field,Use as observed ml feature.
+21_visualization_assumptions.csv,source_id,string,,False,empty_field,Foreign key to 12_sources.csv; provenance IDs in lists are separated by semicolon.
+21_visualization_assumptions.csv,source_locator,string,,False,empty_field,"Printed sheet, section, row or table location for reproducing the record."

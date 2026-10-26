@@ -1,0 +1,26 @@
+[
+  {
+    "file": "34C-table-1.pdf",
+    "sha256": "a6c05afd6c8564abdaa243c571a1265717f1135017b7bb08490345c8e7f785b3"
+  },
+  {
+    "file": "34C-table-2.pdf",
+    "sha256": "13257f9f98be2eeab576bbde8d5b9f7debc68065730f03669ba3b1f8834871e4"
+  },
+  {
+    "file": "34L-table-1.pdf",
+    "sha256": "a6b6f503bb7117e1f251466364b967e67208e51f01b306305da96545a7bd9279"
+  },
+  {
+    "file": "34L-table-2.pdf",
+    "sha256": "a34da5ee8eb13a684805eb19d5be1b0c0a10b07e760bbe545d3aaea147f43a59"
+  },
+  {
+    "file": "34R-table-1.pdf",
+    "sha256": "faea01dc75d4140ecfbf2a5c79297e36db83b1cf462d7f1e9efd87a669775663"
+  },
+  {
+    "file": "34R-table-2.pdf",
+    "sha256": "ddaa01b2cac53f2cd1458b32250f5949987152af0e348d2cc57c05c775181fbd"
+  }
+]

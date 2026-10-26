@@ -1,0 +1,3 @@
+# Transient local preview logs and Python caches
+__pycache__/
+map-2/preview-server*.log

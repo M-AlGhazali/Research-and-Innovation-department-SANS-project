@@ -1,0 +1,112 @@
+[
+  {
+    "file_name": "00_dataset_catalog.csv",
+    "bytes": 3900,
+    "sha256": "4523a8b286ea93682b17853eba5d72ef062369d343e3cd1186694399cd4c8fe1"
+  },
+  {
+    "file_name": "01_airports.csv",
+    "bytes": 860,
+    "sha256": "5cafee73373845f6dd6d4de2f37a4a872a8878e8ab69c5449cbd406e9da7fe20"
+  },
+  {
+    "file_name": "02_runways.csv",
+    "bytes": 1015,
+    "sha256": "9053fe14d6acf05f4d3757579a8ed5961e2de3c0863ddbacdd4da7cc702fdf97"
+  },
+  {
+    "file_name": "03_runway_ends.csv",
+    "bytes": 2246,
+    "sha256": "ae0885173434326a7feaea39bfcfae94e9fa3216b6a3d5292e37770125827ad1"
+  },
+  {
+    "file_name": "04_waypoints.csv",
+    "bytes": 5147,
+    "sha256": "82216b46f4a6aeae3634a0c54d945b8f60dfddd9a2427f3b128cc307c3790645"
+  },
+  {
+    "file_name": "05_coordinate_evidence.csv",
+    "bytes": 6970,
+    "sha256": "ccc20b9fd37f3279f46c3bf7064581a6ce37800eb3ee460dad6c51a548977927"
+  },
+  {
+    "file_name": "06_procedures.csv",
+    "bytes": 5373,
+    "sha256": "59cedf532016026c1fcf9ccf158fd6f3186b3ce47269eb999ca28a76d338b85c"
+  },
+  {
+    "file_name": "07_procedure_legs.csv",
+    "bytes": 29607,
+    "sha256": "4a2fc405b69274906be2bcf17d73f7a42d5b571697de96a4c66f9573cfac2dd2"
+  },
+  {
+    "file_name": "08_constraints.csv",
+    "bytes": 11339,
+    "sha256": "1d9a6adec3e746dcfd6aae27b54a4c3b60ba601b0c742d62333303d9ebca2008"
+  },
+  {
+    "file_name": "09_procedure_instructions.csv",
+    "bytes": 1956,
+    "sha256": "ecfcc607da0449cc54c6b445cef71056e2d6d75c39e7a9eb5ee5c41ffb47a169"
+  },
+  {
+    "file_name": "10_routing_text.csv",
+    "bytes": 6824,
+    "sha256": "319106a2fd961b38d0775e42f460b2248bfeb16d3d4966c240942a5711e7fe99"
+  },
+  {
+    "file_name": "11_ground_features.csv",
+    "bytes": 12996647,
+    "sha256": "0450df2e676d03ffdf6399f6ee9d4cd8eea23bde47a4512d6845750942215f2d"
+  },
+  {
+    "file_name": "12_sources.csv",
+    "bytes": 7906,
+    "sha256": "fc5ac5768a16177ed15aaadc5caadd979ac25a09c1f68b5d929cda810da5ddfe"
+  },
+  {
+    "file_name": "13_quality_issues.csv",
+    "bytes": 8221,
+    "sha256": "e8626b53fc537730d862eeb21ade7eb1f8019576844d996958acb5e1954785e5"
+  },
+  {
+    "file_name": "14_data_dictionary.csv",
+    "bytes": 43628,
+    "sha256": "06e73f1f89073dd0f53a40b5d3f771c082d709ac85c6b8196127e6fc7499f7ec"
+  },
+  {
+    "file_name": "15_procedure_features.csv",
+    "bytes": 4820,
+    "sha256": "af8e152ab584021f5e89a760850587e72b70290f413de9319a9d7d6524a62a77"
+  },
+  {
+    "file_name": "16_analysis_legs.csv",
+    "bytes": 54460,
+    "sha256": "9a7dc1c7da5a801afd4408c6b7c2cfcd67e2ceef4c95dd6564358159b18d8522"
+  },
+  {
+    "file_name": "17_declared_distances.csv",
+    "bytes": 1553,
+    "sha256": "f69ccc14d479c6d1bba9a8ab602bfb60fc6c213234368d760de2aea88e9b8297"
+  },
+  {
+    "file_name": "18_source_context.csv",
+    "bytes": 42394,
+    "sha256": "0dc7200c691fb507e930601fd62cc44612f151f8b398e91b50d3b0fc1559504a"
+  },
+  {
+    "file_name": "19_parallel_departure_pairs.csv",
+    "bytes": 589,
+    "sha256": "4073f6776c714095ff31d23840f3da3bf472b5b8aa0d161f6f62a9c33168c282"
+  },
+  {
+    "file_name": "20_data_gaps.csv",
+    "bytes": 1876,
+    "sha256": "bcbf6da357630fe55d7c92f4a9f5d5b0ea23a62916810b8a49cb9e3b5e666f9d"
+  },
+  {
+    "file_name": "21_visualization_assumptions.csv",
+    "bytes": 1166,
+    "sha256": "9bd396bd39a1e2b202f54163b3d4ff38a8ccc062b217ba32d1e0de686cf1fb42"
+  }
+]

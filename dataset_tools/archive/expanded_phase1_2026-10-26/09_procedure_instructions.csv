@@ -1,0 +1,9 @@
+rule_id,airport_id,departure_runway_end_id,applies_to,instruction_number,instruction_type,instruction_text_raw,numeric_value,unit,climb_gradient_percent,until_altitude_ft,atc_assignment_can_override,source_id,source_locator,effective_date
+RULE_34C_1,OEJN,OEJN_34C,all_A1_SIDs_for_this_departure_runway,1,atc_notification,Advise ATC prior to take-off if unable to comply with SID.,,,,,False,A1_34C_2,PDF page 1 / common procedure instructions,2026-10-01
+RULE_34C_2,OEJN,OEJN_34C,all_A1_SIDs_for_this_departure_runway,2,frequency,"After take-off, remain TWR FREQ.",,,,,False,A1_34C_2,PDF page 1 / common procedure instructions,2026-10-01
+RULE_34C_3,OEJN,OEJN_34C,all_A1_SIDs_for_this_departure_runway,3,minimum_climb_gradient,Minimum rate of climb is 320 FT per nautical mile. (5.27% CG) until 10000 FT.,320,ft_per_nm,5.27,10000,False,A1_34C_2,PDF page 1 / common procedure instructions,2026-10-01
+RULE_34C_4,OEJN,OEJN_34C,all_A1_SIDs_for_this_departure_runway,4,initial_climb,Climb to 6000 FT or as assigned by ATC.,6000,ft,,,True,A1_34C_2,PDF page 1 / common procedure instructions,2026-10-01
+RULE_34L_1,OEJN,OEJN_34L,all_A1_SIDs_for_this_departure_runway,1,atc_notification,Advise ATC prior to take-off if unable to comply with SID.,,,,,False,A1_34L_2,PDF page 1 / common procedure instructions,2026-10-01
+RULE_34L_2,OEJN,OEJN_34L,all_A1_SIDs_for_this_departure_runway,2,frequency,"After take-off, remain TWR FREQ.",,,,,False,A1_34L_2,PDF page 1 / common procedure instructions,2026-10-01
+RULE_34L_3,OEJN,OEJN_34L,all_A1_SIDs_for_this_departure_runway,3,minimum_climb_gradient,Minimum rate of climb is 320 FT per nautical mile. (5.27% CG) until 10000 FT.,320,ft_per_nm,5.27,10000,False,A1_34L_2,PDF page 1 / common procedure instructions,2026-10-01
+RULE_34L_4,OEJN,OEJN_34L,all_A1_SIDs_for_this_departure_runway,4,initial_climb,Climb to 6000 FT or as assigned by ATC.,6000,ft,,,True,A1_34L_2,PDF page 1 / common procedure instructions,2026-10-01

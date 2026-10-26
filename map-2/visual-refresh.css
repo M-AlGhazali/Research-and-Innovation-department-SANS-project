@@ -1,0 +1,25 @@
+/* Light frame: retain all header information and let the map color carry it. */
+body{background:#adc8d7}
+header{background:#adc8d7;color:#203e4d;border:0;box-shadow:none}
+.brand>div{border-left:1px solid #55748366}
+.brand b{color:#173b4b}
+.brand b span,.brand small,.pill{color:#456575}
+.header-right button{color:#20485a;border-color:#63849480;background:#e8f3f45e}
+.header-right button:hover{color:#173e4d;background:#f5faf8a8}
+main{background:#adc8d7}
+.sidebar{color:#244757;background:linear-gradient(155deg,#eff8f8b8,#dbeceeaf 60%,#cfe4e7ae);border-right:1px solid #ffffffa6;box-shadow:12px 0 30px #52768712;backdrop-filter:blur(24px) saturate(125%);scrollbar-color:#7fa6ad transparent}
+.section-head small,.procedure-heading small{color:#386c79}
+.section-head h1,.procedure b,.fleet-row b{color:#1f4655}
+.section-head p,.procedure small,.fleet-row span,.sidebar-note,.text-button{color:#4d7280}
+.procedure-heading span,.procedure .tag{color:#547a88}
+.runway-tab{background:#f5fbfbc9;color:#2d5665;border-color:#ffffffdc;border-bottom-color:var(--runway)}
+.runway-tab.active{background:#ffffff;color:#234957;box-shadow:0 3px 12px #355c6e18}
+.procedure{border-bottom-color:#86a7af77}
+.procedure:hover,.procedure.active{background:#ffffffa8;border-bottom-color:var(--accent)}
+.procedure .arrow{background:#d2e5e9;color:#3c7581}
+.fleet,.sidebar-note{border-top-color:#87a9b188}
+.dot{background:#268c87}
+.fleet-row i{box-shadow:0 0 0 2px #ffffff9c}
+.legend i{height:4px;border:0;opacity:1}
+.world-label.aircraft{border-bottom-color:var(--label-color)}
+@media(max-width:600px){.sidebar{border-bottom:1px solid #ffffffbb}}
