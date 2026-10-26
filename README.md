@@ -1,5 +1,5 @@
-# SANS Research and Innovation — OEJN mapping phase
-
+# SANS Project — OEJN mapping phase
+# Research and Innovation Dept
 This project maps King Abdulaziz International Airport ground features and published departure procedures. The longer term aim is to study operational efficiency, fuel consumption, CO₂ emissions, and community noise using observed flights and suitable models. These maps are a reference and visual prototype; they do not measure those outcomes.
 
 | Open | Contents |
