@@ -100,7 +100,7 @@ def airport_sheet():
         txt(940,510,'INITIAL STUDY FOCUS',13,BLUE,700)]
     for y,key,ends,dim in [(551,'34C','34C / 16C','4,000 × 60 m'),(621,'34L','34L / 16R','3,800 × 60 m'),(691,'34R','34R / 16L','4,000 × 60 m')]:
         s += [rect(940,y-22,5,44,COLORS[key]),txt(960,y,ends,23,COLORS[key],700),txt(1160,y,dim,16),txt(960,y+22,'Airport context only' if key=='34R' else 'Included in the initial study',12,'#6d788a')]
-    s += [txt(42,766,'02   HOW THE STUDY IS BOUNDED',16,BLUE,700),lines(42,800,['The research concentrates on the central and western runways: 34C/16C and 34L/16R.',
+    s += [txt(42,766,'02   HOW THE STUDY IS BOUNDED',16,BLUE,700),lines(42,800,['The initiative concentrates on the central and western runways: 34C/16C and 34L/16R.',
         'The eastern runway, 34R/16L, remains visible to explain the full airport system.',
         'Building forms follow mapped footprints. Heights and flat terrain are illustrative, not surveyed.'],17),
         rect(940,765,405,126,'#f0f4fa'),txt(960,796,'READING THE MODEL',13,BLUE,700),lines(960,825,['Teal / rose: study runways','Ochre: third runway · white: buildings'],15)]
