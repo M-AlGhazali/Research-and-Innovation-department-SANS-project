@@ -62,6 +62,13 @@ def test_reference_idempotence_and_correction():
     assert sum(l['published_distance_nm'] is None for r in study['routes'] for l in r['legs'])==8
     assert any(l['altitude_unit']=='FL' for r in study['routes'] for l in r['legs'])
 
+def test_canonical_csv_hashes_match_tracked_git_bytes():
+    import hashlib
+    import subprocess
+    for name in ('A1_Procedures.csv','External_Airport_Runways.csv'):
+        committed=subprocess.check_output(['git','show','HEAD:data/'+name],cwd=ROOT)
+        assert file_hash(ROOT/'data'/name)==hashlib.sha256(committed).hexdigest()
+
 def test_projection_round_trip():
     lon,lat=39.1561111111,21.6811111111
     e,n=TRANSFORM.transform(lon,lat)

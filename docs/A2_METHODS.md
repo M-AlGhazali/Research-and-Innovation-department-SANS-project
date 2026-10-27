@@ -4,6 +4,8 @@
 
 The committed `data/A1_Procedures.csv` is the study source of truth. Its deterministic exporter generates the viewer's 34C/34L routes and the matcher's reference, preserving IDs, sequence, raw restrictions, separate flight-level units, sources, and caveats. The 34R context has a separate versioned file. The EGREP 2W ceiling is at JN520; MIGDA 3X retains the JN274 coordinate cross-reference caveat. No published missing CF distance is filled using straight-line geometry.
 
+Git attributes require LF line endings for canonical CSVs, keeping the recorded source-byte hashes identical across Windows and Linux checkouts. A regression test compares checkout hashes with the committed Git bytes.
+
 The optional QGIS ground rebuild consumes compatibility tokens derived from the CSV and 34R context, then applies the canonical exporter. Ordinary A2 work does not rerun the old full-dataset rebuild with its external document dependencies.
 
 ## Provider adapter
