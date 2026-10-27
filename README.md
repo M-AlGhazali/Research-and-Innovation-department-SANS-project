@@ -13,3 +13,7 @@ This initiative maps King Abdulaziz International Airport ground features and pu
 The [dataset notes](data/README.md) explain fields and provenance. Map 2 additionally shows 34R for context. Both browser maps are prepared for GitHub Pages hosting; no Supabase account is needed.
 
 **Folders:** `map-1/` and `map-2/` are the two maps; `data/` holds the handoff CSVs; `sources/` keeps the original evidence; `tools/` has the scripts that rebuild the maps (run from the repo root); `dataset_tools/` rebuilds the dataset. `Start Map 2.cmd` runs Map 2 locally.
+
+## Local observed flights (A2)
+
+The local A2 pipeline reconstructs departure candidates and ranks geometric procedure matches. The viewer supports multiple recorded flights on a UTC timeline while retaining illustrative procedure mode. See [A2 setup](docs/A2_SETUP.md), [methods and limits](docs/A2_METHODS.md), and [validation/readiness](docs/A2_READINESS.md). Real traffic exports stay outside this repository and are excluded from the static deployment.

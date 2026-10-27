@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema_version", "flight_id", "icao24", "start_ms", "end_ms", "anchor_ms", "runway_status", "runway_candidates", "gaps", "extensions"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "flight_id": {"type": "string", "minLength": 1},
+    "icao24": {"type": "string", "pattern": "^[0-9a-f]{6}$"},
+    "start_ms": {"type": "integer"}, "end_ms": {"type": "integer"}, "anchor_ms": {"type": "integer"},
+    "runway": {"enum": ["34C", "34L", null]},
+    "runway_status": {"enum": ["accepted_departure_candidate", "ambiguous_runway", "insufficient_evidence", "rejected_non_departure"]},
+    "runway_candidates": {"type": "array"}, "gaps": {"type": "array"}, "extensions": {"type": "object"}
+  }
+}

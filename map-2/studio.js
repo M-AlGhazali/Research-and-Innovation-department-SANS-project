@@ -1,9 +1,11 @@
 import * as THREE from 'three';
 import {OrbitControls} from './vendor/OrbitControls.js';
 import {buildFlight,sampleFlight,advance,constraintLabel} from './flight-model.mjs';
+import {mountObserved} from './observed-layer.mjs';
 
 const $=id=>document.getElementById(id),host=$('canvas-host'),viewport=$('viewport');
 let data,scene,camera,renderer,controls,selected='34C',vertical=4,speed=1,cameraMode='airport',last=0,ready=false;
+let observed=null;
 let focusAngle=0,focusSubject="aircraft",customTitle="",customCopy="";
 const reducedMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
 const states={},worldLabels=[],pickables=[],clock=new THREE.Clock(),raycaster=new THREE.Raycaster();
@@ -176,7 +178,7 @@ function animate(now){
    controls.target.lerp(target,ease);camera.position.lerp(target.clone().add(offset),ease);
   }
  }
- controls.update();renderer.render(scene,camera);
+ observed?.update(dt,now);controls.update();renderer.render(scene,camera);
  const width=host.clientWidth,height=host.clientHeight;
  for(const l of worldLabels){tempV.copy(l.position).project(camera);const selectedFlight=states[selected],focusVisible=l===selectedFlight.planeLabel||(l.type==='fix'&&l.el.textContent===selectedFlight.sample?.next);const focusHidden=cameraMode==='focus'&&!focusVisible;const show=!focusHidden&&tempV.z>=-1&&tempV.z<=1&&Math.abs(tempV.x)<1.05&&Math.abs(tempV.y)<1.05;l.el.style.display=show?'':'none';if(show){l.el.style.left=((tempV.x*.5+.5)*width)+'px';l.el.style.top=((-tempV.y*.5+.5)*height)+'px'}}
  if(now-last>100){updateUI();last=now}
@@ -214,8 +216,9 @@ async function init(){
   camera=new THREE.PerspectiveCamera(46,1,.005,1000);renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;renderer.setSize(host.clientWidth,host.clientHeight);host.append(renderer.domElement);
   controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.08;controls.maxPolarAngle=Math.PI/2-.025;controls.minDistance=.8;controls.maxDistance=350;
   scene.add(new THREE.HemisphereLight('#ffffff','#6c8590',2.0));const light=new THREE.DirectionalLight('#fff5e6',2.4);light.position.set(-10,25,10);scene.add(light);
-  buildGround();buildRunways();wireControls();selectRunway('34C');setCameraMode('airport');$('loading').style.display='none';ready=true;
-  window.map2={getState:()=>Object.fromEntries(Object.entries(states).map(([id,s])=>[id,{procedure:s.flight?.route.name||null,playing:s.playing,elapsed:s.elapsed,duration:s.flight?.duration||0,loops:s.loops,next:s.sample?.next,position:s.plane.position.toArray()}])),getCamera:()=>({mode:cameraMode,subject:focusSubject,position:camera.position.toArray(),target:controls.target.toArray()}),getCounts:()=>({aircraft:Object.keys(states).length,procedures:data.routes.length,fixes:Object.keys(data.fixes).length}),selectProcedure:name=>{const route=data.routes.find(r=>r.name===name);if(!route)throw new Error('Unknown procedure');chooseProcedure(route)}};
+  buildGround();buildRunways();wireControls();selectRunway('34C');setCameraMode('airport');
+   observed=mountObserved({scene,data,aircraft,host,vertical:()=>vertical,camera,controls,onMode:enabled=>{document.querySelector('.attribution').textContent=enabled?'© OpenStreetMap contributors · Wingbits recorded reports · geometric candidates, clearance unknown':'© OpenStreetMap contributors · SANS AIP AMDT 10/26 · Concept playback, not recorded flights';for(const s of Object.values(states)){s.playing=false;s.plane.visible=!enabled;s.ring.visible=!enabled;s.planeLabel.el.hidden=enabled;if(s.routeGroup)s.routeGroup.visible=!enabled;for(const l of s.routeLabels)l.el.hidden=enabled}setCameraMode('airport');$('sources').textContent=enabled?'Sources & interpretation':'Sources & assumptions'}});$('loading').style.display='none';ready=true;
+  window.map2={observed,getState:()=>Object.fromEntries(Object.entries(states).map(([id,s])=>[id,{procedure:s.flight?.route.name||null,playing:s.playing,elapsed:s.elapsed,duration:s.flight?.duration||0,loops:s.loops,next:s.sample?.next,position:s.plane.position.toArray()}])),getCamera:()=>({mode:cameraMode,subject:focusSubject,position:camera.position.toArray(),target:controls.target.toArray()}),getCounts:()=>({aircraft:Object.keys(states).length,procedures:data.routes.length,fixes:Object.keys(data.fixes).length}),selectProcedure:name=>{const route=data.routes.find(r=>r.name===name);if(!route)throw new Error('Unknown procedure');chooseProcedure(route)}};
   requestAnimationFrame(animate);
  }catch(error){$('loading').classList.add('error');$('loading').textContent='Unable to open the 3D scene. Use “Start Map 2.cmd” and a browser with WebGL enabled. '+error.message;console.error(error)}
 }

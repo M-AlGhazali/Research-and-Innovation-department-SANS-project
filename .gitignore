@@ -1,3 +1,13 @@
 # Transient local preview logs and Python caches
 __pycache__/
 map-2/preview-server*.log
+.venv/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+outputs/
+local-data/
+*.duckdb*
+*.parquet
+observed-data/

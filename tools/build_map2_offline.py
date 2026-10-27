@@ -16,15 +16,17 @@ def build():
         'three': read('vendor/three.module.js').replace("'./three.core.js'", "'three-core'"),
         'orbit-controls': read('vendor/OrbitControls.js'),
         'flight-model': read('flight-model.mjs'),
+        'observed-model': read('observed-model.mjs'),
+        'observed-layer': read('observed-layer.mjs').replace("'./observed-model.mjs'", "'observed-model'"),
     }
     imports = {name: data_url(source) for name, source in modules.items()}
-    html = read('index.html')
+    html = read('index.html').replace('<link rel="stylesheet" href="observed.css">', '<style>' + read('observed.css') + '</style>')
     html = re.sub(r'<link rel="stylesheet" href="studio\.css[^\"]*">',
                   lambda _: '<style>' + read('studio.css') + '</style>', html)
     html = re.sub(r'<script type="importmap">.*?</script>',
                   lambda _: '<script type="importmap">' + json.dumps({'imports': imports}) + '</script>', html)
     html = html.replace('src="sans-logo-light.svg"', 'src="' + data_url(read('sans-logo-light.svg'), 'image/svg+xml') + '"')
-    studio = read('studio.js').replace("'./vendor/OrbitControls.js'", "'orbit-controls'").replace("'./flight-model.mjs'", "'flight-model'")
+    studio = read('studio.js').replace("'./vendor/OrbitControls.js'", "'orbit-controls'").replace("'./flight-model.mjs'", "'flight-model'").replace("'./observed-layer.mjs'", "'observed-layer'")
     old = "const response=await fetch('./data.json');if(!response.ok)throw new Error('Map dataset could not be loaded');data=await response.json();"
     assert old in studio, 'Dataset loader changed; update the offline build.'
     studio = studio.replace(old, "data=JSON.parse(document.getElementById('embedded-map-data').textContent);")
