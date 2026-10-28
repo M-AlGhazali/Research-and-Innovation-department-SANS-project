@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "type": "object",
+  "description": "Logical normalized observation record; Parquet column types are validated separately. Missing optional measurements are null, never zero sentinels.",
+  "required": ["schema_version", "observation_id", "source_file", "source_row", "icao24", "timestamp_ms", "latitude_deg", "longitude_deg", "easting_m", "northing_m", "quality_flags"],
+  "properties": {
+    "schema_version": {"const": 1}, "observation_id": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "icao24": {"type": "string", "pattern": "^[0-9a-f]{6}$"}, "source_file": {"type": "string"}, "source_row": {"type": "integer", "minimum": 0},
+    "timestamp_ms": {"type": "integer", "description": "UTC Unix milliseconds"},
+    "latitude_deg": {"type": "number", "minimum": -90, "maximum": 90}, "longitude_deg": {"type": "number", "minimum": -180, "maximum": 180},
+    "easting_m": {"type": "number", "description": "EPSG:32637 metres"}, "northing_m": {"type": "number", "description": "EPSG:32637 metres"},
+    "barometric_altitude_ft": {"type": ["number", "null"], "description": "Pressure altitude ft, uncorrected"},
+    "geometric_altitude_ft": {"type": ["number", "null"], "description": "WGS84 ellipsoid ft"},
+    "ground_speed_kt": {"type": ["number", "null"]}, "indicated_airspeed_kt": {"type": ["number", "null"]},
+    "on_ground": {"type": ["boolean", "null"]}, "quality_flags": {"type": "string"}
+  }
+}

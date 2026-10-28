@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema_version", "flight_id", "status", "best_candidate", "candidates", "reasons"],
+  "properties": {
+    "schema_version": {"const": 1}, "flight_id": {"type": "string"},
+    "status": {"enum": ["geometry_consistent", "ambiguous", "partial", "unmatched", "insufficient_data"]},
+    "best_candidate": {"type": ["string", "null"]}, "candidates": {"type": "array"}, "reasons": {"type": "array", "items": {"type": "string"}}
+  },
+  "allOf": [{"if": {"properties": {"status": {"enum": ["ambiguous", "unmatched", "insufficient_data"]}}}, "then": {"properties": {"best_candidate": {"type": "null"}}}}]
+}

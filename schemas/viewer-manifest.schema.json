@@ -1,0 +1,5 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema", "type": "object",
+  "required": ["schema_version", "reference_sha256", "flights", "altitude_display", "publication", "interpolation_gap_s"],
+  "properties": {"schema_version": {"const": 1}, "flights": {"type": "array"}, "reference_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "interpolation_gap_s": {"type": "number", "exclusiveMinimum": 0}}
+}

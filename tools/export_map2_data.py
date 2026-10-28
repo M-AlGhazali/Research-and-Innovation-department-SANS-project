@@ -47,3 +47,9 @@ for p in (ROOT/'sources/map-2').glob('*.pdf'):
 (OUT/'reference/manifest.json').write_text(json.dumps(manifest,indent=2))
 assert len(routes)==24 and len(runways)==3
 print(json.dumps({'routes':len(routes),'runways':len(runways),'fixes':len(fixes),'groundParts':len(ground),'sourceWarnings':WARNINGS},indent=2),flush=True)
+
+# Apply the same canonical study exporter used by A2; requires the A2 dependencies.
+import sys
+sys.path.insert(0,str(ROOT/"src"))
+from sans_a2.reference import export_reference
+export_reference(ROOT)

@@ -1,0 +1,836 @@
+{
+  "fixes": {
+    "BOMOX": {
+      "lat": 22.496944444444445,
+      "lon": 38.45111111111111,
+      "rawDms": [
+        "22",
+        "29",
+        "49",
+        "38",
+        "27",
+        "04"
+      ],
+      "xz": [
+        -72.389311,
+        -90.520854
+      ]
+    },
+    "DATAP": {
+      "lat": 22.6575,
+      "lon": 39.486111111111114,
+      "rawDms": [
+        "22",
+        "39",
+        "27",
+        "39",
+        "29",
+        "10"
+      ],
+      "xz": [
+        34.011194,
+        -108.271503
+      ]
+    },
+    "DENBU": {
+      "lat": 21.02472222222222,
+      "lon": 38.341944444444444,
+      "rawDms": [
+        "21",
+        "01",
+        "29",
+        "38",
+        "20",
+        "31"
+      ],
+      "xz": [
+        -84.312229,
+        72.391435
+      ]
+    },
+    "EGPOB": {
+      "lat": 20.924444444444447,
+      "lon": 39.78611111111111,
+      "rawDms": [
+        "20",
+        "55",
+        "28",
+        "39",
+        "47",
+        "10"
+      ],
+      "xz": [
+        65.811123,
+        83.430028
+      ]
+    },
+    "EGREP": {
+      "lat": 22.465,
+      "lon": 39.83527777777778,
+      "rawDms": [
+        "22",
+        "27",
+        "54",
+        "39",
+        "50",
+        "07"
+      ],
+      "xz": [
+        70.0049,
+        -87.120737
+      ]
+    },
+    "ISLAM": {
+      "lat": 21.779999999999998,
+      "lon": 39.86666666666667,
+      "rawDms": [
+        "21",
+        "46",
+        "48",
+        "39",
+        "52",
+        "00"
+      ],
+      "xz": [
+        73.666442,
+        -11.311772
+      ]
+    },
+    "JN223": {
+      "lat": 21.410833333333333,
+      "lon": 39.375277777777775,
+      "rawDms": [
+        "21",
+        "24",
+        "39",
+        "39",
+        "22",
+        "31"
+      ],
+      "xz": [
+        22.963216,
+        29.75275
+      ]
+    },
+    "JN224": {
+      "lat": 21.21722222222222,
+      "lon": 39.26361111111111,
+      "rawDms": [
+        "21",
+        "13",
+        "02",
+        "39",
+        "15",
+        "49"
+      ],
+      "xz": [
+        11.425588,
+        51.204741
+      ]
+    },
+    "JN226": {
+      "lat": 21.083333333333332,
+      "lon": 38.94222222222222,
+      "rawDms": [
+        "21",
+        "05",
+        "00",
+        "38",
+        "56",
+        "32"
+      ],
+      "xz": [
+        -21.932877,
+        66.044541
+      ]
+    },
+    "JN227": {
+      "lat": 21.07111111111111,
+      "lon": 38.81583333333333,
+      "rawDms": [
+        "21",
+        "04",
+        "16",
+        "38",
+        "48",
+        "57"
+      ],
+      "xz": [
+        -35.062607,
+        67.387254
+      ]
+    },
+    "JN232": {
+      "lat": 21.733333333333334,
+      "lon": 39.16083333333333,
+      "rawDms": [
+        "21",
+        "44",
+        "00",
+        "39",
+        "09",
+        "39"
+      ],
+      "xz": [
+        0.700787,
+        -5.903777
+      ]
+    },
+    "JN234": {
+      "lat": 22.26,
+      "lon": 38.89833333333333,
+      "rawDms": [
+        "22",
+        "15",
+        "36",
+        "38",
+        "53",
+        "54"
+      ],
+      "xz": [
+        -26.406326,
+        -64.193249
+      ]
+    },
+    "JN236": {
+      "lat": 21.784444444444446,
+      "lon": 39.364444444444445,
+      "rawDms": [
+        "21",
+        "47",
+        "04",
+        "39",
+        "21",
+        "52"
+      ],
+      "xz": [
+        21.743594,
+        -11.596719
+      ]
+    },
+    "JN237": {
+      "lat": 21.752777777777776,
+      "lon": 39.5625,
+      "rawDms": [
+        "21",
+        "45",
+        "10",
+        "39",
+        "33",
+        "45"
+      ],
+      "xz": [
+        42.231065,
+        -8.153104
+      ]
+    },
+    "JN274": {
+      "lat": 22.358333333333334,
+      "lon": 38.713055555555556,
+      "rawDms": [
+        "22",
+        "21",
+        "30",
+        "38",
+        "42",
+        "47"
+      ],
+      "xz": [
+        -45.475189,
+        -75.102404
+      ]
+    },
+    "JN397": {
+      "lat": 22.06972222222222,
+      "lon": 39.25138888888889,
+      "rawDms": [
+        "22",
+        "04",
+        "11",
+        "39",
+        "15",
+        "05"
+      ],
+      "xz": [
+        10.004491,
+        -43.1496
+      ]
+    },
+    "JN550": {
+      "lat": 22.223611111111108,
+      "lon": 39.49388888888889,
+      "rawDms": [
+        "22",
+        "13",
+        "25",
+        "39",
+        "29",
+        "38"
+      ],
+      "xz": [
+        34.968333,
+        -60.244845
+      ]
+    },
+    "JN555": {
+      "lat": 22.32361111111111,
+      "lon": 39.56027777777778,
+      "rawDms": [
+        "22",
+        "19",
+        "25",
+        "39",
+        "33",
+        "37"
+      ],
+      "xz": [
+        41.769434,
+        -71.338001
+      ]
+    },
+    "JN600": {
+      "lat": 21.126944444444444,
+      "lon": 39.394999999999996,
+      "rawDms": [
+        "21",
+        "07",
+        "37",
+        "39",
+        "23",
+        "42"
+      ],
+      "xz": [
+        25.085873,
+        61.168047
+      ]
+    },
+    "KAROX": {
+      "lat": 20.954722222222223,
+      "lon": 38.26305555555555,
+      "rawDms": [
+        "20",
+        "57",
+        "17",
+        "38",
+        "15",
+        "47"
+      ],
+      "xz": [
+        -92.545858,
+        80.10319
+      ]
+    },
+    "MIGDA": {
+      "lat": 22.641388888888887,
+      "lon": 38.71472222222223,
+      "rawDms": [
+        "22",
+        "38",
+        "29",
+        "38",
+        "42",
+        "53"
+      ],
+      "xz": [
+        -45.243887,
+        -106.434563
+      ]
+    },
+    "ORPAR": {
+      "lat": 21.550833333333333,
+      "lon": 39.45611111111111,
+      "rawDms": [
+        "21",
+        "33",
+        "03",
+        "39",
+        "27",
+        "22"
+      ],
+      "xz": [
+        31.295917,
+        14.235132
+      ]
+    },
+    "RIBAM": {
+      "lat": 20.70861111111111,
+      "lon": 39.097500000000004,
+      "rawDms": [
+        "20",
+        "42",
+        "31",
+        "39",
+        "05",
+        "51"
+      ],
+      "xz": [
+        -5.778841,
+        107.513606
+      ]
+    },
+    "RIBIL": {
+      "lat": 21.93722222222222,
+      "lon": 39.30416666666667,
+      "rawDms": [
+        "21",
+        "56",
+        "14",
+        "39",
+        "18",
+        "15"
+      ],
+      "xz": [
+        15.478807,
+        -28.493471
+      ]
+    },
+    "SINBI": {
+      "lat": 21.33222222222222,
+      "lon": 39.541666666666664,
+      "rawDms": [
+        "21",
+        "19",
+        "56",
+        "39",
+        "32",
+        "30"
+      ],
+      "xz": [
+        40.238443,
+        38.403151
+      ]
+    }
+  },
+  "routes": [
+    {
+      "amendment": "AIP AMDT 10/26",
+      "id": "BOMOX-3V",
+      "legs": [
+        {
+          "altitude": "+600",
+          "fix": "JN232",
+          "flyOver": true,
+          "path": "CF",
+          "speed": "-210"
+        },
+        {
+          "altitude": "-6000",
+          "fix": "RIBIL",
+          "flyOver": false,
+          "path": "CF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "JN397",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "JN234",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "JN274",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "BOMOX",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        }
+      ],
+      "name": "BOMOX 3V",
+      "pages": [
+        118,
+        119
+      ],
+      "runway": "34R",
+      "sheetDate": "2026-09-17",
+      "warning": ""
+    },
+    {
+      "amendment": "AIP AMDT 10/26",
+      "id": "DATAP-3V",
+      "legs": [
+        {
+          "altitude": "+600",
+          "fix": "JN232",
+          "flyOver": true,
+          "path": "CF",
+          "speed": "-210"
+        },
+        {
+          "altitude": "-6000",
+          "fix": "RIBIL",
+          "flyOver": false,
+          "path": "CF",
+          "speed": ""
+        },
+        {
+          "altitude": "-13000",
+          "fix": "JN550",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "JN555",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "DATAP",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        }
+      ],
+      "name": "DATAP 3V",
+      "pages": [
+        118,
+        119
+      ],
+      "runway": "34R",
+      "sheetDate": "2026-09-17",
+      "warning": ""
+    },
+    {
+      "amendment": "AIP AMDT 10/26",
+      "id": "EGPOB-3V",
+      "legs": [
+        {
+          "altitude": "+600",
+          "fix": "JN232",
+          "flyOver": true,
+          "path": "CF",
+          "speed": "-210"
+        },
+        {
+          "altitude": "-5000",
+          "fix": "JN236",
+          "flyOver": false,
+          "path": "CF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "ORPAR",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "SINBI",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "EGPOB",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        }
+      ],
+      "name": "EGPOB 3V",
+      "pages": [
+        118,
+        119
+      ],
+      "runway": "34R",
+      "sheetDate": "2026-09-17",
+      "warning": ""
+    },
+    {
+      "amendment": "AIP AMDT 10/26",
+      "id": "EGREP-3V",
+      "legs": [
+        {
+          "altitude": "+600",
+          "fix": "JN232",
+          "flyOver": true,
+          "path": "CF",
+          "speed": "-210"
+        },
+        {
+          "altitude": "-6000",
+          "fix": "RIBIL",
+          "flyOver": false,
+          "path": "CF",
+          "speed": ""
+        },
+        {
+          "altitude": "-13000",
+          "fix": "JN550",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "JN555",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "EGREP",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        }
+      ],
+      "name": "EGREP 3V",
+      "pages": [
+        118,
+        119
+      ],
+      "runway": "34R",
+      "sheetDate": "2026-09-17",
+      "warning": ""
+    },
+    {
+      "amendment": "AIP AMDT 10/26",
+      "id": "ISLAM-3V",
+      "legs": [
+        {
+          "altitude": "+600",
+          "fix": "JN232",
+          "flyOver": true,
+          "path": "CF",
+          "speed": "-210"
+        },
+        {
+          "altitude": "-5000",
+          "fix": "JN236",
+          "flyOver": false,
+          "path": "CF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "JN237",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "-13000",
+          "fix": "ISLAM",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        }
+      ],
+      "name": "ISLAM 3V",
+      "pages": [
+        118,
+        119
+      ],
+      "runway": "34R",
+      "sheetDate": "2026-09-17",
+      "warning": ""
+    },
+    {
+      "amendment": "AIP AMDT 10/26",
+      "id": "KAROX-3V",
+      "legs": [
+        {
+          "altitude": "+600",
+          "fix": "JN232",
+          "flyOver": true,
+          "path": "CF",
+          "speed": "-210"
+        },
+        {
+          "altitude": "-5000",
+          "fix": "JN236",
+          "flyOver": false,
+          "path": "CF",
+          "speed": ""
+        },
+        {
+          "altitude": "+8000",
+          "fix": "ORPAR",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "+10000",
+          "fix": "JN223",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "JN224",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "JN226",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "+FL180",
+          "fix": "JN227",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "DENBU",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "KAROX",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        }
+      ],
+      "name": "KAROX 3V",
+      "pages": [
+        118,
+        119
+      ],
+      "runway": "34R",
+      "sheetDate": "2026-09-17",
+      "warning": ""
+    },
+    {
+      "amendment": "AIP AMDT 10/26",
+      "id": "MIGDA-3V",
+      "legs": [
+        {
+          "altitude": "+600",
+          "fix": "JN232",
+          "flyOver": true,
+          "path": "CF",
+          "speed": "-210"
+        },
+        {
+          "altitude": "-6000",
+          "fix": "RIBIL",
+          "flyOver": false,
+          "path": "CF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "JN397",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "-13000",
+          "fix": "JN234",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "MIGDA",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        }
+      ],
+      "name": "MIGDA 3V",
+      "pages": [
+        118,
+        119
+      ],
+      "runway": "34R",
+      "sheetDate": "2026-09-17",
+      "warning": ""
+    },
+    {
+      "amendment": "AIP AMDT 10/26",
+      "id": "RIBAM-3V",
+      "legs": [
+        {
+          "altitude": "+600",
+          "fix": "JN232",
+          "flyOver": true,
+          "path": "CF",
+          "speed": "-210"
+        },
+        {
+          "altitude": "-5000",
+          "fix": "JN236",
+          "flyOver": false,
+          "path": "CF",
+          "speed": ""
+        },
+        {
+          "altitude": "+8000",
+          "fix": "ORPAR",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "+11000",
+          "fix": "SINBI",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "+FL150",
+          "fix": "JN600",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        },
+        {
+          "altitude": "",
+          "fix": "RIBAM",
+          "flyOver": false,
+          "path": "TF",
+          "speed": ""
+        }
+      ],
+      "name": "RIBAM 3V",
+      "pages": [
+        118,
+        119
+      ],
+      "runway": "34R",
+      "sheetDate": "2026-09-17",
+      "warning": ""
+    }
+  ],
+  "schema_version": 1,
+  "scope": "34R context only; independent of the study CSV",
+  "source": "Retained six-page map transcription, AIP AMDT 10/26"
+}

@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {sampleObserved,splitObservedTrack,advanceObserved,activeFlights} from '../map-2/observed-model.mjs';
+const samples=[[1000,0,0,100,120,130,350,false,'','a'],[6000,1,-1,200,220,150,10,false,'','b'],[66000,3,-3,null,null,null,null,false,'','c']];
+assert.equal(sampleObserved(samples,1000).interpolated,false);
+const middle=sampleObserved(samples,3500);assert.equal(middle.barometricAltitudeFt,150);assert.equal(middle.trackDeg,0);assert.equal(middle.displayAltitudeFt,100);assert(middle.interpolated);
+assert.equal(sampleObserved(samples,30000).reason,'observation gap');
+assert.equal(sampleObserved(samples,66000).altitudeFt,null);
+assert.equal(sampleObserved(samples,999).available,false);
+assert.equal(splitObservedTrack(samples).length,2);
+const state={playing:false,timestampMs:1000,endMs:66000,speed:20};advanceObserved(state,1);assert.equal(state.timestampMs,1000);state.playing=true;advanceObserved(state,1);assert.equal(state.timestampMs,21000);advanceObserved(state,10);assert.equal(state.timestampMs,66000);assert.equal(state.playing,false);
+assert.equal(activeFlights([{flight_id:'A',runway:'34C',start_ms:0,end_ms:100},{flight_id:'B',runway:'34C',start_ms:0,end_ms:100}],50,'34C').length,2);
+console.log('Observed UTC sampling, gap/missing-altitude handling, heading wrap, pause, completion and same-runway traffic passed.');
