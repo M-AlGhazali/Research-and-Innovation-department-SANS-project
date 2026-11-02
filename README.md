@@ -7,7 +7,7 @@ This component focuses on integrating weather data with aircraft observations an
 ## 2. Data Sources
 
 - **Aircraft Observations:** `observations.parquet`, containing aircraft identifiers (`icao24`), timestamps, geographic coordinates, altitude, ground speed, track, and vertical speed.
-- **Flight Records:** `flights.parquet`, It was used to identify and select departure flights for the fuel-flow analysis.
+- **Flight Records:** `flights.parquet`, used to identify and select departure flights for the fuel-flow analysis.
 - **External Aircraft Reference Data:** Used with the `icao24` identifiers to identify aircraft types and retrieve aircraft specifications, including Maximum Take-Off Weight (MTOW).
 - **ERA5 Surface Weather:** Provides 2-meter temperature, 10-meter U/V wind components, and surface pressure.
 - **ERA5 Pressure-Level Weather:** Provides atmospheric temperature, U/V wind components, and geopotential at different pressure levels.
@@ -18,6 +18,8 @@ This component focuses on integrating weather data with aircraft observations an
 ### 3.1 Aircraft Identification
 
 The `icao24` identifier from the aircraft observations was matched with external aircraft reference data to identify aircraft types and retrieve their specifications, particularly MTOW.
+
+**Maximum Take-Off Weight (MTOW)** is the maximum permitted total weight of an aircraft at take-off, specified by the aircraft manufacturer. It was used to estimate aircraft mass.
 
 ### 3.2 Weather Processing and Integration
 
@@ -50,8 +52,14 @@ H(m) = \frac{\Phi}{9.80665}
 $$
 
 Where:
-- \(u\) and \(v\) represent wind components.
-- \(\Phi\) represents geopotential.
+- **WS:** Wind speed (m/s).
+- **u:** Eastward wind component (m/s).
+- **v:** Northward wind component (m/s).
+- **T:** Temperature, expressed in Kelvin or Celsius.
+- **P:** Surface pressure, expressed in pascals or hectopascals.
+- **H:** Geopotential height (m).
+- **Φ:** Geopotential (m²/s²).
+- **9.80665:** Standard gravitational acceleration (m/s²).
 
 ### 3.3 Aircraft Mass Estimation
 
@@ -60,6 +68,11 @@ Actual aircraft operating mass was unavailable. Therefore, aircraft mass was est
 $$
 Mass_{estimated} = MTOW \times 0.80
 $$
+
+Where:
+- **Mass estimated:** Estimated aircraft mass (kg).
+- **MTOW:** Maximum Take-Off Weight (kg).
+- **0.80:** Assumed percentage of MTOW (80%).
 
 ### 3.4 True Airspeed (TAS) Calculation
 
@@ -86,10 +99,13 @@ TAS_{kt} = GS_{kt} - (W_{along} \times 1.94384)
 $$
 
 Where:
-- \(GS\) is ground speed in knots.
-- \(u\) and \(v\) are wind components in m/s.
-- \(W_{along}\) is the wind component along the aircraft track.
-- 1.94384 is the conversion factor from m/s to knots.
+- **TAS:** True Airspeed (knots).
+- **GS:** Ground Speed (knots).
+- **W along:** Wind component along the aircraft track (m/s).
+- **u:** Eastward wind component (m/s).
+- **v:** Northward wind component (m/s).
+- **θ:** Aircraft track angle (radians).
+- **1.94384:** Conversion factor from m/s to knots.
 
 ### 3.5 Fuel Flow Estimation
 
@@ -118,9 +134,11 @@ Fuel_{total} \approx
 $$
 
 Where:
-- \(FF_i\) is fuel flow at observation \(i\), in kg/s.
-- \(t_i\) is observation time in seconds.
-- Total fuel consumption is calculated in kilograms.
+- **Fuel total:** Estimated total fuel consumption (kg).
+- **FF:** Fuel flow at each observation (kg/s).
+- **t:** Observation time (seconds).
+- **i:** Observation index.
+- **n:** Total number of observations.
 
 ## 4. Key Results
 
