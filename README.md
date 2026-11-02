@@ -5,8 +5,6 @@
 
 This component focuses on integrating weather data with aircraft observations and estimating fuel consumption during departure and initial climb at King Abdulaziz International Airport (OEJN).
 
-The `observations.parquet` and `flights.parquet` datasets were prepared by Khalid. My work involved identifying aircraft types using external aircraft reference data, integrating ERA5 weather data with aircraft observations, calculating True Airspeed (TAS), and estimating fuel flow using OpenAP.
-
 ## 2. Data Sources
 
 - **Aircraft Observations:** `observations.parquet`, containing aircraft identifiers (`icao24`), timestamps, positions, altitude, ground speed, track, and vertical speed.
