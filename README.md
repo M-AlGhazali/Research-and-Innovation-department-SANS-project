@@ -63,7 +63,7 @@ Where:
 
 ### 3.3 Aircraft Mass Estimation
 
-Actual aircraft operating mass was unavailable. Therefore, aircraft mass was estimated as 80% of MTOW:
+Since the actual operating mass of each aircraft was unavailable, 80% of MTOW was assumed to estimate the aircraft mass. This percentage was selected as an approximation of the aircraft's operating weight rather than assuming that every aircraft operates at its maximum take-off weight. It is an estimation assumption and does not represent the actual weight of the aircraft.
 
 $$
 Mass_{estimated} = MTOW \times 0.80
@@ -159,7 +159,6 @@ Where:
 
 ## 6. Limitations
 
-- **Limited weather period:** ERA5 data cover October 1, 2026, with 24 hourly time points. Therefore, the results do not represent different days or seasons.
 - **Geographic coverage:** Some aircraft observations were outside ERA5 spatial coverage, preventing weather matching.
 - **Missing pressure-level data:** Pressure-level matching coverage was lower than surface matching coverage, requiring surface wind components as a fallback for TAS calculations.
 - **Estimated aircraft mass:** The 80% MTOW assumption may differ from actual aircraft operating mass.
