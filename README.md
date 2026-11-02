@@ -6,8 +6,8 @@ This component focuses on integrating weather data with aircraft observations an
 
 ## 2. Data Sources
 
-- **Aircraft Observations:** `observations.parquet`, provided by Khalid, containing aircraft identifiers (`icao24`), timestamps, geographic coordinates, altitude, ground speed, track, and vertical speed.
-- **Flight Records:** `flights.parquet`, provided by Khalid.
+- **Aircraft Observations:** `observations.parquet`, containing aircraft identifiers (`icao24`), timestamps, geographic coordinates, altitude, ground speed, track, and vertical speed.
+- **Flight Records:** `flights.parquet`, It was used to identify and select departure flights for the fuel-flow analysis.
 - **External Aircraft Reference Data:** Used with the `icao24` identifiers to identify aircraft types and retrieve aircraft specifications, including Maximum Take-Off Weight (MTOW).
 - **ERA5 Surface Weather:** Provides 2-meter temperature, 10-meter U/V wind components, and surface pressure.
 - **ERA5 Pressure-Level Weather:** Provides atmospheric temperature, U/V wind components, and geopotential at different pressure levels.
