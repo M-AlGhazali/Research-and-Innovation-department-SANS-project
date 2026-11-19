@@ -14,6 +14,10 @@ from .export import export_viewer
 from .validation import validate
 from .server import serve
 
+def fuel(c):
+    from .fuel_weather import run_fuel  # optional deps: pip install -e '.[fuel]'
+    return run_fuel(c)
+
 def measured(name, fn, c):
     start = time.perf_counter()
     process = psutil.Process()
@@ -36,7 +40,7 @@ def measured(name, fn, c):
 
 def main():
     parser = argparse.ArgumentParser(description="Reproducible local OEJN A2 pipeline")
-    parser.add_argument("command", choices=["reference", "preflight", "ingest", "flights", "match", "export", "validate", "run", "serve"])
+    parser.add_argument("command", choices=["reference", "preflight", "ingest", "flights", "match", "export", "validate", "run", "serve", "fuel"])
     parser.add_argument("--config", default=str(Path(__file__).resolve().parents[2] / "config/oejn-2026-10-01.json"))
     parser.add_argument("--force", action="store_true", help="Rebuild observation cache")
     parser.add_argument("--port", type=int, default=8765)
@@ -45,16 +49,16 @@ def main():
     if args.command == "serve": return serve(c, args.port)
     if args.command == "run":
         dump(Path(c["output_dir"]) / "run-manifest.json", {"schema_version": 1, "stages": {}})
-    operations = {"reference": export_reference, "preflight": lambda: inventory(c), "ingest": lambda: ingest(c, args.force), "flights": lambda: extract(c), "match": lambda: match(c), "export": lambda: export_viewer(c), "validate": lambda: validate(c)}
+    operations = {"reference": export_reference, "preflight": lambda: inventory(c), "ingest": lambda: ingest(c, args.force), "flights": lambda: extract(c), "match": lambda: match(c), "export": lambda: export_viewer(c), "validate": lambda: validate(c), "fuel": lambda: fuel(c)}
     for command in (["reference", "ingest", "flights", "match", "export", "validate"] if args.command == "run" else [args.command]):
-        if command in {"flights", "match", "export", "validate"}:
+        if command in {"flights", "match", "export", "validate", "fuel"}:
             out = Path(c["output_dir"])
             if not (out / "ingest-report.json").exists() or load(out / "ingest-report.json")["cache_key"] != inventory(c)["cache_key"]:
                 raise ValueError("Observation inputs/configuration/implementation changed; run ingest or run before this stage")
             from .common import file_hash
             if file_hash(out / "observations.parquet") != load(out / "ingest-report.json")["observation_sha256"]:
                 raise ValueError("Observation output changed; rebuild with ingest --force")
-        if command in {"match", "export", "validate"}:
+        if command in {"match", "export", "validate", "fuel"}:
             if digest(load(out / "flights.json")) != load(out / "flight-report.json")["content_sha256"]:
                 raise ValueError("Flight output changed; rerun flights")
         if command in {"export", "validate"}:

@@ -23,7 +23,7 @@ This repo is the mapping groundwork for that question: the airport on the ground
 ## Team and related work
 
 - **Khalid Al Amoudi** ([@iKhalidf](https://github.com/iKhalidf)) built the A2 observed-flights pipeline in this repo. It rebuilds departures from recorded tracks and ranks which published procedure each one fits.
-- [Hala-Alali/OEJN_Aircraft_Fuel_Weather](https://github.com/Hala-Alali/OEJN_Aircraft_Fuel_Weather) (Hala) joins ERA5 weather with observed departures and estimates fuel flow during take-off and climb. Scenario mode uses the same OpenAP fuel approach, with Hala's work as a reference.
+- **Hala Al-Ali** ([@Hala-Alali](https://github.com/Hala-Alali)) built the A3/A4 weather and fuel stage (`sans_a2 fuel`). It joins ERA5 weather with the A2 departures and estimates fuel burn to 10,000 ft with OpenAP. The original analysis is in [Hala-Alali/OEJN_Aircraft_Fuel_Weather](https://github.com/Hala-Alali/OEJN_Aircraft_Fuel_Weather).
 - [M40aha/oejn-noise-population](https://github.com/M40aha/oejn-noise-population) (Maha) models noise from observed jet departures with ECAC Doc 29 and counts the residents exposed. Map 2's Scenario mode runs this noise model (cloned next to this repo, not copied in) and its WorldPop grid for every contour and resident count.
 
 ## Status and limitations
