@@ -9,17 +9,35 @@ def export_viewer(c):
     matches = {r["flight_id"]: r for r in load(out / "matches.json")}
     origin = load(ROOT / "map-2/data.json")["origin"]["utm"]
     con = connect(c)
+    fuel, fuel_samples = load_fuel(con, out)
     summaries = []
     for f, observations in iter_event_tracks(con, flights, out / "observations.parquet"):
         samples = []
         for o in observations:
             samples.append([o["timestamp_ms"], round((o["easting_m"]-origin[0])/1000, 6), round(-(o["northing_m"]-origin[1])/1000, 6), o["barometric_altitude_ft"], o["geometric_altitude_ft"], finite_or_none(o["ground_speed_kt"]), finite_or_none(o["track_deg"]), o["on_ground"], o["quality_flags"], o["observation_id"]])
         payload = {"schema_version": 1, "flight": f, "match": matches[f["flight_id"]], "samples": samples, "sample_columns": ["timestamp_ms", "x_km", "z_km", "barometric_altitude_ft", "geometric_altitude_ft", "ground_speed_kt", "track_deg", "on_ground", "quality_flags", "observation_id"]}
+        if f["flight_id"] in fuel:
+            payload["fuel"] = fuel[f["flight_id"]]
+            payload["fuel_samples"] = fuel_samples.get(f["flight_id"], [])
+            payload["fuel_sample_columns"] = ["timestamp_ms", "fuel_flow_kg_s", "tas_kt", "barometric_altitude_ft"]
         dump(viewer / "flights" / (f["flight_id"]+".json"), payload)
-        summaries.append({"flight_id": f["flight_id"], "icao24": f["icao24"], "callsign": "/".join(f["callsigns"]) or f["icao24"], "runway": f["runway"], "runway_status": f["runway_status"], "match_status": matches[f["flight_id"]]["status"], "start_ms": f["start_ms"], "end_ms": f["end_ms"], "anchor_ms": f["anchor_ms"], "observations": len(samples), "gaps": len(f["gaps"]), "url": "flights/"+f["flight_id"]+".json", "sha256": digest(payload)})
+        extra = {"total_fuel_kg": fuel[f["flight_id"]]["total_fuel_kg"]} if f["flight_id"] in fuel else {}
+        summaries.append({"flight_id": f["flight_id"], "icao24": f["icao24"], "callsign": "/".join(f["callsigns"]) or f["icao24"], "runway": f["runway"], "runway_status": f["runway_status"], "match_status": matches[f["flight_id"]]["status"], "start_ms": f["start_ms"], "end_ms": f["end_ms"], "anchor_ms": f["anchor_ms"], "observations": len(samples), "gaps": len(f["gaps"]), "url": "flights/"+f["flight_id"]+".json", "sha256": digest(payload), **extra})
     manifest = {"schema_version": 1, "source": "Wingbits evaluation sample", "date": c["date"], "airport": c["airport"], "reference_sha256": load(ROOT / "map-2/reference/study-procedures.json")["source_sha256"], "origin_utm_m": origin, "crs": "EPSG:32637", "interpolation_gap_s": c["interpolation_gap_s"], "start_ms": min((f["start_ms"] for f in summaries), default=None), "end_ms": max((f["end_ms"] for f in summaries), default=None), "flights": summaries, "altitude_display": "Barometric pressure altitude minus 50 ft airport reference for display only; fallback ellipsoid altitude minus 65 ft (airport elevation plus published geoid undulation). No physical AGL or compliance inference.", "publication": "Local evaluation only; distribution permission not established", "matching": "Heuristic geometric candidates; no assigned clearances or accuracy claim"}
     order = {f["flight_id"]: i for i, f in enumerate(flights)}
     summaries.sort(key=lambda f: order[f["flight_id"]])
     dump(viewer / "manifest.json", manifest)
     con.close()
     return {"flights_exported": len(summaries), "manifest_sha256": digest(manifest), "viewer_bytes": sum(p.stat().st_size for p in viewer.rglob("*.json"))}
+
+
+def load_fuel(con, out):
+    """Optional A3/A4 results (sans_a2 fuel). Absent results leave the viewer unchanged."""
+    results_path, samples_path = out / "fuel-results.json", out / "fuel-observations.parquet"
+    if not results_path.exists() or not samples_path.exists(): return {}, {}
+    fuel = {r["flight_id"]: {k: r.get(k) for k in ("status", "aircraft_type", "openap_aircraft_id", "mass_kg", "total_fuel_kg", "duration_s", "departure_points", "model_version", "uncertainty_note")}
+            for r in load(results_path)}
+    samples = {}
+    for flight_id, t, ff, tas, alt in con.execute("SELECT flight_id,timestamp_ms,fuel_flow_kg_s,TAS_kt,barometric_altitude_ft FROM read_parquet(?) ORDER BY flight_id,timestamp_ms", [str(samples_path)]).fetchall():
+        samples.setdefault(flight_id, []).append([int(t), round(float(ff), 5), round(float(tas), 2), finite_or_none(alt)])
+    return fuel, samples
