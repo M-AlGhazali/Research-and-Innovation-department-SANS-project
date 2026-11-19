@@ -28,6 +28,18 @@ python -m sans_a2 export
 python -m sans_a2 validate
 ```
 
+The optional A3/A4 weather and fuel stage runs after `match` and is not part of `run`:
+
+```powershell
+python -m pip install -e ".[fuel]"
+python -m sans_a2 fuel
+python -m sans_a2 export
+```
+
+Re-running `export` after `fuel` adds the estimate to Map 2: the flight list shows ⛽ total kg, and the selected flight's detail panel shows total fuel, current fuel flow and TAS, and fuel burned so far during playback.
+
+It expects `era5_surface`, `era5_pressure` and `aircraft_db` from the config, by default in sibling `SANS/A3/`.
+
 Use the virtual-environment Python when it is not activated. `ingest --force` bypasses its observation cache. After changing processing configuration, rerun `run` rather than applying a later stage to old intermediates. Preflight validates all input schemas and records physical row totals from file footers; this is not an integrity hash verification of all raw bytes.
 
 ## Resource use

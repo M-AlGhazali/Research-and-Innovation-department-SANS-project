@@ -62,7 +62,7 @@ export function mountObserved({scene,data,aircraft,host,vertical,onMode,camera,c
   choose.replaceChildren();if(!state.manifest)return;
   const listed=state.manifest.flights.filter(f=>included(f)&&(!state.runway||f.runway===state.runway)&&(!state.status||f.match_status===state.status));
   if(!listed.some(f=>f.flight_id===state.selected)){state.selected=listed[0]?.flight_id||null;if(listed[0]){state.timestampMs=Math.min(listed[0].anchor_ms+60000,listed[0].end_ms);state.playing=false}}
-  for(const f of listed){const o=element('option',`${utc(f.anchor_ms).slice(0,8)} · ${f.callsign} · ${f.runway||'?'} · ${f.match_status.replaceAll('_',' ')}`);o.value=f.flight_id;o.selected=f.flight_id===state.selected;choose.append(o)}
+  for(const f of listed){const o=element('option',`${utc(f.anchor_ms).slice(0,8)} · ${f.callsign} · ${f.runway||'?'} · ${f.match_status.replaceAll('_',' ')}${f.total_fuel_kg==null?'':' · ⛽ '+Math.round(f.total_fuel_kg)+' kg'}`);o.value=f.flight_id;o.selected=f.flight_id===state.selected;choose.append(o)}
  }
  const included=f=>(state.includeOther||['accepted_departure_candidate','ambiguous_runway'].includes(f.runway_status))&&(state.hour===''||new Date(f.anchor_ms).getUTCHours()===Number(state.hour));
  function removeGeometry(g){g.traverse(o=>{o.geometry?.dispose();for(const m of [].concat(o.material||[]))m.dispose?.()});group.remove(g)}
@@ -104,6 +104,20 @@ export function mountObserved({scene,data,aircraft,host,vertical,onMode,camera,c
   for(const reason of payload.match.reasons)detail.append(element('p',reason));
   detail.append(element('p',`${payload.flight.observation_count} reports · maximum gap ${payload.flight.max_gap_s.toFixed(1)} s · ${payload.flight.missing_altitude_count} without altitude`));
   if(sample?.qualityFlags)detail.append(element('p','Quality: '+sample.qualityFlags));
+  showFuel(payload,state.timestampMs);
+ }
+ // A3/A4 fuel estimate (sans_a2 fuel): OpenAP model estimate, not measured fuel.
+ function showFuel(payload,timestampMs){
+  const fuel=payload.fuel;if(!fuel)return;
+  const box=element('div',undefined,'observed-fuel');box.append(element('h4','Fuel estimate (OpenAP, to 10,000 ft)'));
+  if(fuel.status!=='calculated'){box.append(element('p','Not calculated: '+fuel.status.replaceAll('_',' ')));detail.append(box);return}
+  const rows=payload.fuel_samples||[];let burned=0,current=null;
+  for(let i=0;i<rows.length&&rows[i][0]<=timestampMs;i++){current=rows[i];if(i)burned+=(rows[i][1]+rows[i-1][1])/2*(rows[i][0]-rows[i-1][0])/1000}
+  box.append(element('p',`Total ${Math.round(fuel.total_fuel_kg).toLocaleString()} kg · ${fuel.aircraft_type||'unknown type'} · assumed mass ${Math.round(fuel.mass_kg).toLocaleString()} kg (80% MTOW)`));
+  box.append(element('p',current?`Now: ${current[1].toFixed(2)} kg/s fuel flow · ${Math.round(current[2])} kt TAS · ${Math.round(burned).toLocaleString()} kg burned so far`:'Before the fuel-estimated segment'));
+  const bar=element('div',undefined,'observed-fuel-bar'),fill=element('span');fill.style.width=Math.min(100,burned/fuel.total_fuel_kg*100).toFixed(1)+'%';bar.append(fill);box.append(bar);
+  box.append(element('p',fuel.uncertainty_note||'Model estimate, not measured fuel','observed-fuel-note'));
+  detail.append(box);
  }
  function setMode(enabled){state.enabled=enabled;state.playing=false;group.visible=enabled;panel.hidden=!enabled;labels.hidden=!enabled;document.body.classList.toggle('observed-mode-active',enabled);onMode(enabled);if(enabled)ensureManifest()}
  mode.onchange=()=>setMode(mode.value==='observed');
