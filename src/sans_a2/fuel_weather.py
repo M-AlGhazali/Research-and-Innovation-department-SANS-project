@@ -113,17 +113,27 @@ def resolve_aircraft(c, icao24s):
                 spec = prop.aircraft(entry["aircraft_type"], use_synonym=True)
                 entry["mtow_kg"] = float(spec["mtow"])
                 entry["openap_aircraft_id"] = str(spec.get("aircraft") or entry["aircraft_type"])
-            except Exception:
-                pass
+            except (ValueError, KeyError):
+                pass  # no OpenAP model or MTOW: reported as unsupported_aircraft
         resolved[icao] = entry
     return resolved
+
+
+def departure_segment(obs, max_altitude_ft):
+    """Observations (sorted by time) up to the first climb above max_altitude_ft.
+
+    Points after that first crossing are not part of the departure, even if the
+    aircraft later descends below the limit again.
+    """
+    over = (obs["barometric_altitude_ft"] > max_altitude_ft).to_numpy()
+    return obs.iloc[: int(over.argmax())] if over.any() else obs
 
 
 def flight_fuel(flight, obs, aircraft, c):
     """Fuel for one departure from anchor to fuel_max_altitude_ft. Returns (summary, per-observation frame)."""
     from openap import FuelFlow
     max_alt = c.get("fuel_max_altitude_ft", 10000)
-    obs = obs[(obs["timestamp_ms"] >= flight["anchor_ms"]) & (obs["barometric_altitude_ft"] <= max_alt)].sort_values("timestamp_ms").copy()
+    obs = departure_segment(obs[obs["timestamp_ms"] >= flight["anchor_ms"]].sort_values("timestamp_ms"), max_alt).copy()
     if len(obs) < 2: raise ValueError("insufficient_departure_observations")
     obs["TAS_kt"] = true_airspeed_kt(obs["ground_speed_kt"], obs["track_deg"], obs["wind_u_used"], obs["wind_v_used"])
     obs = obs.dropna(subset=["barometric_altitude_ft", "barometric_rate_fpm", "TAS_kt"])
@@ -149,7 +159,7 @@ def flight_fuel(flight, obs, aircraft, c):
 
 
 def run_fuel(c):
-    import openap
+    from importlib.metadata import version
     out = Path(c["output_dir"])
     flights = [f for f in load(out / "flights.json") if f["runway_status"] == "accepted_departure_candidate"]
     con = connect(c)
@@ -161,13 +171,13 @@ def run_fuel(c):
     by_aircraft = dict(tuple(obs_all.groupby("icao24")))
     assumptions = (f"mass = {c.get('fuel_mass_fraction_of_mtow', 0.8):.0%} of OpenAP MTOW (actual mass unknown)",
                    "TAS = ground speed minus along-track ERA5 wind; pressure-level wind, 10 m wind fallback",
-                   f"departure segment: anchor to {c.get('fuel_max_altitude_ft', 10000)} ft barometric altitude",
+                   f"departure segment: anchor to the first crossing of {c.get('fuel_max_altitude_ft', 10000)} ft barometric altitude",
                    "OpenAP synonyms used for unsupported types (e.g. A21N, B77L)")
     results, frames, statuses = [], [], {}
     for f in flights:
         ac = aircraft.get(f["icao24"], {})
         link = dict(flight_id=f["flight_id"], aircraft_type=ac.get("aircraft_type"), openap_aircraft_id=ac.get("openap_aircraft_id"),
-                    operating_assumptions=assumptions, model_version=f"{MODEL_ID}; openap {getattr(openap, '__version__', 'unknown')}",
+                    operating_assumptions=assumptions, model_version=f"{MODEL_ID}; openap {version('openap')}",
                     uncertainty_note="Model estimate, not measured fuel; mass assumption dominates uncertainty",
                     result_artifact="fuel-observations.parquet")
         extra = {}

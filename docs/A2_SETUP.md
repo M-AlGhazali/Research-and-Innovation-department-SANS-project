@@ -38,7 +38,7 @@ python -m sans_a2 export
 
 Re-running `export` after `fuel` adds the estimate to Map 2: the flight list shows ⛽ total kg, and the selected flight's detail panel shows total fuel, current fuel flow and TAS, and fuel burned so far during playback.
 
-It expects `era5_surface`, `era5_pressure` and `aircraft_db` from the config, by default in sibling `SANS/A3/`.
+It expects `era5_surface` and `era5_pressure` (ERA5, dataset A4) in sibling `SANS/A4/`, and `aircraft_db` (aircraft registry) in sibling `SANS/A3/`, as set in the config. Open item: `era5_pressure_extended.nc` and `aeromux_db.sqlite` are not yet in the shared team dataset; ask Hala for them and record their source and licence before relying on the results.
 
 Use the virtual-environment Python when it is not activated. `ingest --force` bypasses its observation cache. After changing processing configuration, rerun `run` rather than applying a later stage to old intermediates. Preflight validates all input schemas and records physical row totals from file footers; this is not an integrity hash verification of all raw bytes.
 
