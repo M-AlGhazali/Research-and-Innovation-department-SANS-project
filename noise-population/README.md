@@ -1,3 +1,6 @@
+> **Moved here** from [M40aha/oejn-noise-population](https://github.com/M40aha/oejn-noise-population), with its history, as part of [Masar](../README.md) (layers A5 and A6, the Doc 29 noise model and the 3D noise map).
+> Work by Maha Alamri; see [CREDITS.md](../CREDITS.md). Not copied: `data/noise/processed/flight_results.csv` and `docs/noise/fig_tracks.png`, because they hold per-flight results and tracks from the Wingbits sample (evaluation use only); the noise run recreates them locally and `.gitignore` keeps them out. Install with the root [`requirements.txt`](../requirements.txt); the tests run from the repo root with `python -m pytest`.
+
 # OEJN Departure Noise & Population Exposure
 
 Noise of the **observed jet departures** from King Abdulaziz International Airport, Jeddah (OEJN, runways 34C / 34L), on

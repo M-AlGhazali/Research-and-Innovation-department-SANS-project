@@ -1,3 +1,6 @@
+> **Moved here** from [Hala-Alali/OEJN_Aircraft_Fuel_Weather](https://github.com/Hala-Alali/OEJN_Aircraft_Fuel_Weather), with its history, as part of [Masar](../README.md) (layers A3 and A4).
+> Work by Hala Alali; see [CREDITS.md](../CREDITS.md). Not copied: `Weather_FuelFlow_Dataset.parquet` and the notebook's printed outputs, because they hold per-flight data from the Wingbits sample (evaluation use only). The notebook code is unchanged. The fuel stage built from this notebook is [`src/sans_a2/fuel_weather.py`](../src/sans_a2/fuel_weather.py) (`sans_a2 fuel`).
+
 # Weather Integration and Aircraft Fuel Flow Estimation
 
 ## 1. Overview

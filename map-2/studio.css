@@ -63,3 +63,4 @@ main{height:100dvh}
 /* Masar brand: Arabic must not take Latin letter-spacing (it would break the joins) */
 .brand b .brand-ar{letter-spacing:0;font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size:1.25em;font-weight:600;line-height:1;vertical-align:-1px;unicode-bidi:isolate}
 .attribution-noise{white-space:nowrap}
+.attribution a{color:inherit;text-decoration:underline;pointer-events:auto}
