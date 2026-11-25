@@ -1,4 +1,4 @@
-name: A2 reference and synthetic checks
+name: Masar tests (A2, fuel, scenarios, noise-population, Map 2)
 on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read
@@ -13,8 +13,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: python -m pip install -e '.[test]'
+      - run: python -m pip install -r requirements.txt
+      - run: python -m pip install --no-deps -e .
+      # One command runs every test: tests/ (A2, fuel, scenarios, both Node suites) and noise-population/tests
       - run: python -m pytest -q
-      - run: node tests/test-observed-model.mjs
-      - run: node map-2/test-flight-model.mjs
       - run: git diff --exit-code -- map-2/data.json map-2/reference

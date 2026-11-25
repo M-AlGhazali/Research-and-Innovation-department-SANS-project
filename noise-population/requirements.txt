@@ -1,0 +1,2 @@
+# The whole repo now uses one requirements file at the root.
+-r ../requirements.txt

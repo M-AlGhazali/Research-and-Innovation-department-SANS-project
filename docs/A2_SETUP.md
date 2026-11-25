@@ -6,7 +6,7 @@ From the application checkout:
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.lock
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe -m pip install --no-deps -e .
 .\.venv\Scripts\python.exe -m sans_a2 run --config config/oejn-2026-10-01.json
 .\.venv\Scripts\python.exe -m sans_a2 serve --config config/oejn-2026-10-01.json
@@ -27,6 +27,18 @@ python -m sans_a2 match
 python -m sans_a2 export
 python -m sans_a2 validate
 ```
+
+The optional A3/A4 weather and fuel stage runs after `match` and is not part of `run`:
+
+```powershell
+python -m pip install -e ".[fuel]"
+python -m sans_a2 fuel
+python -m sans_a2 export
+```
+
+Re-running `export` after `fuel` adds the estimate to Map 2: the flight list shows ⛽ total kg, and the selected flight's detail panel shows total fuel, current fuel flow and TAS, and fuel burned so far during playback.
+
+It expects `era5_surface` and `era5_pressure` (ERA5, dataset A4) in sibling `SANS/A4/`, and `aircraft_db` (aircraft registry) in sibling `SANS/A3/`, as set in the config. Open item: `era5_pressure_extended.nc` and `aeromux_db.sqlite` are not yet in the shared team dataset; ask Hala for them and record their source and licence before relying on the results.
 
 Use the virtual-environment Python when it is not activated. `ingest --force` bypasses its observation cache. After changing processing configuration, rerun `run` rather than applying a later stage to old intermediates. Preflight validates all input schemas and records physical row totals from file footers; this is not an integrity hash verification of all raw bytes.
 

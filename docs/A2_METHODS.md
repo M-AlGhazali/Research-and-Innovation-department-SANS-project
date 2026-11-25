@@ -50,6 +50,17 @@ For visualization only, barometric altitude is offset by the published 50 ft air
 
 `extensions.py` supplies nullable metadata/model contracts, not calculations. Aircraft type needs sourced ICAO-address resolution, supported performance/acoustic mappings, and documented unknowns/substitutions. Fuel needs aircraft/engine/mass and operating assumptions plus validated OpenAP use. Weather needs spatial/temporal/vertical interpolation and ERA5T preliminary-status retention. Noise requires an implemented, reference-case-validated Doc 29 method, acoustic mapping, power/trajectory assumptions, and uncertainty. Population exposure requires a validated noise footprint and correct people-per-cell handling. Operational capacity requires separation, conflict, demand/delay, simulation, and independent validation; departure counts alone do not establish capacity.
 
+## A3/A4 weather and fuel stage
+
+`sans_a2 fuel` (module `fuel_weather.py`, ported from [Hala-Alali/OEJN_Aircraft_Fuel_Weather](https://github.com/Hala-Alali/OEJN_Aircraft_Fuel_Weather)) runs after `match` on accepted departure candidates. It needs the optional `fuel` extra and three local inputs named in the config: ERA5/ERA5T surface and pressure-level NetCDF files, and the aircraft registry SQLite (`aircrafts` table).
+
+- **Aircraft:** ICAO24 → type code from the registry; MTOW from OpenAP (`use_synonym=True`). Unresolved or unsupported types are reported, not guessed.
+- **Weather:** ERA5 is linearly interpolated in time, latitude and longitude at each observation. Pressure-level values use the ISA pressure for the barometric altitude. Observations outside the ERA5 grid or time range stay NaN.
+- **TAS:** ground speed minus the along-track wind (pressure-level wind, 10 m wind fallback). Crosswind is ignored. Observations with no wind are dropped, matching the original notebook.
+- **Fuel:** OpenAP `FuelFlow.enroute()` with mass = 80% of MTOW, integrated with the trapezoidal rule from the departure anchor to the first crossing of 10,000 ft (later points are ignored, even below 10,000 ft).
+
+Outputs in the output directory: `fuel-results.json` (one `PerformanceLink` per flight, with status, total fuel and wind-source counts), `fuel-observations.parquet` (departure points with the same columns as the original `Weather_FuelFlow_Dataset`, plus weather source) and `fuel-report.json`. These are model estimates, not measured fuel; the mass assumption dominates the uncertainty.
+
 ## Permission and scope
 
 The [current Wingbits sample page](https://wingbits.com/data-sample) describes evaluation use. Data remains local and excluded from public packaging; final research/distribution permissions remain a separate prerequisite. A single day does not establish annual traffic, weather, noise exposure, or representative operational effects.

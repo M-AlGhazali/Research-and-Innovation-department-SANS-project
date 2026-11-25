@@ -5,3 +5,10 @@
 .observed-fit{width:100%;padding:8px;background:#e7f1f3;color:#254957;border:1px solid #b5c9ce;border-radius:5px;font-size:11px;margin-bottom:5px}
 
 .observed-filters{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.observed-filters label:last-child{grid-column:1/-1}
+
+.observed-fuel{margin-top:.6rem;padding:.5rem .6rem;border-radius:8px;background:rgba(245,158,11,.10);border:1px solid rgba(245,158,11,.35)}
+.observed-fuel h4{margin:0 0 .3rem;font-size:.8rem;color:#f59e0b}
+.observed-fuel p{margin:.2rem 0}
+.observed-fuel-bar{height:6px;border-radius:3px;background:rgba(255,255,255,.12);overflow:hidden;margin:.35rem 0}
+.observed-fuel-bar span{display:block;height:100%;background:#f59e0b}
+.observed-fuel-note{opacity:.7;font-size:.75rem}
