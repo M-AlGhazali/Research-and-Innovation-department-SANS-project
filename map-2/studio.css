@@ -59,3 +59,7 @@ main{height:100dvh}
 @media(max-width:760px){#viewport>header{height:70px;padding:0 14px}#viewport>header .sans-logo{width:82px;height:43px}#viewport .view-controls{top:78px}#viewport .scene-title{top:171px}#viewport .view-guide{display:none}.focus-mode #viewport .focus-tools{top:86px}.focus-mode #viewport .focus-caption{top:152px}}
 @media(max-width:600px){#viewport>header{height:64px}#viewport .view-controls{top:67px}#viewport .scene-title{top:159px}.focus-mode #viewport .focus-caption{top:150px}}
 
+
+/* Masar brand: Arabic must not take Latin letter-spacing (it would break the joins) */
+.brand b .brand-ar{letter-spacing:0;font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size:1.25em;font-weight:600;line-height:1;vertical-align:-1px;unicode-bidi:isolate}
+.attribution-noise{white-space:nowrap}

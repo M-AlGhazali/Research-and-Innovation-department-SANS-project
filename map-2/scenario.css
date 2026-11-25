@@ -17,3 +17,6 @@
 @media(max-width:1150px){.scenario-card{width:300px}}
 @media(max-width:760px){.scenario-card{width:250px;right:12px;padding:12px}.scenario-card .card-foot{display:none}.scenario-legend{left:12px;bottom:44px}.scenario-panel{padding:0 0 16px}}
 @media(max-width:600px){.scenario-card{display:none}.scenario-legend{bottom:30px}}
+
+/* keep the footer credit readable above the scenario place labels */
+.scenario-mode-active .attribution{z-index:3;background:#e8f1f3d9;border-radius:5px;padding:2px 7px}
