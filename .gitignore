@@ -11,3 +11,6 @@ local-data/
 *.duckdb*
 *.parquet
 observed-data/
+
+# Scenario generator intermediate files
+tools/scenarios/.work/

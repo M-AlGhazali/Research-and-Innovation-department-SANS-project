@@ -5,12 +5,12 @@ const colors={'34C':'#168d9b','34L':'#bb4b76',unknown:'#9d751d'};
 const utc=ms=>new Date(ms).toISOString().slice(11,23)+' UTC';
 const element=(tag,text,className)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(className)e.className=className;return e};
 
-export function mountObserved({scene,data,aircraft,host,vertical,onMode,camera,controls}){
+export function mountObserved({scene,data,aircraft,host,vertical,onMode,camera,controls,onFlightMode}){
  const state={enabled:false,playing:false,speed:20,timestampMs:0,endMs:0,runway:'',status:'',hour:'',selected:null,manifest:null,includeOther:false};
  const flights=new Map(),pending=new Set(),failed=new Set(),group=new THREE.Group();group.visible=false;scene.add(group);
  const modeLabel=element('label','FLIGHT MODE','observed-mode');
  const mode=element('select');mode.setAttribute('aria-label','Flight mode');
- for(const [value,title] of [['illustrative','Published procedure demo'],['observed','Recorded flights · local A2']]){const o=element('option',title);o.value=value;mode.append(o)}
+ for(const [value,title] of [['illustrative','Published procedure demo'],['observed','Recorded flights · local A2'],['scenario','Scenario (what-if)']]){const o=element('option',title);o.value=value;mode.append(o)}
  modeLabel.append(mode);document.querySelector('.section-head').prepend(modeLabel);
  const panel=element('section',undefined,'observed-panel');panel.hidden=true;panel.setAttribute('aria-label','Recorded flight controls');
  panel.append(element('h2','Observed departures'),element('p','Recorded UTC positions with geometric SID candidates. Assigned clearances are unknown.','observed-intro'));
@@ -106,7 +106,7 @@ export function mountObserved({scene,data,aircraft,host,vertical,onMode,camera,c
   if(sample?.qualityFlags)detail.append(element('p','Quality: '+sample.qualityFlags));
  }
  function setMode(enabled){state.enabled=enabled;state.playing=false;group.visible=enabled;panel.hidden=!enabled;labels.hidden=!enabled;document.body.classList.toggle('observed-mode-active',enabled);onMode(enabled);if(enabled)ensureManifest()}
- mode.onchange=()=>setMode(mode.value==='observed');
+ mode.onchange=()=>{setMode(mode.value==='observed');onFlightMode?.(mode.value)};
  choose.onchange=()=>{state.selected=choose.value;const f=state.manifest.flights.find(f=>f.flight_id===state.selected);if(f){state.timestampMs=Math.min(f.anchor_ms+60000,f.end_ms);state.playing=false;loadFlight(f);tracking=true}};
  play.onclick=()=>{state.playing=!state.playing};restart.onclick=()=>{state.playing=false;state.timestampMs=state.manifest.flights.find(f=>f.flight_id===state.selected)?.start_ms||state.manifest.start_ms};follow.onclick=()=>tracking=!tracking;
  range.oninput=()=>{state.timestampMs=Number(range.value);state.playing=false};speed.onchange=()=>state.speed=Number(speed.value);

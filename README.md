@@ -12,6 +12,7 @@ This repo is the mapping groundwork for that question: the airport on the ground
 
 - **QGIS ground atlas.** Runways, taxiways, aprons, terminals and the neighbourhoods around the airport, styled from OpenStreetMap and the SANS AIP. The [QGIS project](map-1/OEJN-ground-atlas.qgz) and [GeoPackage](map-1/OEJN-ground.gpkg) are in `map-1/` if you want to open or edit them.
 - **Browser maps.** Map 1 is the atlas as a single HTML page. Map 2 is a three.js scene of the published departure fixes with illustrative flight playback. Both are static files, with no backend.
+- **Scenario (what-if) mode in Map 2.** Pick a runway, SID, aircraft (A320, A20N or B77W) and departures per day, and see modelled fuel and CO₂ to 10,000 ft, time and distance, a climb profile, the LAmax 60 / 65 / 70 dB footprint on the map, the residents inside each contour and the nearest named places, with daily and yearly totals. All 48 combinations are pre-computed from simulated flights by [`tools/scenarios/`](tools/scenarios/README.md) and served as static files in `map-2/scenarios/`.
 - **Published-procedure datasets.** [`A1_Procedures.csv`](data/A1_Procedures.csv) has the 16 published departure procedures (SIDs) from runways 34C and 34L, one row per leg: 105 legs over 36 waypoints. [`External_Airport_Runways.csv`](data/External_Airport_Runways.csv) is a lookup for all six runway ends. Fields and conventions are in [data/README.md](data/README.md).
 - **Source provenance.** The original AIP tables and the OpenStreetMap snapshot are kept unchanged in `sources/`. Each CSV row records the source file, page and hash it came from, so any value can be checked against the original.
 - **CI and GitHub Pages.** A workflow publishes both maps to GitHub Pages on every push to `main`. A second one runs the Python and JS tests and fails if the generated reference data changes unexpectedly.
@@ -21,12 +22,12 @@ This repo is the mapping groundwork for that question: the airport on the ground
 ## Team and related work
 
 - **Khalid Al Amoudi** ([@iKhalidf](https://github.com/iKhalidf)) built the A2 observed-flights pipeline in this repo. It rebuilds departures from recorded tracks and ranks which published procedure each one fits.
-- [Hala-Alali/OEJN_Aircraft_Fuel_Weather](https://github.com/Hala-Alali/OEJN_Aircraft_Fuel_Weather) joins ERA5 weather with observed departures and estimates fuel flow during take-off and climb.
-- [M40aha/oejn-noise-population](https://github.com/M40aha/oejn-noise-population) models noise from observed jet departures with ECAC Doc 29 and counts the residents exposed.
+- [Hala-Alali/OEJN_Aircraft_Fuel_Weather](https://github.com/Hala-Alali/OEJN_Aircraft_Fuel_Weather) (Hala) joins ERA5 weather with observed departures and estimates fuel flow during take-off and climb. Scenario mode uses the same OpenAP fuel approach, with Hala's work as a reference.
+- [M40aha/oejn-noise-population](https://github.com/M40aha/oejn-noise-population) (Maha) models noise from observed jet departures with ECAC Doc 29 and counts the residents exposed. Map 2's Scenario mode runs this noise model (cloned next to this repo, not copied in) and its WorldPop grid for every contour and resident count.
 
 ## Status and limitations
 
-This initiative maps King Abdulaziz International Airport ground features and published departure procedures, as the visual groundwork for a proposal to SANS. The longer-term aim is to assess operational efficiency, fuel consumption, CO₂ emissions, and community noise using observed flights and suitable models. These maps are a visual prototype for that proposal; they do not measure those outcomes.
+This initiative maps King Abdulaziz International Airport ground features and published departure procedures, as the visual groundwork for a proposal to SANS. The longer-term aim is to assess operational efficiency, fuel consumption, CO₂ emissions, and community noise using observed flights and suitable models. These maps are a visual prototype for that proposal; they do not measure those outcomes. Scenario mode gives modelled fuel, CO₂ and noise for simulated flights on the published SIDs; it does not measure real traffic.
 
 The datasets cover the initial 34C/34L scope. Map 2 additionally shows 34R for context.
 
@@ -38,6 +39,7 @@ Reference study only, not for navigation.
 
 - **SANS AIP, AIRAC AMDT 10/26, effective 1 October 2026.** OEJN aerodrome data and the RNAV SID tables for runways 34C, 34L and 34R. Copies are in `sources/`.
 - **OpenStreetMap**, snapshot of 25 October 2026, pulled with the Overpass query in [`sources/overpass-query.txt`](sources/overpass-query.txt). © OpenStreetMap contributors, ODbL.
+- **Scenario models:** [OpenAP](https://github.com/TUDelft-CNS-ATM/openap) fuel flow and climb profiles; ECAC Doc 29 5th ed. with EASA ANP 2.3 and WorldPop R2025A via [oejn-noise-population](https://github.com/M40aha/oejn-noise-population).
 - **three.js** for Map 2, vendored in `map-2/vendor/` under its own licence.
 
 ## How to cite
