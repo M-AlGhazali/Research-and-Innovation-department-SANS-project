@@ -1,9 +1,9 @@
 import * as THREE from 'three';
 import {OrbitControls} from './vendor/OrbitControls.js';
 import {buildFlight,sampleFlight,advance,constraintLabel} from './flight-model.mjs';
-import {mountObserved} from './observed-layer.mjs';
-import {mountScenario} from './scenario-layer.mjs?v=3';
-import {mountNoise,noiseMessage} from './noise-layer.mjs?v=2';
+import {mountObserved} from './observed-layer.mjs?v=2';
+import {mountScenario} from './scenario-layer.mjs?v=4';
+import {mountNoise,noiseMessage} from './noise-layer.mjs?v=3';
 
 const $=id=>document.getElementById(id),host=$('canvas-host'),viewport=$('viewport');
 let data,scene,camera,renderer,controls,selected='34C',vertical=4,speed=1,cameraMode='airport',last=0,ready=false;
@@ -50,9 +50,9 @@ async function loadNoise(){
    const payload=await response.json();
    noise.api=mountNoise({scene,data,viewport,camera,vertical:()=>vertical,noise:payload});noise.loaded=true;noise.api.setMetric(noise.metric);
   }catch(error){
-   noise.error='Observed noise data could not be loaded.';
+   noise.error='Noise data could not be loaded.';
    if(!noise.errorEl)noise.errorEl=noiseMessage(viewport,noise.error);
-   console.warn('Observed noise layer:',error);
+   console.warn('Noise layer:',error);
   }finally{noise.loading=null}
  })();
  return noise.loading;
@@ -62,11 +62,12 @@ async function setNoiseVisible(on){
  if(noise.visible&&!noise.api)await loadNoise();
  syncNoise();
 }
+const NOISE_LABEL='Modelled noise, observed flights (1 Oct 2026)';
 function mountNoiseToggle(){
  const label=document.createElement('label');label.className='noise-toggle';
- const input=document.createElement('input');input.type='checkbox';input.setAttribute('aria-label','Observed noise (1 Oct 2026)');
+ const input=document.createElement('input');input.type='checkbox';input.setAttribute('aria-label',NOISE_LABEL);
  const sw=document.createElement('span');sw.className='noise-switch';sw.setAttribute('aria-hidden','true');
- const text=document.createElement('span');text.textContent='Observed noise (1 Oct 2026)';
+ const text=document.createElement('span');text.textContent=NOISE_LABEL;
  label.append(input,sw,text);document.querySelector('.observed-mode').after(label);
  input.onchange=()=>setNoiseVisible(input.checked);noise.toggle=label;
 }
@@ -157,11 +158,12 @@ function selectRunway(id){selected=id;document.documentElement.style.setProperty
 function chooseProcedure(route){
  const s=states[route.runway];s.flight=buildFlight(route,s.runway,data.fixes);s.elapsed=0;s.loops=0;s.playing=false;s.sample=sampleFlight(s.flight,0);s.plane.position.copy(toV(s.runway.start));buildRouteVisual(s);selectRunway(route.runway);if(cameraMode==='route')setCameraMode('route');updateUI();
 }
+function startPlaying(s){if(s.elapsed>=s.flight.duration)s.elapsed=0;s.playing=true;setCameraMode('follow');updateUI()}
 function renderSidebar(){
  $('runways').replaceChildren();for(const id of ['34L','34C','34R']){const b=document.createElement('button');b.className='runway-tab'+(selected===id?' active':'');b.textContent=id;b.style.setProperty('--runway',states[id].runway.color);b.setAttribute('role','tab');b.setAttribute('aria-selected',String(selected===id));b.onclick=()=>selectRunway(id);$('runways').append(b)}
  $('procedures').replaceChildren();for(const route of data.routes.filter(r=>r.runway===selected)){
   const b=document.createElement('button');b.className='procedure'+(states[selected].flight?.route.id===route.id?' active':'');b.setAttribute('aria-label',`Start ${route.name} from ${route.runway}`);
-  const arrow=document.createElement('span');arrow.className='arrow';arrow.textContent='↗';const copy=document.createElement('span');copy.className='copy';const title=document.createElement('b');title.textContent=route.name;const sub=document.createElement('small');sub.textContent=`${route.legs.length} published fixes · ${route.legs.at(-1).fix}`;copy.append(title,sub);const tag=document.createElement('span');tag.className='tag';tag.textContent=route.warning?'⚑':'▶';if(route.warning){tag.classList.add('warning-dot');b.title=route.warning}b.append(arrow,copy,tag);b.onclick=()=>chooseProcedure(route);$('procedures').append(b);
+  const arrow=document.createElement('span');arrow.className='arrow';arrow.textContent='↗';const copy=document.createElement('span');copy.className='copy';const title=document.createElement('b');title.textContent=route.name;const sub=document.createElement('small');sub.textContent=`${route.legs.length} published fixes · ${route.legs.at(-1).fix}`;copy.append(title,sub);const tag=document.createElement('span');tag.className='tag';tag.textContent=route.warning?'⚑':'▶';if(route.warning){tag.classList.add('warning-dot');b.title=route.warning}b.append(arrow,copy,tag);b.onclick=()=>{chooseProcedure(route);startPlaying(states[route.runway])};$('procedures').append(b);
  }
  $('fleet').replaceChildren();for(const id of ['34L','34C','34R']){const row=document.createElement('div');row.className='fleet-row';row.style.setProperty('--runway',states[id].runway.color);const dot=document.createElement('i'),name=document.createElement('b'),status=document.createElement('span');name.textContent=id;status.id='fleet-'+id;row.append(dot,name,status);$('fleet').append(row)}
 }
@@ -232,13 +234,14 @@ function wireControls(){
  $('reset-caption').onclick=()=>{customTitle='';customCopy='';updateFocusCaption();$('caption-dialog').close()};
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&cameraMode==='focus'&&!$('caption-dialog').open&&!$('source-dialog').open)setCameraMode('airport')});
  $('airport').onclick=()=>setCameraMode('airport');$('route-view').onclick=()=>setCameraMode('route');$('follow').onclick=()=>setCameraMode('follow');$('top-view').onclick=()=>setCameraMode('top');
- $('play').onclick=()=>{let s=states[selected];if(!s.flight){chooseProcedure(data.routes.find(r=>r.runway===selected));s=states[selected]}if(s.elapsed>=s.flight.duration)s.elapsed=0;s.playing=!s.playing;if(s.playing)setCameraMode('follow');updateUI()};
+ $('play').onclick=()=>{let s=states[selected];if(!s.flight){chooseProcedure(data.routes.find(r=>r.runway===selected));s=states[selected]}if(s.playing){s.playing=false;updateUI()}else startPlaying(s)};
  $('restart').onclick=()=>{const s=states[selected];s.elapsed=0;s.loops=0;s.playing=false;if(s.flight)s.sample=sampleFlight(s.flight,0);updateUI()};
  $('pause-all').onclick=()=>{for(const s of Object.values(states))s.playing=false;updateUI()};
  $('speed').onchange=e=>speed=Number(e.target.value);$('loop').onchange=e=>states[selected].loop=e.target.checked;
  $('scrub').oninput=e=>{const s=states[selected];if(s.flight){s.elapsed=Number(e.target.value)/1000*s.flight.duration;s.playing=false}};
  $('height').oninput=e=>{vertical=Number(e.target.value);$('height-label').textContent=vertical+'×';for(const s of Object.values(states))if(s.flight)buildRouteVisual(s);if(cameraMode==='route')setCameraMode('route')};
  $('sources').onclick=()=>$('source-dialog').showModal();$('close-sources').onclick=()=>$('source-dialog').close();
+ $('source-dialog').addEventListener('click',e=>{const r=e.currentTarget.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)e.currentTarget.close()});
  for(const rw of ['34C','34L','34R'])for(const n of [1,2]){const a=document.createElement('a');a.href=`https://github.com/M-AlGhazali/Research-and-Innovation-department-SANS-project/blob/main/sources/map-2/${rw}-table-${n}.pdf`;a.target='_blank';a.rel='noopener';a.textContent=`${rw} · source ${n}`;$('source-links').append(a)}
  const observer=new ResizeObserver(()=>{const w=host.clientWidth,h=host.clientHeight;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix()});observer.observe(host);
  controls.addEventListener('start',()=>{if(cameraMode==='follow'||cameraMode==='focus')setCameraMode('free')});
@@ -257,8 +260,10 @@ async function init(){
   controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.08;controls.maxPolarAngle=Math.PI/2-.025;controls.minDistance=.8;controls.maxDistance=350;
   scene.add(new THREE.HemisphereLight('#ffffff','#6c8590',2.0));const light=new THREE.DirectionalLight('#fff5e6',2.4);light.position.set(-10,25,10);scene.add(light);
   buildGround();buildRunways();wireControls();selectRunway('34C');setCameraMode('airport');
-   observed=mountObserved({scene,data,aircraft,host,vertical:()=>vertical,camera,controls,onFlightMode:value=>{flightMode=value;scenario?.setMode(value==='scenario');syncNoise()},onMode:enabled=>{setAttribution(enabled?'© OpenStreetMap contributors · Wingbits recorded reports · geometric candidates, clearance unknown':'© OpenStreetMap contributors · SANS AIP AMDT 10/26 · Concept playback, not recorded flights');hideDemo(enabled);$('sources').textContent=enabled?'Sources & interpretation':'Sources & assumptions'}});
-  scenario=mountScenario({scene,data,host,viewport,camera,controls,vertical:()=>vertical,onMode:enabled=>{setAttribution('© OpenStreetMap contributors · SANS AIP AMDT 10/26 · Simulated departures, every number modelled');hideDemo(enabled);$('sources').textContent='Sources & interpretation'}});mountNoiseToggle();$('loading').style.display='none';ready=true;
+   observed=mountObserved({scene,data,aircraft,host,vertical:()=>vertical,camera,controls,onFlightMode:value=>{flightMode=value;scenario?.setMode(value==='scenario');syncNoise()},onMode:enabled=>{setAttribution(enabled?'© OpenStreetMap contributors · Wingbits recorded reports · geometric candidates, clearance unknown':'© OpenStreetMap contributors · SANS AIP AMDT 10/26 · Concept playback, not recorded flights');hideDemo(enabled)}});
+  scenario=mountScenario({scene,data,host,viewport,camera,controls,aircraft,vertical:()=>vertical,onMode:enabled=>{setAttribution('© OpenStreetMap contributors · SANS AIP AMDT 10/26 · Simulated departures, every number modelled');hideDemo(enabled)}});mountNoiseToggle();$('loading').style.display='none';ready=true;
+  // open in Scenario (what-if) mode; its default selection is 34C / ISLAM 2W / A320
+  {const m=document.querySelector('.observed-mode select');m.value='scenario';m.onchange()}
   window.map2={observed,noise:{setVisible:setNoiseVisible,setMetric:name=>{noise.metric=name;noise.api?.setMetric(name)},getState:()=>({visible:noise.visible,metric:noise.api?.getMetric()||noise.metric,loaded:noise.loaded,error:noise.error})},scenario:{select:(runway,sid,aircraft,perDay)=>scenario.select(runway,sid,aircraft,perDay),getState:()=>scenario.getState(),setMode:v=>{const m=document.querySelector('.observed-mode select');m.value=v?'scenario':'illustrative';m.onchange()}},getState:()=>Object.fromEntries(Object.entries(states).map(([id,s])=>[id,{procedure:s.flight?.route.name||null,playing:s.playing,elapsed:s.elapsed,duration:s.flight?.duration||0,loops:s.loops,next:s.sample?.next,position:s.plane.position.toArray()}])),getCamera:()=>({mode:cameraMode,subject:focusSubject,position:camera.position.toArray(),target:controls.target.toArray()}),getCounts:()=>({aircraft:Object.keys(states).length,procedures:data.routes.length,fixes:Object.keys(data.fixes).length}),selectProcedure:name=>{const route=data.routes.find(r=>r.name===name);if(!route)throw new Error('Unknown procedure');chooseProcedure(route)}};
   requestAnimationFrame(animate);
  }catch(error){$('loading').classList.add('error');$('loading').textContent='Unable to open the 3D scene. Use “Start Map 2.cmd” and a browser with WebGL enabled. '+error.message;console.error(error)}

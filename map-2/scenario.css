@@ -16,7 +16,15 @@
 .scenario-mode-active .section-head{margin-bottom:8px}.scenario-mode-active .sidebar{overflow-y:auto}.scenario-mode-active .altitude-control{bottom:44px}.scenario-mode-active .attribution{max-width:50%;font-size:10px}
 @media(max-width:1150px){.scenario-card{width:300px}}
 @media(max-width:760px){.scenario-card{width:250px;right:12px;padding:12px}.scenario-card .card-foot{display:none}.scenario-legend{left:12px;bottom:44px}.scenario-panel{padding:0 0 16px}}
-@media(max-width:600px){.scenario-card{display:none}.scenario-legend{bottom:30px}}
+@media(max-width:600px){.scenario-mode-active .attribution{max-width:none}.scenario-card{left:12px;right:12px;width:auto;bottom:84px;padding:10px 12px}.scenario-card-sub{margin:4px 0}.scenario-legend{bottom:auto;top:112px;left:12px;flex-direction:row;gap:8px;padding:6px 8px}.scenario-legend small{display:none}}
 
 /* keep the footer credit readable above the scenario place labels */
 .scenario-mode-active .attribution{z-index:3;background:#e8f1f3d9;border-radius:5px;padding:2px 7px}
+/* playback: live counters, transport, chart dot, collapse button */
+.scenario-card .card-heading{display:flex;align-items:center;gap:8px}.scenario-card .card-heading span{flex:1}
+.scenario-collapse{width:22px;height:20px;padding:0;border:1px solid #b5c9ce;background:#fff;color:#234957;border-radius:5px;font-weight:700;line-height:1;cursor:pointer}
+.scenario-card.collapsed .scenario-profile,.scenario-card.collapsed .card-foot{display:none}
+.scenario-live{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:2px 0 8px}.scenario-live small{display:block;font-size:7px;letter-spacing:.07em;color:#547a88}.scenario-live b{display:block;font-size:13px;font-weight:500;color:#234957;font-variant-numeric:tabular-nums;white-space:nowrap}
+.scenario-transport{display:flex;gap:6px;align-items:center;margin-top:8px}.scenario-transport button{border:1px solid #b5c9ce;background:#fff;color:#234957;border-radius:6px;padding:6px 10px;font-family:inherit;font-size:11px;font-weight:600;cursor:pointer}.scenario-transport button.primary{background:#234957;border-color:#234957;color:#fff;min-width:74px}.scenario-transport select{margin-left:auto;border:1px solid #b5c9ce;border-radius:6px;padding:5px;background:#fff;color:#234957;font-size:11px}
+.scenario-explain{font-size:11px;line-height:1.5;color:#3d6576;background:#eaf3f4;border-left:3px solid #168d9b;padding:6px 9px;margin:8px 0 0}
+@media(max-height:850px){.scenario-card{padding:13px 15px}.scenario-card .card-foot{display:none}.scenario-card-sub{margin:5px 0 4px}}

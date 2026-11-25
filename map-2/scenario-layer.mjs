@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import {playbackAt} from './scenario-playback.mjs';
 
 const colors={'34C':'#168d9b','34L':'#bb4b76'};
 const levelColors={60:'#12B5EA',65:'#1738F5',70:'#03072E'},levelOpacity={60:.28,65:.3,70:.34},levelHeight={60:.02,65:.022,70:.024};
@@ -6,7 +7,7 @@ const FT_KM=.0003048,LINKS={maha:'https://github.com/M40aha/oejn-noise-populatio
 const element=(tag,text,className)=>{const e=document.createElement(tag);if(text!==undefined&&text!==null)e.textContent=text;if(className)e.className=className;return e};
 const num=(v,digits=0)=>Number(v).toLocaleString('en-US',{minimumFractionDigits:digits,maximumFractionDigits:digits});
 const tons=kg=>{const t=kg/1000;return num(t,t>=100?0:1)};
-const clock=s=>Math.floor(s/60)+':'+String(Math.round(s%60)).padStart(2,'0');
+const clock=s=>{s=Math.round(s);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
 
 // WGS84 transverse Mercator (Krüger series) for UTM zone 37N: k0 .9996, central meridian 39°E, false easting 500000.
 export function toUtm37(lat,lon){
@@ -21,10 +22,14 @@ export function toUtm37(lat,lon){
  return [500000+k0*A*eta,k0*A*xi];
 }
 
-export function mountScenario({scene,data,host,viewport,camera,controls,vertical,onMode,base='./scenarios/'}){
+export const SCENARIO_DEFAULT={runway:'34C',sid:'ISLAM 2W',aircraft:'A320'};
+export const departuresSentence=n=>`People inside the 65 dB area hear about ${n} ${n===1?'departure':'departures'} like this a day (${n}×365 = ${num(n*365)} a year).`;
+
+export function mountScenario({scene,data,host,viewport,camera,controls,vertical,onMode,aircraft,base='./scenarios/'}){
  const baseUrl=new URL(base,import.meta.url);
- const state={enabled:false,runway:'34C',sid:null,aircraft:'A320',perDay:10,index:null,record:null,error:null};
- const geoCache=new Map();let token=0,indexPromise=null,lastVertical=vertical();
+ const state={enabled:false,...SCENARIO_DEFAULT,perDay:10,index:null,record:null,error:null};
+ const play={t:0,playing:false,speed:30,dirty:true};
+ const geoCache=new Map();let token=0,indexPromise=null,lastVertical=vertical(),plane=null,chart=null;
  const project=(lat,lon)=>{const [e,n]=toUtm37(lat,lon);return [(e-data.origin.utm[0])/1000,-(n-data.origin.utm[1])/1000]};
  // Self-check the projection against the published fixes.
  let worst=0;for(const [id,fix] of Object.entries(data.fixes)){const [x,z]=project(fix.lat,fix.lon),err=Math.hypot(x-fix.xz[0],z-fix.xz[1]);worst=Math.max(worst,err);if(err>.002)console.warn(`Scenario projection check: fix ${id} is off by ${err.toFixed(4)} km`)}
@@ -60,11 +65,29 @@ export function mountScenario({scene,data,host,viewport,camera,controls,vertical
  legend.append(element('small','NOISE · LAMAX, ONE DEPARTURE · MODELLED'));
  for(const level of [60,65,70]){const row=element('span');const sw=element('i');sw.style.background=levelColors[level];row.append(sw,document.createTextNode('≥'+level+' dB'));legend.append(row)}
  const card=element('div',undefined,'scenario-card');card.hidden=true;
- const cardHead=element('div',undefined,'card-heading');const cardTitle=element('span','CLIMB PROFILE'),cardTag=element('b','MODELLED');cardHead.append(cardTitle,cardTag);
+ const cardHead=element('div',undefined,'card-heading');const cardTitle=element('span','CLIMB PROFILE'),cardTag=element('b','MODELLED');
+ const collapse=element('button','–','scenario-collapse');collapse.type='button';
+ const setCollapsed=on=>{card.classList.toggle('collapsed',on);collapse.textContent=on?'+':'–';collapse.setAttribute('aria-expanded',String(!on));collapse.setAttribute('aria-label',on?'Show climb chart':'Hide climb chart')};
+ collapse.onclick=()=>setCollapsed(!card.classList.contains('collapsed'));
+ cardHead.append(cardTitle,cardTag,collapse);
  const cardSub=element('p',undefined,'scenario-card-sub'),svgNS='http://www.w3.org/2000/svg';
+ // live counters and transport for the playback
+ const live=element('div',undefined,'scenario-live');
+ const liveCell=caption=>{const c=element('div');const v=element('b','—');c.append(element('small',caption),v);live.append(c);return v};
+ const liveTime=liveCell('TIME'),liveAlt=liveCell('ALTITUDE'),liveFuel=liveCell('FUEL SO FAR'),liveCo2=liveCell('CO₂ SO FAR');
+ const transport=element('div',undefined,'scenario-transport');
+ const playBtn=element('button','▶ Play','primary');playBtn.type='button';playBtn.setAttribute('aria-label','Play or pause the scenario departure');
+ const restartBtn=element('button','↺');restartBtn.type='button';restartBtn.setAttribute('aria-label','Restart the scenario departure');
+ const speedSelect=element('select');speedSelect.setAttribute('aria-label','Scenario playback speed');
+ for(const n of [10,30,60]){const o=element('option',n+'× speed');o.value=n;if(n===play.speed)o.selected=true;speedSelect.append(o)}
+ playBtn.onclick=()=>{if(!state.record)return;if(play.t>=state.record.to10k.time_s)play.t=0;play.playing=!play.playing;play.dirty=true};
+ restartBtn.onclick=()=>{play.t=0;play.playing=false;play.dirty=true};
+ speedSelect.onchange=()=>play.speed=Number(speedSelect.value);
+ transport.append(playBtn,restartBtn,speedSelect);
  const svg=document.createElementNS(svgNS,'svg');svg.setAttribute('viewBox','0 0 320 150');svg.setAttribute('role','img');svg.setAttribute('aria-label','Modelled altitude profile');svg.classList.add('scenario-profile');
  const cardFoot=element('div',undefined,'card-foot');cardFoot.append(element('span','Altitude (ft, MSL) against distance flown (NM)'));
- card.append(cardHead,cardSub,svg,cardFoot);
+ card.append(cardHead,cardSub,live,svg,transport,cardFoot);
+ setCollapsed(matchMedia('(max-width:600px)').matches);
  viewport.append(legend,card);
 
  const setNotice=(text,error)=>{notice.textContent=text;notice.classList.toggle('error',Boolean(error));notice.hidden=!text};
@@ -133,7 +156,26 @@ export function mountScenario({scene,data,host,viewport,camera,controls,vertical
    const marker=new THREE.Mesh(new THREE.OctahedronGeometry(.22),new THREE.MeshBasicMaterial({color}));marker.position.set(at[0],10000*FT_KM*v,at[1]);result.add(marker);
    result.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(at[0],.03,at[1]),marker.position.clone()]),new THREE.LineBasicMaterial({color,transparent:true,opacity:.25})))}
   result.userData.below10k=pts.filter((p,i)=>record.profile[i][1]<=10000);
+  // the rest of the published SID after the modelled climb: thin dashed line through the remaining fixes
+  const fixes=routeFixes(record),lastModelled=record.fixes.at(-1)?.id,after=fixes.slice(fixes.indexOf(lastModelled)+1).map(id=>data.fixes[id]).filter(Boolean);
+  if(after.length){const top=pts.at(-1),dashed=new THREE.Line(new THREE.BufferGeometry().setFromPoints([top,...after.map(f=>new THREE.Vector3(f.xz[0],top.y,f.xz[1]))]),new THREE.LineDashedMaterial({color,dashSize:.6,gapSize:.4,transparent:true,opacity:.75}));dashed.computeLineDistances();result.add(dashed)}
   group.add(result);return result;
+ }
+ const routeFixes=r=>data.routes.find(x=>x.runway===r.runway&&x.name===r.sid)?.legs.map(l=>l.fix)||[];
+ // Other SIDs of the same runway and aircraft with the same footprint (same residents in every band), and where this route splits from them.
+ function sharedFootprint(r){
+  const same=state.index.scenarios.filter(s=>s.runway===r.runway&&s.aircraft===r.aircraft&&s.sid!==r.sid&&[60,65,70].every(l=>s.residents[l]===r.residents[l]));
+  if(!same.length)return '';
+  const seqs=[r,...same].map(routeFixes);let n=0;while(seqs.every(s=>s[n]&&s[n]===seqs[0][n]))n++;
+  if(!n)return '';
+  const who=same.length===sidsFor(r.runway).length-1?`the other ${r.runway} routes`:same.map(s=>s.sid).join(', ');
+  return `Same footprint as ${who} up to 10,000 ft; this route splits after ${seqs[0][n-1]}.`;
+ }
+ // A long level hold (for example 9,000 ft for 64 NM) makes fuel and time to 10,000 ft much larger while the footprint stays the same.
+ function holdNote(r){
+  const m=(r.notes||[]).map(n=>/Held at ([\d,]+) ft for ([\d.]+) NM/.exec(n)).find(m=>m&&Number(m[2])>=30);
+  if(!m||!sharedFootprint(r))return '';
+  return `Held at or below ${m[1]} ft for ${m[2]} NM, so fuel and time to 10,000 ft are about double the other ${r.runway} routes, while the noise near the city is the same.`;
  }
  function buildPlaceLabels(record){
   for(const l of placeLabels)l.el.remove();placeLabels=[];
@@ -165,6 +207,8 @@ export function mountScenario({scene,data,host,viewport,camera,controls,vertical
   if(mine!==token)return;
   setNotice('');state.record=record;
   dispose(contours);dispose(track);contours=buildContours(geo);group.add(contours);track=buildTrack(record);lastVertical=vertical();
+  dispose(plane);plane=aircraft?aircraft(colors[record.runway]):null;if(plane)group.add(plane);
+  play.t=0;play.playing=false;play.dirty=true;
   buildPlaceLabels(record);renderResults();renderCard();if(state.enabled)fitCamera();
  }
 
@@ -174,13 +218,15 @@ export function mountScenario({scene,data,host,viewport,camera,controls,vertical
   results.replaceChildren();const r=state.record,idx=state.index;if(!r||!idx)return;
   const n=state.perDay,t=r.to10k;
   const one=section('One departure');const grid=element('div',undefined,'scenario-tiles');
-  grid.append(tile('FUEL TO 10,000 FT',num(t.fuel_kg),'kg'),tile('CO₂',num(t.co2_kg),'kg'),tile('TIME TO 10,000 FT',clock(t.time_s),'min'),tile('DISTANCE TO 10,000 FT',num(t.distance_nm,1),'NM'));one.append(grid);results.append(one);
+  grid.append(tile('FUEL TO 10,000 FT',num(t.fuel_kg),'kg'),tile('CO₂',num(t.co2_kg),'kg'),tile('TIME TO 10,000 FT',clock(t.time_s),'min'),tile('DISTANCE TO 10,000 FT',num(t.distance_nm,1),'NM'));one.append(grid);
+  const hold=holdNote(r);if(hold)one.append(element('p',hold,'scenario-explain'));results.append(one);
   const noise=section('Noise footprint (LAmax, one departure)');
   for(const level of idx.levels_db||[60,65,70]){
    const row=element('div',undefined,'scenario-noise'),sw=element('i');sw.style.background=levelColors[level];
    const text=element('span');text.append(element('b',num(r.residents?.[level]??0)),' residents inside · '+num(r.contour_area_km2?.[level]??0,1)+' km²');
    row.append(sw,element('em','≥'+level+' dB'),text,element('small','modelled'));noise.append(row);
   }
+  const shared=sharedFootprint(r);if(shared)noise.append(element('p',shared,'scenario-explain'));
   results.append(noise);
   const near=section('Nearest named places');const list=element('ol',undefined,'scenario-places');
   for(const p of r.places.slice(0,5)){
@@ -191,7 +237,7 @@ export function mountScenario({scene,data,host,viewport,camera,controls,vertical
   near.append(list);results.append(near);
   const day=section(`Per day and per year · ${n} ${n===1?'departure':'departures'} a day`);const dg=element('div',undefined,'scenario-tiles');
   dg.append(tile('FUEL PER DAY',tons(t.fuel_kg*n),'t'),tile('CO₂ PER DAY',tons(t.co2_kg*n),'t'),tile('FUEL PER YEAR',tons(t.fuel_kg*n*365),'t'),tile('CO₂ PER YEAR',tons(t.co2_kg*n*365),'t'));day.append(dg);
-  day.append(element('p',`People inside the 65 dB area hear about ${n} departures like this a day (${n}×365 = ${num(n*365)} a year).`,'scenario-intro'));results.append(day);
+  day.append(element('p',departuresSentence(n),'scenario-intro'));results.append(day);
   const notes=[...(r.notes||[]),...(r.flags||[])];
   if(notes.length){const nb=element('div',undefined,'scenario-notes');for(const text of notes)nb.append(element('p',String(text)));results.append(nb)}
   const det=element('details',undefined,'scenario-assumptions');det.append(element('summary','Assumptions'));const ul=element('ul');for(const a of idx.assumptions||[])ul.append(element('li',a));det.append(ul);
@@ -218,10 +264,23 @@ export function mountScenario({scene,data,host,viewport,camera,controls,vertical
   r.fixes.filter(f=>f.dist_nm<=maxD).forEach((f,i)=>{const x=X(f.dist_nm),y=Y(f.alt_ft);mk('circle',{cx:x,cy:y,r:2.2,fill:'#fff',stroke:color,'stroke-width':1.2});mk('text',{x,y:y+(i%2?11:-5),'text-anchor':'middle',class:'fixid'},f.id)});
   const d10=r.to10k.distance_nm,xm=Math.min(X(d10),W-R);mk('circle',{cx:xm,cy:Y(10000),r:3.6,fill:color,stroke:'#fff','stroke-width':1.2});
   const label=`10,000 ft · ${num(d10,1)} NM`,anchorEnd=xm>W*.6;mk('text',{x:anchorEnd?xm-6:xm+6,y:Y(10000)-6,'text-anchor':anchorEnd?'end':'start',class:'mark'},label);
+  chart={X,Y,dot:mk('circle',{cx:X(0),cy:Y(0),r:4,class:'play-dot',fill:'#fff',stroke:color,'stroke-width':2.2})};play.dirty=true;
+ }
+ // Playback: move the aircraft along the track, the dot along the chart, and update the live counters.
+ function updatePlayback(dt){
+  const r=state.record;if(!r||!plane)return;
+  if(play.playing){play.t+=dt*play.speed;if(play.t>=r.to10k.time_s){play.t=r.to10k.time_s;play.playing=false}play.dirty=true}
+  plane.scale.setScalar(Math.min(4,Math.max(.25,camera.position.distanceTo(plane.position)*.032)));  // same on-screen size as the demo aircraft
+  if(!play.dirty)return;play.dirty=false;
+  const s=playbackAt(r,play.t),[x,z]=project(s.lat,s.lon),[ax,az]=project(s.from[3],s.from[2]),[bx,bz]=project(s.to[3],s.to[2]);
+  plane.position.set(x,s.alt*FT_KM*vertical()+.035,z);if(bx!==ax||bz!==az)plane.rotation.y=Math.atan2(-(bx-ax),-(bz-az));
+  if(chart){chart.dot.setAttribute('cx',chart.X(s.d).toFixed(1));chart.dot.setAttribute('cy',chart.Y(s.alt).toFixed(1))}
+  liveTime.textContent=clock(s.t)+' min';liveAlt.textContent=num(s.done?10000:s.alt)+' ft';liveFuel.textContent=num(s.fuel)+' kg';liveCo2.textContent=num(s.co2)+' kg';
+  playBtn.textContent=play.playing?'Ⅱ Pause':'▶ Play';
  }
 
  function setMode(enabled){
-  if(enabled===state.enabled)return;
+  if(enabled===state.enabled){if(enabled)onMode(true);return}  // re-selecting Scenario must hide the demo again
   state.enabled=enabled;group.visible=enabled;panel.hidden=!enabled;labels.hidden=!enabled;legend.hidden=!enabled;card.hidden=!enabled;
   document.body.classList.toggle('scenario-mode-active',enabled);
   if(enabled){onMode(true);start()}
@@ -232,13 +291,26 @@ export function mountScenario({scene,data,host,viewport,camera,controls,vertical
   syncInputs();
   if(state.record&&state.record===findRecord()){renderResults();renderCard();fitCamera()}else await refresh();
  }
- function update(){
+ function update(dt=0){
   if(!state.enabled)return;
-  if(track&&lastVertical!==vertical()){dispose(track);track=buildTrack(state.record);lastVertical=vertical()}
-  const w=host.clientWidth,h=host.clientHeight,v=new THREE.Vector3();
-  for(const l of placeLabels){v.copy(l.position).project(camera);const show=v.z>=-1&&v.z<=1&&Math.abs(v.x)<1.05&&Math.abs(v.y)<1.05;l.el.style.display=show?'':'none';if(show){l.el.style.left=((v.x*.5+.5)*w)+'px';l.el.style.top=((-v.y*.5+.5)*h)+'px'}}
+  if(track&&lastVertical!==vertical()){dispose(track);track=buildTrack(state.record);lastVertical=vertical();play.dirty=true}
+  updatePlayback(dt);
+  const w=host.clientWidth,h=host.clientHeight,v=new THREE.Vector3(),kept=[];
+  // labels are in priority order (nearest first); hide a label that would overlap one already shown
+  for(const l of placeLabels){
+   v.copy(l.position).project(camera);let show=v.z>=-1&&v.z<=1&&Math.abs(v.x)<1.05&&Math.abs(v.y)<1.05;
+   if(show){
+    const x=(v.x*.5+.5)*w,y=(-v.y*.5+.5)*h;
+    if(!l.w){l.el.style.display='';l.w=l.el.offsetWidth;l.h=l.el.offsetHeight}
+    const box=[x-l.w/2-2,y-l.h-2,x+l.w/2+2,y+2];
+    show=!kept.some(b=>box[0]<b[2]&&b[0]<box[2]&&box[1]<b[3]&&b[1]<box[3]);
+    if(show){kept.push(box);l.el.style.left=x+'px';l.el.style.top=y+'px'}
+   }
+   l.el.style.display=show?'':'none';
+  }
  }
  return {update,setMode,projectionError:worst,
   select:async(runway,sid,aircraft,perDay)=>{try{await loadIndex()}catch(e){throw e}await choose({runway,sid,aircraft,perDay:perDay??state.perDay});if(!state.record)throw Error(state.error||'No scenario for this combination.');return state.record.id},
-  getState:()=>({enabled:state.enabled,runway:state.runway,sid:state.sid,aircraft:state.aircraft,perDay:state.perDay,recordId:state.record?.id||null,error:state.error,groupVisible:group.visible,contourMeshes:contours?.children.filter(o=>o.isMesh).length||0,trackVisible:Boolean(track),places:placeLabels.length})};
+  getState:()=>({enabled:state.enabled,runway:state.runway,sid:state.sid,aircraft:state.aircraft,perDay:state.perDay,recordId:state.record?.id||null,error:state.error,groupVisible:group.visible,contourMeshes:contours?.children.filter(o=>o.isMesh).length||0,trackVisible:Boolean(track),places:placeLabels.length,placesShown:placeLabels.filter(l=>l.el.style.display!=='none').length,
+   playback:{t:play.t,playing:play.playing,time:liveTime.textContent,altitude:liveAlt.textContent,fuel:liveFuel.textContent,co2:liveCo2.textContent}})};
 }

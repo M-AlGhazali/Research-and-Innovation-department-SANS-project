@@ -23,10 +23,10 @@ The raw data for all layers (A1 to A6) was collected by Khalid and lives in his 
 
 ## What Map 2 shows
 
-- **Published procedure demo:** the 16 published SIDs from 34C and 34L in 3D, with an illustrative flight playback.
-- **Scenario (what-if) mode:** pick a runway, SID, aircraft (A320, A20N or B77W) and departures per day, and see modelled fuel and CO₂ to 10,000 ft, time and distance, the climb profile, the LAmax 60 / 65 / 70 dB footprint, the residents inside each contour and the nearest named places, with daily and yearly totals. All 48 combinations are pre-computed from simulated flights by [`tools/scenarios/`](tools/scenarios/README.md): OpenAP for fuel, Maha's Doc 29 model and WorldPop grid for noise and residents.
-- **Observed noise (1 Oct 2026):** Maha's Lden, Lnight and N70 surfaces and results panel, as aggregated grids only (no flight tracks).
-- **Recorded flights:** Khalid's A2 replay of real departures, with Hala's fuel estimate. This mode needs the local A2 output; the recorded data is never published.
+- **Published procedure demo:** the 24 published SIDs from 34L, 34C and 34R in 3D, with an illustrative flight playback.
+- **Scenario (what-if) mode** (the page opens here, on 34C / ISLAM 2W / A320): pick a runway, SID, aircraft (A320, A20N or B77W) and departures per day, and see modelled fuel and CO₂ to 10,000 ft, time and distance, the climb profile, the LAmax 60 / 65 / 70 dB footprint, the residents inside each contour and the nearest named places, with daily and yearly totals. Play flies the departure along its modelled track with live time, altitude, fuel and CO₂ counters. All 48 combinations are pre-computed from simulated flights by [`tools/scenarios/`](tools/scenarios/README.md): OpenAP for fuel, Maha's Doc 29 model and WorldPop grid for noise and residents.
+- **Modelled noise, observed flights (1 Oct 2026):** Maha's Lden, Lnight and N70 surfaces and results panel, as aggregated grids only (no flight tracks).
+- **Recorded flights:** Khalid's A2 replay of real departures, with Hala's fuel estimate. This mode appears in the Flight mode menu only on a local server that has the A2 output; the recorded data is never published.
 
 ## Run the demo
 
@@ -40,7 +40,7 @@ It opens <http://127.0.0.1:8765/map-2/>. On Windows you can double-click `Start 
 
 ## Run the tests
 
-One environment (Python 3.12) and one command for all three parts (A2 and fuel, Scenario files, noise-population) and the two Node suites:
+One environment (Python 3.12) and one command for all three parts (A2 and fuel, Scenario files, noise-population) and the Node suites:
 
 ```
 python -m venv .venv

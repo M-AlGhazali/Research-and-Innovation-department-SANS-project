@@ -25,7 +25,7 @@ Thank you, Maha, for the noise and population work behind every noise result.
 
 - A5 aircraft-noise data and A6 population layers, moved here with their history from [M40aha/oejn-noise-population](https://github.com/M40aha/oejn-noise-population) into [`noise-population/`](noise-population).
 - The ECAC Doc 29 noise model that the Masar engine uses for every noise result: the Scenario generator ([`tools/scenarios/`](tools/scenarios)) runs your model in [`noise-population/src/noise/`](noise-population/src/noise) for every contour and resident count.
-- The 3D noise map ([`noise-population/map3d/`](noise-population/map3d)) and the results panel, which Map 2 shows as the "Observed noise" layer.
+- The 3D noise map ([`noise-population/map3d/`](noise-population/map3d)) and the results panel, which Map 2 shows as the "Modelled noise, observed flights" layer.
 
 ### Muhannad AlGhazali ([@M-AlGhazali](https://github.com/M-AlGhazali))
 
