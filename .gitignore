@@ -12,5 +12,10 @@ local-data/
 *.parquet
 observed-data/
 
+# Wingbits-derived per-flight outputs of noise-population scripts: never commit
+# (noise-population/.gitignore already keeps data/inputs/ and data/noise/interim/ out)
+noise-population/data/noise/processed/flight_results.csv
+noise-population/docs/noise/fig_tracks.png
+
 # Scenario generator intermediate files
 tools/scenarios/.work/

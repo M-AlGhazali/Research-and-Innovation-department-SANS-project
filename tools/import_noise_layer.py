@@ -1,8 +1,8 @@
 """Copy the aggregated observed-noise layer of the noise repo into Map 2 (map-2/noise/noise-layer.json).
 
-    python tools/import_noise_layer.py [path to oejn-noise-population]   (default: cloned next to this repo)
+    python tools/import_noise_layer.py [path to the noise model]   (default: noise-population/ in this repo)
 
-Source: github.com/M40aha/oejn-noise-population, map3d/noise-layer.json (release noise-doc29e5-oejn-2026-10-01-v1,
+Source: noise-population/ (from github.com/M40aha/oejn-noise-population), map3d/noise-layer.json (release noise-doc29e5-oejn-2026-10-01-v1,
 ECAC Doc 29 on the departures observed on 1 Oct 2026). Only aggregated results are kept: the Lden / Lnight / N70 grids
 and contours, the residents per band, the summary statistics of the Results panel and the OpenStreetMap place names.
 The median observed flight paths ("paths") and the illustrative live-footprint block ("live") are dropped: no flight
@@ -20,14 +20,15 @@ KEEP = ("release", "crs", "arp_utm", "modelled", "n", "cell_km", "x0", "y0", "gr
 
 
 def main():
-    repo = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT.parent / "oejn-noise-population"
+    repo = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "noise-population"
     src = repo / "map3d" / "noise-layer.json"
     raw = src.read_bytes()
     d = json.loads(raw)
     missing = [k for k in KEEP if k not in d]
     if missing:
         raise SystemExit(f"noise-layer.json lacks {missing}")
-    commit = subprocess.run(["git", "-C", str(repo), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip() or None
+    # last commit that changed the noise model folder (noise-population/ here, or a separate clone)
+    commit = subprocess.run(["git", "-C", str(repo), "log", "-1", "--format=%H", "--", "."], capture_output=True, text=True).stdout.strip() or None
     out = {k: d[k] for k in KEEP}
     # groups of fewer than MIN_GROUP flights would show one or two flights' footprint: suppress them
     st = out["stats"]

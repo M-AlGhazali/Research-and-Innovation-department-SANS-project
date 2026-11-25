@@ -14,34 +14,30 @@ Every value is modelled from a simulated flight, not measured.
 | Flight path | The aircraft follows the published SID in `data/A1_Procedures.csv` fix by fix. "At" and "at or below" altitude limits act as a ceiling until their fix is passed; "at or above" limits are checked; the published 210 kt limit on the 34L SIDs caps the speed until JN272. |
 | Fuel | OpenAP fuel flow, mass 80% of MTOW, standard OpenAP WRAP climb, 250 kt below 10,000 ft, no wind. Fuel covers brake release to 10,000 ft only. |
 | CO₂ | fuel × 3.16 |
-| Noise | ECAC Doc 29 (5th ed.) through the noise model of [M40aha/oejn-noise-population](https://github.com/M40aha/oejn-noise-population), one daytime departure (12:00 local), still air, 33 °C, QNH 1010 hPa, 250 m grid. The grid extends 60 km from the airport instead of the repo's 40 km, because the B77W 60 dB footprint north of 34C reaches 40 km; the spacing is unchanged, so results inside 40 km are the same. |
-| Residents | WorldPop R2025A 100 m grid of the noise repo, summed where the per-flight LAmax reaches each level. |
+| Noise | ECAC Doc 29 (5th ed.) through Maha's noise model in [`noise-population/`](../../noise-population) (from [M40aha/oejn-noise-population](https://github.com/M40aha/oejn-noise-population)), one daytime departure (12:00 local), still air, 33 °C, QNH 1010 hPa, 250 m grid. The grid extends 60 km from the airport instead of the repo's 40 km, because the B77W 60 dB footprint north of 34C reaches 40 km; the spacing is unchanged, so results inside 40 km are the same. |
+| Residents | WorldPop R2025A 100 m grid in `noise-population/`, summed where the per-flight LAmax reaches each level. |
 | Places | OpenStreetMap place points from `map-1/OEJN-ground.gpkg` (points, not boundaries). |
 
 The flight model is adapted from `masar-reference/reference_trajectory_fuel.py`, the noise run from `reference_noise_run.py`, and the contour step from `reference_footprint_map.py`.
 
 ## Re-run
 
-1. Clone the noise repo next to this repo (it is used in place, never copied in):
+The noise model is in `noise-population/` in this repo; the generator uses it in place (read only).
+
+1. Make a Python 3.12 environment at the repo root and install the root pins:
 
    ```
-   git clone https://github.com/M40aha/oejn-noise-population ../oejn-noise-population
+   python -m venv .venv
+   .venv/Scripts/python -m pip install -r requirements.txt
    ```
 
-2. Make a Python 3.12 environment outside the repo and install the pins:
+2. From the repo root:
 
    ```
-   python -m venv ../.venv-scenarios
-   ../.venv-scenarios/Scripts/python -m pip install -r tools/scenarios/requirements.txt
+   .venv/Scripts/python tools/scenarios/generate_scenarios.py
    ```
 
-3. From the repo root:
-
-   ```
-   ../.venv-scenarios/Scripts/python tools/scenarios/generate_scenarios.py
-   ```
-
-   About 10 minutes on a laptop. `--only "34C/ISLAM 2W/A320"` runs one combination and prints it without writing to `map-2/`. `--noise-repo PATH` (or `NOISE_REPO`) points to another clone. Keep `--workers 1` on Windows: the noise model's process pool fails there.
+   About 10 minutes on a laptop. `--only "34C/ISLAM 2W/A320"` runs one combination and prints it without writing to `map-2/`. `--noise-repo PATH` (or `NOISE_REPO`) points to another copy of the noise model. Keep `--workers 1` on Windows: the noise model's process pool fails there.
 
 Intermediate files go to `tools/scenarios/.work/` (ignored by git). Only the derived scenario files in `map-2/scenarios/` are committed.
 

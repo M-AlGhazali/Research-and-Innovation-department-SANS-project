@@ -1,0 +1,32 @@
+# Masar: one requirements file for the whole repo (Python 3.12).
+#   python -m pip install -r requirements.txt
+# Covers the A2 pipeline (src/sans_a2), the A3/A4 fuel stage, noise-population/ (A5, A6, Doc 29 noise model),
+# the Scenario generator (tools/scenarios) and the tests. Where two parts pinned different versions,
+# the newer one is used (noted on the line).
+
+# A2 observed-departures pipeline
+duckdb==2.0.0            # A2 had 1.5.6; noise-population and scenarios 2.0.0
+numpy==2.5.3             # A2 had 2.5.2; noise-population and scenarios 2.5.3
+pandas==3.0.6            # A2 had 3.0.6; noise-population and scenarios 3.0.5
+pyproj==3.8.0            # A2 had 3.7.2; noise-population and scenarios 3.8.0
+pytz==2026.5
+psutil==7.2.1
+jsonschema==4.26.0
+
+# noise-population (A5 noise data, A6 population, Doc 29 noise model)
+pyarrow==26.0.0
+pyyaml==6.0.3
+openpyxl==3.1.5
+rasterio==1.5.2
+
+# A3/A4 fuel and weather (sans_a2 fuel) and the Scenario generator
+openap==2.6.2
+scipy==1.18.1
+xarray==2026.9.0
+netCDF4==1.7.5.1
+geopandas==1.2.0
+shapely==2.2.0
+matplotlib==3.11.2
+
+# Tests
+pytest==9.1.1            # A2 had 8.4.2; noise-population 9.1.1

@@ -305,7 +305,7 @@ def run(config_path: Path = ROOT / "config" / "a6.yaml") -> dict:
         "rings": rings.to_dict(orient="records"),
         "qc_counts": {s: qc.count(s) for s in ("PASS", "INFO", "WARNING", "ERROR", "UNRESOLVED")},
     }
-    (val_dir / "build_summary.json").write_text(json.dumps(summary, indent=2, default=float))
+    (val_dir / "build_summary.json").write_text(json.dumps(summary, indent=2, default=float), encoding="utf-8")
     _report(val_dir, qcdf, summary, cfg)
     return summary
 
@@ -319,7 +319,7 @@ def _report(val_dir: Path, qc: pd.DataFrame, s: dict, cfg: dict) -> None:
     L += [f"| {r['radius_km']} | {r['population']:,.0f} | {r['populated_cells']:,} |" for r in s["rings"]]
     L += ["", "## Checks", "", "| check | severity | message |", "|---|---|---|"]
     L += [f"| {r.check_id} | {icon[r.severity]} {r.severity} | {r.message} |" for r in qc.itertuples()]
-    (val_dir / "qc_report.md").write_text("\n".join(L) + "\n")
+    (val_dir / "qc_report.md").write_text("\n".join(L) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

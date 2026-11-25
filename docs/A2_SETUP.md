@@ -6,7 +6,7 @@ From the application checkout:
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.lock
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 .\.venv\Scripts\python.exe -m pip install --no-deps -e .
 .\.venv\Scripts\python.exe -m sans_a2 run --config config/oejn-2026-10-01.json
 .\.venv\Scripts\python.exe -m sans_a2 serve --config config/oejn-2026-10-01.json

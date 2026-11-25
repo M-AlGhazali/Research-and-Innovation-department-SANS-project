@@ -5,8 +5,8 @@
 For each runway / SID / aircraft:
   1. fly a simulated aircraft along the published SID (data/A1_Procedures.csv) with an OpenAP climb profile and
      integrate fuel to 10,000 ft (adapted from masar-reference/reference_trajectory_fuel.py);
-  2. write that trajectory in the input format of the noise model (github.com/M40aha/oejn-noise-population,
-     cloned next to this repo, never copied in) and run its ECAC Doc 29 pipeline for one daytime departure
+  2. write that trajectory in the input format of the noise model (noise-population/ in this repo, from
+     github.com/M40aha/oejn-noise-population; used read only) and run its ECAC Doc 29 pipeline for one daytime departure
      (adapted from masar-reference/reference_noise_run.py);
   3. read the per-flight LAmax grid, draw the 60 / 65 / 70 dB contours (WGS84) and read the residents inside each
      contour (WorldPop grid of the noise model) and the level at the OpenStreetMap places of Map 1.
@@ -64,7 +64,7 @@ ASSUMPTIONS = [
 def load_noise(repo: Path):
     for p in (repo / "scripts", repo / "src", repo):
         sys.path.insert(0, str(p))
-    import make_synthetic_noise_inputs as syn            # noqa: E402  (noise repo, read only)
+    import make_synthetic_noise_inputs as syn            # noqa: E402  (noise model, read only)
     from noise.run import main as noise_main             # noqa: E402
     return syn, noise_main
 
@@ -264,8 +264,9 @@ def places_table():
 
 
 def git_head(p: Path):
+    """Last commit that changed the noise model folder (works for noise-population/ in this repo or a separate clone)."""
     try:
-        return subprocess.run(["git", "-C", str(p), "rev-parse", "HEAD"], capture_output=True, text=True, check=True).stdout.strip()
+        return subprocess.run(["git", "-C", str(p), "log", "-1", "--format=%H", "--", "."], capture_output=True, text=True, check=True).stdout.strip() or None
     except Exception:
         return None
 
@@ -276,7 +277,7 @@ def slug(runway, sid, ac):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--noise-repo", type=Path, default=Path(os.environ.get("NOISE_REPO", ROOT.parent / "oejn-noise-population")))
+    ap.add_argument("--noise-repo", type=Path, default=Path(os.environ.get("NOISE_REPO", ROOT / "noise-population")))
     ap.add_argument("--only", help='one combination, e.g. "34C/ISLAM 2W/A320" (check run; nothing is written to map-2)')
     ap.add_argument("--work", type=Path, default=WORK)
     ap.add_argument("--workers", type=int, default=1,
@@ -375,9 +376,9 @@ def main():
         "generator": "tools/scenarios/generate_scenarios.py",
         "sources": {"procedures": "data/A1_Procedures.csv (SANS AIP AIRAC AMDT 10/26)",
                     "fuel_model": f"OpenAP {getattr(openap, '__version__', '')}".strip(),
-                    "noise_model": "github.com/M40aha/oejn-noise-population (ECAC Doc 29 5th ed., EASA ANP 2.3)",
+                    "noise_model": "noise-population/ (from github.com/M40aha/oejn-noise-population; ECAC Doc 29 5th ed., EASA ANP 2.3)",
                     "noise_model_commit": git_head(args.noise_repo),
-                    "population": "WorldPop R2025A 100 m, via oejn-noise-population",
+                    "population": "WorldPop R2025A 100 m, via noise-population/",
                     "places": "OpenStreetMap contributors (ODbL), via map-1/OEJN-ground.gpkg"},
         "levels_db": list(LEVELS), "co2_per_kg_fuel": CO2_PER_KG_FUEL, "assumptions": ASSUMPTIONS,
         "aircraft": {k: {"name": v["name"], "engine": v["engine"]} for k, v in AIRCRAFT.items()},
