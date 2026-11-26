@@ -1,4 +1,4 @@
-// Observed noise layer adapted from github.com/M40aha/oejn-noise-population (map3d/noise-layer.mjs) by Maha. Flight paths and the live footprint are not included.
+// Noise layer (modelled noise of the observed flights) adapted from github.com/M40aha/oejn-noise-population (map3d/noise-layer.mjs) by Maha. Flight paths and the live footprint are not included.
 // Graded noise surface (green -> red), contour lines, neighbourhood names, and a legend with the residents in each band.
 // Scene frame of Map 2: x = km east of data.origin.utm, z = km south of it, y = height (km x vertical emphasis).
 import * as THREE from 'three';
@@ -112,7 +112,7 @@ export function mountNoise({scene, data, viewport, camera, vertical, noise}) {
   // ---------- panel ----------
   const panel = document.createElement('div');
   panel.className = 'noise-panel'; panel.hidden = true;
-  panel.setAttribute('aria-label', 'Observed noise');
+  panel.setAttribute('aria-label', 'Modelled noise');
   panel.innerHTML = `<div class="noise-head"><small>NOISE · 1 OCT 2026</small><span class="noise-actions"><button class="noise-more" type="button">Results ↗</button><button class="noise-min" type="button" aria-label="Minimise noise panel" aria-expanded="true" title="Minimise">–</button></span></div>
     <div class="noise-seg" role="group" aria-label="Noise metric">
       ${Object.entries(METRIC).map(([k, m]) => `<button type="button" data-l="${k}" aria-pressed="false">${m.label}</button>`).join('')}
@@ -127,11 +127,11 @@ export function mountNoise({scene, data, viewport, camera, vertical, noise}) {
   const dlg = resultsDialog(N);
   panel.querySelector('.noise-more').onclick = () => dlg.showModal();
   const minBtn = panel.querySelector('.noise-min');
-  function minimise(on) {
+  function minimise(on, save = true) {
     panel.classList.toggle('min', on); minBtn.textContent = on ? '+' : '–';
     minBtn.setAttribute('aria-expanded', String(!on)); minBtn.title = on ? 'Expand noise panel' : 'Minimise noise panel';
     minBtn.setAttribute('aria-label', minBtn.title);
-    try { localStorage.setItem('noisePanelMin', on ? '1' : '0'); } catch (e) {}
+    if (save) try { localStorage.setItem('noisePanelMin', on ? '1' : '0'); } catch (e) {}
     setTimeout(() => place(), 0);
   }
   minBtn.onclick = () => minimise(!panel.classList.contains('min'));
@@ -173,7 +173,9 @@ export function mountNoise({scene, data, viewport, camera, vertical, noise}) {
   }
   new ResizeObserver(place).observe(viewport); panel.querySelector('details').addEventListener('toggle', place);
   new MutationObserver(() => setTimeout(place, 0)).observe(document.body, {attributes: true, attributeFilter: ['class']});
-  try { if (localStorage.getItem('noisePanelMin') === '1') minimise(true); } catch (e) {}
+  // start minimised when the user chose so before, and on phones (the panel would cover most of the small map)
+  let stored = null; try { stored = localStorage.getItem('noisePanelMin'); } catch (e) {}
+  if (stored === '1' || (stored === null && matchMedia('(max-width:600px)').matches)) minimise(true, false);
   apply();
   return {
     setShown: v => { shown = Boolean(v); apply(); },

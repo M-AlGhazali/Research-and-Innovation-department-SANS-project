@@ -10,8 +10,11 @@ export function mountObserved({scene,data,aircraft,host,vertical,onMode,camera,c
  const flights=new Map(),pending=new Set(),failed=new Set(),group=new THREE.Group();group.visible=false;scene.add(group);
  const modeLabel=element('label','FLIGHT MODE','observed-mode');
  const mode=element('select');mode.setAttribute('aria-label','Flight mode');
- for(const [value,title] of [['illustrative','Published procedure demo'],['observed','Recorded flights · local A2'],['scenario','Scenario (what-if)']]){const o=element('option',title);o.value=value;mode.append(o)}
+ for(const [value,title] of [['illustrative','Published procedure demo'],['scenario','Scenario (what-if)']]){const o=element('option',title);o.value=value;mode.append(o)}
  modeLabel.append(mode);document.querySelector('.section-head').prepend(modeLabel);
+ // Recorded flights need the local A2 dataset. Only look for it on this computer (never on the public site, so no 404 there).
+ const base='/observed-data/';
+ if(['localhost','127.0.0.1','[::1]'].includes(location.hostname))fetch(base+'manifest.json').then(r=>{if(r.ok){const o=element('option','Recorded flights · local A2');o.value='observed';mode.insertBefore(o,mode.querySelector('option[value=scenario]'))}}).catch(()=>{});
  const panel=element('section',undefined,'observed-panel');panel.hidden=true;panel.setAttribute('aria-label','Recorded flight controls');
  panel.append(element('h2','Observed departures'),element('p','Recorded UTC positions with geometric SID candidates. Assigned clearances are unknown.','observed-intro'));
  const notice=element('p','Loading the local dataset…','observed-notice');notice.setAttribute('role','status');panel.append(notice);
@@ -36,7 +39,6 @@ export function mountObserved({scene,data,aircraft,host,vertical,onMode,camera,c
  const labels=element('div',undefined,'observed-labels');host.append(labels);
  let lastUI=0,tracking=false;
  for(const input of [choose,range,play,restart,follow,fit,speed,overlay])input.disabled=true;
- const base='/observed-data/';
  async function ensureManifest(){
   if(state.manifest)return;
   try{

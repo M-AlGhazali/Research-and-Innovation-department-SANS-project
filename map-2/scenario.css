@@ -16,7 +16,36 @@
 .scenario-mode-active .section-head{margin-bottom:8px}.scenario-mode-active .sidebar{overflow-y:auto}.scenario-mode-active .altitude-control{bottom:44px}.scenario-mode-active .attribution{max-width:50%;font-size:10px}
 @media(max-width:1150px){.scenario-card{width:300px}}
 @media(max-width:760px){.scenario-card{width:250px;right:12px;padding:12px}.scenario-card .card-foot{display:none}.scenario-legend{left:12px;bottom:44px}.scenario-panel{padding:0 0 16px}}
-@media(max-width:600px){.scenario-card{display:none}.scenario-legend{bottom:30px}}
+@media(max-width:600px){.scenario-mode-active .attribution{max-width:none}.scenario-card{left:12px;right:12px;width:auto;bottom:84px;padding:10px 12px}.scenario-card-sub{margin:4px 0}.scenario-legend{bottom:auto;top:112px;left:12px;flex-direction:row;gap:8px;padding:6px 8px}.scenario-legend small{display:none}}
 
 /* keep the footer credit readable above the scenario place labels */
 .scenario-mode-active .attribution{z-index:3;background:#e8f1f3d9;border-radius:5px;padding:2px 7px}
+/* playback: live counters, transport, chart dot, collapse button */
+.scenario-card .card-heading{display:flex;align-items:center;gap:8px}.scenario-card .card-heading span{flex:1}
+.scenario-collapse{width:22px;height:20px;padding:0;border:1px solid #b5c9ce;background:#fff;color:#234957;border-radius:5px;font-weight:700;line-height:1;cursor:pointer}
+.scenario-card.collapsed .scenario-profile,.scenario-card.collapsed .card-foot{display:none}
+.scenario-live{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:2px 0 8px}.scenario-live small{display:block;font-size:7px;letter-spacing:.07em;color:#547a88}.scenario-live b{display:block;font-size:13px;font-weight:500;color:#234957;font-variant-numeric:tabular-nums;white-space:nowrap}
+.scenario-transport{display:flex;gap:6px;align-items:center;margin-top:8px}.scenario-transport button{border:1px solid #b5c9ce;background:#fff;color:#234957;border-radius:6px;padding:6px 10px;font-family:inherit;font-size:11px;font-weight:600;cursor:pointer}.scenario-transport button.primary{background:#234957;border-color:#234957;color:#fff;min-width:74px}.scenario-transport select{margin-left:auto;border:1px solid #b5c9ce;border-radius:6px;padding:5px;background:#fff;color:#234957;font-size:11px}
+.scenario-explain{font-size:11px;line-height:1.5;color:#3d6576;background:#eaf3f4;border-left:3px solid #168d9b;padding:6px 9px;margin:8px 0 0}
+@media(max-height:850px){.scenario-card{padding:13px 15px}.scenario-card .card-foot{display:none}.scenario-card-sub{margin:5px 0 4px}}
+/* results on the map: frosted "water glass" panel, top right */
+.scenario-hud{position:absolute;top:96px;right:22px;width:300px;z-index:5;padding:14px 16px 15px;border-radius:16px;color:#173f4d;background:linear-gradient(140deg,rgba(255,255,255,.46),rgba(255,255,255,.12) 55%,rgba(220,240,246,.22));border:1px solid rgba(255,255,255,.62);box-shadow:0 12px 36px rgba(28,66,84,.18),inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(255,255,255,.18);backdrop-filter:blur(14px) saturate(170%);-webkit-backdrop-filter:blur(14px) saturate(170%)}
+.scenario-hud[hidden]{display:none}
+.scenario-hud .hud-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.scenario-hud .hud-head small{font-size:9px;letter-spacing:.12em;font-weight:600;color:#2b6b78;white-space:nowrap}
+.scenario-hud .hud-head span{font-size:11px;color:#2e5664;text-align:right}
+.scenario-hud h3{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#386c79;font-weight:600;margin:11px 0 6px}
+.scenario-hud .scenario-tiles{gap:6px;margin:0}
+.scenario-hud .scenario-tile{background:rgba(255,255,255,.34);border:1px solid rgba(255,255,255,.58);border-radius:9px;padding:7px 10px}
+.scenario-hud .scenario-tile small{font-size:8px;letter-spacing:.08em;color:#3f6a78}
+.scenario-hud .hud-one .scenario-tile strong{font-size:24px;margin-top:2px}
+.scenario-hud .hud-day .scenario-tile strong{font-size:17px;margin-top:2px}
+.scenario-hud .hud-sub{font-size:11px;color:#2e5664;margin:6px 0 0;font-variant-numeric:tabular-nums}
+.scenario-hud .scenario-explain{background:rgba(255,255,255,.34);margin-top:10px;font-size:10.5px}
+.scenario-mode-active .view-guide,.scenario-mode-active .map-coordinate{display:none}
+/* the noise panel moves to the top left in Scenario mode, so the results keep the top right */
+@media(min-width:601px){.scenario-mode-active .noise-panel{left:20px;right:auto;top:166px}}
+@media(max-height:850px){.scenario-hud{top:88px;padding:11px 14px 12px}.scenario-hud h3{margin:8px 0 5px}.scenario-hud .hud-one .scenario-tile strong{font-size:21px}}
+@media(max-width:760px){.scenario-hud{right:12px;top:118px;width:250px}}
+/* phone: one compact row of four numbers under the legend */
+@media(max-width:600px){.scenario-hud{left:12px;right:12px;top:148px;width:auto;padding:7px 8px;display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.scenario-hud .hud-block,.scenario-hud .scenario-tiles{display:contents}.scenario-hud .hud-head,.scenario-hud h3,.scenario-hud .hud-sub,.scenario-hud .scenario-explain,.scenario-hud .hud-day .scenario-tile:nth-child(n+3){display:none}.scenario-hud .scenario-tile{padding:5px 6px}.scenario-hud .hud-one .scenario-tile strong,.scenario-hud .hud-day .scenario-tile strong{font-size:13px}.scenario-hud .scenario-tile em{font-size:9px}.scenario-mode-active .noise-panel{top:212px}}

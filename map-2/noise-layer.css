@@ -41,7 +41,11 @@
 .noise-panel.min .noise-seg,.noise-panel.min .noise-body{display:none}
 .noise-panel.min .noise-head small{display:none}
 .noise-panel.min .noise-head::before{content:"NOISE";font-size:9px;font-weight:600;letter-spacing:.1em;color:#386c79;margin-right:4px}
-@media (max-width:760px){.noise-panel{top:auto;bottom:420px;right:12px;width:220px}}
+/* short laptop screens: tighter panel so the open legend fits above the flight card */
+@media (max-height:850px){.noise-panel{top:88px;gap:6px;padding:10px 12px}.noise-bands{gap:2px;margin-top:4px}}
+/* small screens: below the camera buttons, never over the header or the Sources button */
+@media (max-width:760px){.noise-panel{top:118px;right:12px;width:220px}}
+@media (max-width:600px){.noise-panel{top:150px;width:200px}}
 dialog.noise-dialog{background:#fbfcfc;color:#254957;border:1px solid #b5c9ce;border-radius:14px;padding:30px 34px;max-width:860px;width:min(860px,94vw);max-height:88vh;overflow:auto;position:relative;font-family:'Segoe UI',Arial,sans-serif}
 dialog.noise-dialog::backdrop{background:#06141ccc;backdrop-filter:blur(4px)}
 dialog.noise-dialog small{letter-spacing:.14em;color:#386c79;font-size:10px;font-weight:600}

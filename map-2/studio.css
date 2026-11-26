@@ -64,3 +64,5 @@ main{height:100dvh}
 .brand b .brand-ar{letter-spacing:0;font-family:'Segoe UI',Tahoma,Arial,sans-serif;font-size:1.25em;font-weight:600;line-height:1;vertical-align:-1px;unicode-bidi:isolate}
 .attribution-noise{white-space:nowrap}
 .attribution a{color:inherit;text-decoration:underline;pointer-events:auto}
+/* flight card: keep the two headings apart */
+.card-metrics{gap:14px}.card-metrics small{white-space:nowrap}.card-metrics>div:last-child{text-align:right}.card-metrics #next-point{font-size:22px}

@@ -21,7 +21,7 @@ sans-a2 = "sans_a2.cli:main"
 where = ["src"]
 
 [tool.pytest.ini_options]
-# One command from the repo root runs every part: A2 + fuel + scenarios (tests/), the two Node suites
+# One command from the repo root runs every part: A2 + fuel + scenarios (tests/), the Node suites
 # (tests/test_node_suites.py) and noise-population (A5, A6, Doc 29).
 pythonpath = ["src", "noise-population/src"]
 testpaths = ["tests", "noise-population/tests"]
