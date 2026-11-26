@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import {OrbitControls} from './vendor/OrbitControls.js';
 import {buildFlight,sampleFlight,advance,constraintLabel} from './flight-model.mjs';
 import {mountObserved} from './observed-layer.mjs?v=2';
-import {mountScenario} from './scenario-layer.mjs?v=4';
+import {mountScenario} from './scenario-layer.mjs?v=5';
 import {mountNoise,noiseMessage} from './noise-layer.mjs?v=3';
 
 const $=id=>document.getElementById(id),host=$('canvas-host'),viewport=$('viewport');

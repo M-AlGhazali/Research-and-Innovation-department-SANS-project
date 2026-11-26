@@ -90,6 +90,10 @@ def test_opens_in_scenario_mode_with_the_default_selection(browser, server):
     st = page.evaluate("window.map2.scenario.getState()")
     assert (st["runway"], st["sid"], st["aircraft"], st["recordId"]) == ("34C", "ISLAM 2W", "A320", "34C_ISLAM2W_A320")
     assert page.inner_text("#sources") == "Sources & assumptions"
+    # fuel, CO2 and the daily/yearly totals sit in the glass panel on the map, not in the sidebar
+    hud = page.locator(".scenario-hud")
+    assert hud.is_visible() and "643 kg" in hud.inner_text() and "2,033 kg" in hud.inner_text()
+    assert page.locator("section.scenario-panel .scenario-tile").count() == 0
     page.close()
 
 
@@ -119,6 +123,8 @@ def test_playback_ends_on_the_saved_totals_and_resets_on_a_new_selection(browser
     assert pb["altitude"] == "10,000 ft"
     page.locator(".scenario-seg button", has_text="B77W").click()
     page.wait_for_function("window.map2.scenario.getState().recordId==='34C_ISLAM2W_B77W'")
+    # the counters redraw on the next animation frame
+    page.wait_for_function("window.map2.scenario.getState().playback.fuel==='0 kg'", timeout=10000)
     pb = page.evaluate("window.map2.scenario.getState().playback")
     assert pb["t"] == 0 and pb["fuel"] == "0 kg" and pb["playing"] is False
     page.close()

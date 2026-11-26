@@ -88,7 +88,8 @@ export function mountScenario({scene,data,host,viewport,camera,controls,vertical
  const cardFoot=element('div',undefined,'card-foot');cardFoot.append(element('span','Altitude (ft, MSL) against distance flown (NM)'));
  card.append(cardHead,cardSub,live,svg,transport,cardFoot);
  setCollapsed(matchMedia('(max-width:600px)').matches);
- viewport.append(legend,card);
+ const hud=element('div',undefined,'scenario-hud');hud.hidden=true;hud.setAttribute('role','region');hud.setAttribute('aria-label','Scenario results');
+ viewport.append(legend,card,hud);
 
  const setNotice=(text,error)=>{notice.textContent=text;notice.classList.toggle('error',Boolean(error));notice.hidden=!text};
  function loadIndex(){
@@ -212,14 +213,24 @@ export function mountScenario({scene,data,host,viewport,camera,controls,vertical
   buildPlaceLabels(record);renderResults();renderCard();if(state.enabled)fitCamera();
  }
 
- function tile(caption,value,unit){const t=element('div',undefined,'scenario-tile');t.append(element('small',caption+' · MODELLED'));const s=element('strong',value);if(unit)s.append(' ',element('em',unit));t.append(s);return t}
+ function tile(caption,value,unit){const t=element('div',undefined,'scenario-tile');t.append(element('small',caption));const s=element('strong',value);if(unit)s.append(' ',element('em',unit));t.append(s);return t}
  function section(title){const s=element('div',undefined,'scenario-block');s.append(element('h3',title));return s}
+ // Fuel, CO₂ and the daily and yearly totals: glass panel on the map, top right, so they stay in view while the sidebar controls change.
+ function renderHud(){
+  hud.replaceChildren();const r=state.record;if(!r)return;
+  const n=state.perDay,t=r.to10k,block=(title,cls)=>{const b=element('div',undefined,'hud-block '+cls);b.append(element('h3',title));return b};
+  const head=element('div',undefined,'hud-head');head.append(element('small','RESULTS · MODELLED'),element('span',`${r.runway} · ${r.sid} · ${r.aircraft}`));
+  const one=block('One departure to 10,000 ft','hud-one'),g1=element('div',undefined,'scenario-tiles');
+  g1.append(tile('FUEL',num(t.fuel_kg),'kg'),tile('CO₂',num(t.co2_kg),'kg'));
+  one.append(g1,element('p',`${clock(t.time_s)} min · ${num(t.distance_nm,1)} NM to 10,000 ft`,'hud-sub'));
+  const day=block(`Per day and per year · ${n} ${n===1?'departure':'departures'} a day`,'hud-day'),g2=element('div',undefined,'scenario-tiles');
+  g2.append(tile('FUEL / DAY',tons(t.fuel_kg*n),'t'),tile('CO₂ / DAY',tons(t.co2_kg*n),'t'),tile('FUEL / YEAR',tons(t.fuel_kg*n*365),'t'),tile('CO₂ / YEAR',tons(t.co2_kg*n*365),'t'));
+  day.append(g2);hud.append(head,one,day);
+  const hold=holdNote(r);if(hold)hud.append(element('p',hold,'scenario-explain'));
+ }
  function renderResults(){
-  results.replaceChildren();const r=state.record,idx=state.index;if(!r||!idx)return;
-  const n=state.perDay,t=r.to10k;
-  const one=section('One departure');const grid=element('div',undefined,'scenario-tiles');
-  grid.append(tile('FUEL TO 10,000 FT',num(t.fuel_kg),'kg'),tile('CO₂',num(t.co2_kg),'kg'),tile('TIME TO 10,000 FT',clock(t.time_s),'min'),tile('DISTANCE TO 10,000 FT',num(t.distance_nm,1),'NM'));one.append(grid);
-  const hold=holdNote(r);if(hold)one.append(element('p',hold,'scenario-explain'));results.append(one);
+  results.replaceChildren();renderHud();const r=state.record,idx=state.index;if(!r||!idx)return;
+  const n=state.perDay;
   const noise=section('Noise footprint (LAmax, one departure)');
   for(const level of idx.levels_db||[60,65,70]){
    const row=element('div',undefined,'scenario-noise'),sw=element('i');sw.style.background=levelColors[level];
@@ -227,6 +238,7 @@ export function mountScenario({scene,data,host,viewport,camera,controls,vertical
    row.append(sw,element('em','≥'+level+' dB'),text,element('small','modelled'));noise.append(row);
   }
   const shared=sharedFootprint(r);if(shared)noise.append(element('p',shared,'scenario-explain'));
+  noise.append(element('p',departuresSentence(n),'scenario-intro'));
   results.append(noise);
   const near=section('Nearest named places');const list=element('ol',undefined,'scenario-places');
   for(const p of r.places.slice(0,5)){
@@ -235,9 +247,6 @@ export function mountScenario({scene,data,host,viewport,camera,controls,vertical
    li.append(name,element('small',`${num(p.lamax_db,1)} dB LAmax · ${num(p.km_from_track,1)} km from the track · modelled`));list.append(li);
   }
   near.append(list);results.append(near);
-  const day=section(`Per day and per year · ${n} ${n===1?'departure':'departures'} a day`);const dg=element('div',undefined,'scenario-tiles');
-  dg.append(tile('FUEL PER DAY',tons(t.fuel_kg*n),'t'),tile('CO₂ PER DAY',tons(t.co2_kg*n),'t'),tile('FUEL PER YEAR',tons(t.fuel_kg*n*365),'t'),tile('CO₂ PER YEAR',tons(t.co2_kg*n*365),'t'));day.append(dg);
-  day.append(element('p',departuresSentence(n),'scenario-intro'));results.append(day);
   const notes=[...(r.notes||[]),...(r.flags||[])];
   if(notes.length){const nb=element('div',undefined,'scenario-notes');for(const text of notes)nb.append(element('p',String(text)));results.append(nb)}
   const det=element('details',undefined,'scenario-assumptions');det.append(element('summary','Assumptions'));const ul=element('ul');for(const a of idx.assumptions||[])ul.append(element('li',a));det.append(ul);
@@ -281,7 +290,7 @@ export function mountScenario({scene,data,host,viewport,camera,controls,vertical
 
  function setMode(enabled){
   if(enabled===state.enabled){if(enabled)onMode(true);return}  // re-selecting Scenario must hide the demo again
-  state.enabled=enabled;group.visible=enabled;panel.hidden=!enabled;labels.hidden=!enabled;legend.hidden=!enabled;card.hidden=!enabled;
+  state.enabled=enabled;group.visible=enabled;panel.hidden=!enabled;labels.hidden=!enabled;legend.hidden=!enabled;card.hidden=!enabled;hud.hidden=!enabled;
   document.body.classList.toggle('scenario-mode-active',enabled);
   if(enabled){onMode(true);start()}
  }
